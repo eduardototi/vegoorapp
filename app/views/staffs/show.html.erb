@@ -1,0 +1,16 @@
+<div class="container mt-4">
+  <div class="clients-list">
+      <div class="client-dados">
+        <div class="client-information">
+          Nome: <%= @staff.first_name %>
+          Sobrenome: <%= @staff.last_name %>
+          Email: <%= @staff.email %>
+          Telefone: <%= @staff.phone %>
+        </div>
+        <div class="client-links">
+          <%= link_to 'Editar', edit_staff_path, class: 'btn btn-primary' %>
+          <%= link_to "Excluir", @staff, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-info' %>
+        </div>
+      </div>
+  </div>
+</div>
