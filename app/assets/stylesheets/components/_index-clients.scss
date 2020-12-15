@@ -1,0 +1,21 @@
+.clients-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.client-information {
+  display: flex;
+}
+
+.client-links {
+  display: flex;
+  .btn {
+    margin-right: 5px;
+  }
+}
+
+.client-dados {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}

@@ -1,0 +1,20 @@
+<div class="container mt-4">
+  <div class="clients-list">
+    <% @clients.each do |client| %>
+      <div class="client-dados">
+        <div class="client-information">
+          Razão Social: <%= client.razao_social %>
+          Cnpj: <%= client.cnpj %>
+          Insc. Est: <%= client.ie %>
+          Rua: <%= client.street %>
+          Número: <%= client.number %>
+          Contato: <%= client.user_id %>
+        </div>
+        <div class="client-links">
+          <%= link_to 'Visualizar', client_path(client), class: 'btn btn-primary' %>
+          <%= link_to 'Editar', edit_client_path(client), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

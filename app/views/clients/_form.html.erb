@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="container-form">
+  <%= simple_form_for(client) do |f| %>
+    <%# <%= f.error_notification %>
+    <%# <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    <div class="product-new text-center">Cadastre de Clientes:</div>
+    <div class="form-inputs">
+      <%= f.input :razao_social, label: "Razão Social" %>
+      <%= f.input :cnpj, label: "CNPJ" %>
+      <%= f.input :ie, label: "Insc. estadual" %>
+      <%= f.input :email, label: "Email" %>
+      <%= f.input :phone, label: "Telefone" %>
+      <%= f.input :street, label: "Rua" %>
+      <%= f.input :number, label: "Numero" %>
+      <%= f.input :state, label: "Estado" %>
+      <%= f.input :neighborhood, label: "Bairro" %>
+      <%= f.input :cep, label: "CEP" %>
+      <%= f.input :pais, label: "Pais" %>
+    </div>
+    <div class="form-actions text-center">
+      <%= f.button :submit, "Enviar" %>
+    </div>
+  <% end %>
+  </div>
+</div>
