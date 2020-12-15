@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :clients
   resources :staffs
   resources :equipments
+  resources :services
 end
