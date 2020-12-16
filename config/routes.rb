@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   resources :staffs
   resources :equipments
   resources :services
+  resources :service_orders
 end

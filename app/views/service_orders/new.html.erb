@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="container-form">
+  <%= simple_form_for(@service_order) do |f| %>
+    <div class="product-new text-center">Cadastro de Equipamentos:</div>
+    <div class="form-inputs">
+      <%= f.input :service_description, label: "Descrição do Serviço" %>
+      <%= f.input :service_location, label: "Local do Serviço" %>
+    </div>
+    <div class="form-actions text-center">
+      <%= f.button :submit, "Enviar" %>
+    </div>
+  <% end %>
+  </div>
+</div>
