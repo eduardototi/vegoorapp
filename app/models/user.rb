@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :clients
   has_many :staffs
+  has_many :service_orders
 end
