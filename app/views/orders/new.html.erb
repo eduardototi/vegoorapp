@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="container-form">
+  Ordem de Serviço número: <%= Order.count + 1 %>
+  <%= simple_form_for(@order) do |f| %>
+    <div class="product-new text-center">Nova Ordem de Serviço:</div>
+    <div class="form-inputs">
+      <%= f.input :description, label: "Descrição" %>
+      <%= f.input :client_id, collection: Client.all.map { |client| [client.razao_social, client.id ] }, label: "Cliente:" %>
+      <%= f.input :location, label: "Local de execução" %>
+      <%= f.simple_fields_for :orderservice do |ff| %>
+              <%= ff.input :service_id, collection: Service.all, label: "Servies" %>
+          <% end %>
+    </div>
+    <div class="form-actions text-center">
+      <%= f.button :submit, "Enviar" %>
+    </div>
+  <% end %>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_173435) do
+ActiveRecord::Schema.define(version: 2020_12_17_150239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,16 +40,25 @@ ActiveRecord::Schema.define(version: 2020_12_16_173435) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "service_orders", force: :cascade do |t|
-    t.text "service_description"
+  create_table "orders", force: :cascade do |t|
+    t.text "description"
     t.boolean "status"
-    t.string "service_location"
+    t.string "location"
     t.bigint "user_id", null: false
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id"], name: "index_service_orders_on_client_id"
-    t.index ["user_id"], name: "index_service_orders_on_user_id"
+    t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "orderservices", force: :cascade do |t|
+    t.bigint "service_id", null: false
+    t.bigint "order_idd", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_orderservices_on_order_id"
+    t.index ["service_id"], name: "index_orderservices_on_service_id"
   end
 
   create_table "services", force: :cascade do |t|
@@ -83,7 +92,9 @@ ActiveRecord::Schema.define(version: 2020_12_16_173435) do
   end
 
   add_foreign_key "clients", "users"
-  add_foreign_key "service_orders", "clients"
-  add_foreign_key "service_orders", "users"
+  add_foreign_key "orders", "clients"
+  add_foreign_key "orders", "users"
+  add_foreign_key "orderservices", "orders"
+  add_foreign_key "orderservices", "services"
   add_foreign_key "staffs", "users"
 end
