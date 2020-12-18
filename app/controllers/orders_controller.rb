@@ -10,19 +10,19 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    @order.orderservices.build
   end
 
   def create
     @order = Order.new(order_params)
     @orderservice = Orderservice.new
     @order.user = current_user
-    @orderservice.order_id = @order
-    if @order.save && @orderservice.save
+    if @order.save
+      @orderservice.order_id = @order.id
+      @orderservice.service_id = params[:order][:orderservice][:service_id].to_i
+      @orderservice.save
       redirect_to root_path
     else
       render :new
-      raise
     end
   end
 
@@ -49,7 +49,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:location, :description, :user_id, :status, :client_id, order_service_attributes: [:_destroy, :id, :service_title, :service_id, :order_id])
+    params.require(:order).permit(:location, :description, :user_id, :status, :client_id, orderservices_attributes: [:_destroy, :service_id, :order_id])
   end
 
 end

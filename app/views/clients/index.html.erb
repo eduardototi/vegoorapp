@@ -8,7 +8,7 @@
           Insc. Est: <%= client.ie %>
           Rua: <%= client.street %>
           Número: <%= client.number %>
-          Contato: <%= client.user_id %>
+          Contato: <%= client.user.email %>
         </div>
         <div class="client-links">
           <%= link_to 'Visualizar', client_path(client), class: 'btn btn-primary' %>

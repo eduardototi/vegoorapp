@@ -5,6 +5,11 @@
         <div class="client-information">
           Nome: <%= order.client.razao_social %>
           Número da ordem de Serviço: <%= order.id %>
+          Status: <% if order.status %>
+                    Ordem de serviço concluida
+                  <% else %>
+                    Ordem de serviço não concluida
+                  <% end %>
         </div>
         <div class="client-links">
           <%= link_to 'Visualizar', order_path(order), class: 'btn btn-primary' %>

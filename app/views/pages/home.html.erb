@@ -1,62 +1,82 @@
-<div class="container">
-  <div class="users">
-    <%= link_to new_client_path do %>
-      Cadastro de clientes
-    <% end %>
-  </div>
+<div class="container-home">
+  <section class="grid grid-template-columns-1">
+    <div class="item">
+      <div class="users">
+        <%= link_to new_client_path do %>
+          Novo cliente
+        <% end %>
+      </div>
 
-  <div class="users">
-    <%= link_to clients_path do %>
-      Mostrar clientes
-    <% end %>
-  </div>
+      <div class="users">
+        <%= link_to clients_path do %>
+          Clientes
+        <% end %>
+      </div>
+    </div>
 
-  <div class="users">
-    <%= link_to new_staff_path do %>
-      Cadastro de Funcionário
-    <% end %>
-  </div>
+    <div class="item">
+      <div class="users">
+        <%= link_to new_staff_path do %>
+          Novo Funcionário
+        <% end %>
+      </div>
 
-  <div class="users">
-    <%= link_to staffs_path do %>
-      Mostrar Funcionários
-    <% end %>
-  </div>
+      <div class="users">
+        <%= link_to staffs_path do %>
+          Funcionários
+        <% end %>
+      </div>
+    </div>
 
-  <div class="users">
-    <%= link_to equipments_path do %>
-      Mostrar Equipamentos
-    <% end %>
-  </div>
 
-  <div class="users">
-    <%= link_to new_equipment_path do %>
-      Cadastrar Equipamento
-    <% end %>
-  </div>
 
-  <div class="users">
-    <%= link_to new_service_path do %>
-      Cadastrar Serviço
-    <% end %>
-  </div>
 
-  <div class="users">
-    <%= link_to services_path do %>
-      Mostrar Serviços
-    <% end %>
-  </div>
+    <div class="item">
+      <div class="users">
+        <%= link_to new_equipment_path do %>
+          Novo Equipamento
+        <% end %>
+      </div>
 
-  <div class="users">
-    <%= link_to new_order_path do %>
-      Nova Ordem de Serviço
-    <% end %>
-  </div>
+      <div class="users">
+        <%= link_to equipments_path do %>
+          Equipamentos
+        <% end %>
+      </div>
+    </div>
 
-  <div class="users">
-    <%= link_to orders_path do %>
-      Ordens de Serviço
-    <% end %>
-  </div>
+    <div class="item">
+      <div class="users">
+        <%= link_to new_service_path do %>
+          Novo Serviço
+        <% end %>
+      </div>
 
+      <div class="users">
+        <%= link_to services_path do %>
+          Serviços
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="users">
+        <%= link_to new_order_path do %>
+          Nova Ordem de Serviço
+        <% end %>
+      </div>
+
+      <div class="users">
+        <%= link_to orders_path do %>
+          Ordens de Serviço
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item">
+      Laudos
+    </div>
+
+  </section>
 </div>
+
