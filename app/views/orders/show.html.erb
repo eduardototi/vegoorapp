@@ -1,10 +1,14 @@
 <div class="container">
-  <%= @order.id %>
-  <%= @order.client.razao_social %>
+  Ordem de Serviço: <%= @order.id %>
+  Cliente: <%= @order.client.razao_social %>
+  Serviços:
   <% @order.services.each do |service| %>
     <%= service.title %> -
-    <%= service.description %> -
+  <% end %>
+  Equipamentos:
+  <% @order.equipments.each do |equipment| %>
+    <%= equipment.name %> -
   <% end %>
   <%= link_to 'Editar', edit_order_path, class: 'btn btn-primary' %>
-  <%= link_to "Excluir", @order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-info' %>
+  <%= link_to "Excluir", @order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-danger' %>
 </div>
