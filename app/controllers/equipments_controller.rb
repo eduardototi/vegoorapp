@@ -16,7 +16,7 @@ class EquipmentsController < ApplicationController
   def create
     @equipment = Equipment.new(equipment_params)
     if @equipment.save
-      redirect_to root_path
+      redirect_to equipments_path
     else
       render :new
     end

@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2020_12_17_150239) do
 
   create_table "orderservices", force: :cascade do |t|
     t.bigint "service_id", null: false
-    t.bigint "order_idd", null: false
+    t.bigint "order_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["order_id"], name: "index_orderservices_on_order_id"

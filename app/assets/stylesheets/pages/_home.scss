@@ -1,1 +1,41 @@
-// Specific CSS for your home-page
+/* Grid */
+.grid {
+  display: grid;
+}
+
+/* 100px é o valor total, ignora conteúdo, margem e etc. Respeita apenas o min-width do item.*/
+.grid-template-columns-1 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+
+
+/* Estilos Gerais */
+.item {
+  margin: 5px;
+  background: #ccc;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.grid {
+  max-width: 90vw;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+}
+
+
+body {
+  font-family: monospace;
+  color: #333;
+  margin: 0px;
+  padding-bottom: 60px;
+}
+
+body > div {
+  padding: 40px 0;
+}
+
+body > div:nth-of-type(even) {
+  background: rgba(0,0,0,.03);
+}
