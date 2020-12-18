@@ -4,4 +4,7 @@ class Order < ApplicationRecord
   has_many :orderservices, dependent: :destroy
   has_many :services, through: :orderservices, dependent: :destroy
   accepts_nested_attributes_for :orderservices, allow_destroy: true
+  has_many :orderequipments, dependent: :destroy
+  has_many :equipments, through: :orderequipments, dependent: :destroy
+  accepts_nested_attributes_for :orderequipments, allow_destroy: true
 end
