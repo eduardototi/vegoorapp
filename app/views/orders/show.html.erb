@@ -1,14 +1,37 @@
 <div class="container">
-  Ordem de Serviço: <%= @order.id %>
-  Cliente: <%= @order.client.razao_social %>
-  Serviços:
-  <% @order.services.each do |service| %>
-    <%= service.title %> -
-  <% end %>
-  Equipamentos:
-  <% @order.equipments.each do |equipment| %>
-    <%= equipment.name %> -
-  <% end %>
-  <%= link_to 'Editar', edit_order_path, class: 'btn btn-primary' %>
-  <%= link_to "Excluir", @order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-danger' %>
+  <div class="show-order">
+    Ordem de Serviço: <%= @order.id %>
+    Data: <%= @order.created_at.strftime("%d/%m/%Y") %>
+    Cliente: <%= @order.client.razao_social %>
+    Endereço: <%= @order.location %>
+  </div>
+
+  <div class="show-order-services">
+    Serviços:
+    <% @order.services.each do |service| %>
+      <%= service.title %>
+      <% if @orderservice_status %>
+        <p>Serviço Concluido</p>
+      <% else %>
+        <p>Serviço não concluido</p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="show-order-equipments">
+    <% if @order.equipments.count > 0 %>
+      Equipamentos:
+      <% @order.equipments.each do |equipment| %>
+        <%= equipment.name %>
+      <% end %>
+    <% else %>
+      Esta ordem de serviço não possui equipamentos associados.
+    <% end %>
+  </div>
+
+  <div class="links">
+    <%= link_to 'Editar', edit_order_path, class: 'btn btn-primary' %>
+    <%= link_to "Excluir", @order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-danger' %>
+  </div>
+
 </div>
