@@ -13,9 +13,6 @@
       <%= f.input :staff_id, collection: Staff.all.map { |staff| [staff.first_name, staff.id ] }, label: "Responsável Técnico:" %>
       <%= f.input :client_id, collection: Client.all.map { |client| [client.razao_social, client.id ] }, label: "Cliente:" %>
       <%= f.input :location, label: "Local de execução" %>
-      <div class="field">
-         <%#= form.number_field :service_id, multiple: true, collection: Service.all.map { |service| [service.title, service.id] }, label: "Serviços" %>
-       </div>
       <%= f.simple_fields_for :orderservice do |ff| %>
         <%= ff.input :service_id, multiple: true, collection: Service.all.map { |service| [service.title, service.id] }, label: "Serviços" %>
         <%= ff.button :submit, "Salvar" %>
