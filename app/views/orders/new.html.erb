@@ -15,7 +15,6 @@
       <%= f.input :location, label: "Local de execução" %>
       <%= f.simple_fields_for :orderservice do |ff| %>
         <%= ff.input :service_id, multiple: true, collection: Service.all.map { |service| [service.title, service.id] }, label: "Serviços" %>
-        <%= ff.button :submit, "Salvar" %>
       <% end %>
       <%= f.simple_fields_for :orderequipment do |eq| %>
         <%= eq.input :equipment_id, collection: Equipment.all.map { |equipment| [equipment.name, equipment.id] }, label: "Equipamentos" %>
