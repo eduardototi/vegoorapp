@@ -1,6 +1,6 @@
 <div class="container">
   <div class="container-form">
-  Ordem de Serviço número: <%= Order.count + 1 %>
+  Ordem de Serviço número: <%= Order.last.id + 1 %>
   <%= simple_form_for(@order) do |f| %>
     <div class="product-new text-center">Nova Ordem de Serviço:</div>
     <div class="form-inputs">
