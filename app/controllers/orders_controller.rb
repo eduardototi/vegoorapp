@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @orderservice = Orderservice.where(order_id: params[:id])
+    @orderservice = Orderservice.where(order_id: params[:service_id])
   end
 
   def new
@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
       @orderequipment.equipment_id = params[:order][:orderequipment][:equipment_id].to_i
       @orderservice.save
       @orderequipment.save
-      redirect_to orders_path
+      redirect_to order_path(@order)
     else
       render :new
     end
@@ -55,7 +55,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:location, :description, :user_id, :status, :client_id, orderservices_attributes: [:_destroy, :service_id, :order_id], orderequipments_attributes: [:_destroy, :equipment_id, :order_id])
+    params.require(:order).permit(:location, :description, :user_id, :status, :client_id, :staff_id, orderservices_attributes: [:_destroy, :service_id, :order_id], orderequipments_attributes: [:_destroy, :equipment_id, :order_id])
   end
 
 end
