@@ -18,10 +18,10 @@
 
   <div class="show-order-services">
     Serviços:
-    <% if @order.orderservices.count > 0  %>
-      <% @order.orderservices.each do |orderservice| %>
-        <%= orderservice.service.title %>
-        <% if orderservice.status %>
+    <% if @order.services.count > 0  %>
+      <% @order.services.each do |service| %>
+        <%= service.title %>
+        <% if @order.status %>
           <p>Serviço Concluido</p>
         <% else %>
           <p>Serviço não concluido</p>
@@ -34,9 +34,9 @@
 
   <div class="show-order-equipments">
     Equipamentos:
-    <% if @order.orderequipments.count > 0 %>
-      <% @order.orderequipments.each do |orderequipment| %>
-        <%= orderequipment.equipment.name %>
+    <% if @order.equipments.count > 0 %>
+      <% @order.equipments.each do |equipment| %>
+        <%= equipment.name %>
       <% end %>
     <% else %>
       Esta ordem de serviço não possui equipamentos associados.
