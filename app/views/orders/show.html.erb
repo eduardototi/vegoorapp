@@ -34,9 +34,9 @@
 
   <div class="show-order-equipments">
     Equipamentos:
-    <% if @order.equipments.count > 0 %>
-      <% @order.equipments.each do |equipment| %>
-        <%= equipment.name %>
+    <% if @order.utensils.count > 0 %>
+      <% @order.utensils.each do |utensil| %>
+        <%= utensil.name %>
       <% end %>
     <% else %>
       Esta ordem de serviço não possui equipamentos associados.

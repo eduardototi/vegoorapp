@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :staffs
 
-  resources :equipments
+  resources :utensils
 
   resources :services
 

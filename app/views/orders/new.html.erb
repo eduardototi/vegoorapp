@@ -1,7 +1,7 @@
 <div class="container">
   <div class="container-form">
     <div class="order-number">
-      Ordem de Serviço número: <%#= Order.id %>
+      Ordem de Serviço número: <%= Order.last.id + 1 %>
     </div>
     <div class="order-date">
       Data: <%= Date.today.strftime("%d/%m/%Y") %>
@@ -21,16 +21,16 @@
         <%= link_to_add_association 'Adicionar Serviço', f, :orderservices, class: 'btn btn-primary my-3' %>
       </div>
 
-      <%= f.simple_fields_for :orderequipments do |eq| %>
-        <%= render 'orderequipment_fields', :f => eq %>
+      <%= f.simple_fields_for :orderutensils do |utensil| %>
+        <%= render 'orderutensil_fields', :f => utensil %>
       <% end %>
       <div class='links-div'>
-        <%= link_to_add_association 'Adicionar Equipamento', f, :orderequipments, class: 'btn btn-primary my-3' %>
+        <%= link_to_add_association 'Adicionar Equipamento', f, :orderutensils, class: 'btn btn-primary my-3' %>
       </div>
     </div>
     
     <div class="form-actions text-center">
-      <%= f.button :submit, "Enviar" %>
+      <%= f.button :submit, "Criar Ordem de Serviço" %>
     </div>
   <% end %>
   </div>
