@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @orderservice = Orderservice.where(params[id: :order_ir])
   end
 
   def new
@@ -50,7 +51,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:location, :description, :user_id, :status, :client_id, :staff_id, orderservices_attributes: [ :id, :service_id, :order_id, :_destroy ], orderutensils_attributes: [ :id, :utensil_id, :order_id, :_destroy ])
+    params.require(:order).permit(:location, :description, :user_id, :status, :client_id, :staff_id, orderservices_attributes: [ :id, :service_id, :order_id, :status, :_destroy ], orderutensils_attributes: [ :id, :utensil_id, :order_id, :status, :_destroy ])
   end
 
 end
