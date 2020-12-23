@@ -24,7 +24,7 @@ class UtensilsController < ApplicationController
 
   def destroy
     @utensil.destroy
-    redirect_to utensil_path
+    redirect_to utensils_path
   end
 
   def edit
