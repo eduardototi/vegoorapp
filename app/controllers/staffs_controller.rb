@@ -16,7 +16,7 @@ class StaffsController < ApplicationController
     @staff = Staff.new(staff_params)
     @staff.user = current_user
     if @staff.save
-      redirect_to root_path
+      redirect_to staffs_path
     else
       render :new
     end
@@ -45,7 +45,7 @@ class StaffsController < ApplicationController
   end
 
   def staff_params
-    params.require(:staff).permit(:first_name, :last_name, :email, :phone, :user_id)
+    params.require(:staff).permit(:first_name, :last_name, :email, :phone, :user_id, :registration, :status)
   end
 
 end

@@ -3,14 +3,15 @@
     <% @staffs.each do |staff| %>
       <div class="client-dados">
         <div class="client-information">
-          Nome: <%= staff.first_name %>
-          Sobrenome: <%= staff.last_name %>
+          Nome: <%= staff.first_name %> <%= staff.last_name %>
+          Matricula: <%= staff.registration %>
           Email: <%= staff.email %>
           Telefone: <%= staff.phone %>
+          Situação: <%= staff.status ? 'Inativo' : 'Ativo' %>
         </div>
         <div class="client-links">
           <%= link_to 'Visualizar', staff_path(staff), class: 'btn btn-primary' %>
-          <%= link_to 'Editar', edit_staff_path(staff), class: 'btn btn-primary' %>
+          <%= link_to 'Editar', edit_staff_path(staff), class: 'btn btn-primary mt-2' %>
         </div>
       </div>
     <% end %>
