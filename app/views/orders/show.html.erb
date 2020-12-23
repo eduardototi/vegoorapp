@@ -3,7 +3,6 @@
     <%= image_tag 'logo.jpeg', width: '100px' %>
     Ordem de Serviço: <%= @order.id %>
     Data Ordem: <%= @order.created_at.strftime("%d/%m/%Y") %>
-
   </div>
 
   <div class="show-order-information">
@@ -41,10 +40,14 @@
     </div>
       <% @order.services.each do |service| %>
         <%= service.title %>
-        <% if @order.status %>
-          <i class="fas fa-check"></i>
-        <% else %>
-          <i class="far fa-square"></i>
+        <% service.orderservices.each do |orderservice| %>
+          <% if orderservice.status %>
+            <i class="fas fa-check"></i>
+            Concluido: <%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
+            <%= orderservice.updated_at.strftime("%k:%M") %>h
+          <% else %>
+            <i class="far fa-square"></i>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
