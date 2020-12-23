@@ -1,0 +1,18 @@
+.staff {
+  display: felx;
+  flex-direction: row;
+  width: 100%;
+}
+
+.staff-datas {
+  display: flex;
+}
+
+.client-information {
+  width: 80%;
+  flex-direction: column;
+}
+
+.staff-links {
+  width: 20%;
+}
