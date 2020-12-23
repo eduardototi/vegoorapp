@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @orderservice = Orderservice.new
-    @orderequipment = Orderequipment.new
+    @orderutensil = Orderutensil.new
   end
 
   def create
@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:location, :description, :user_id, :status, :client_id, :staff_id, orderservices_attributes: [ :id, :service_id, :order_id, :_destroy ], orderequipments_attributes: [ :id, :equipment_id, :order_id, :_destroy ])
+    params.require(:order).permit(:location, :description, :user_id, :status, :client_id, :staff_id, orderservices_attributes: [ :id, :service_id, :order_id, :_destroy ], orderutensils_attributes: [ :id, :utensil_id, :order_id, :_destroy ])
   end
 
 end
