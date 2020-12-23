@@ -12,8 +12,5 @@ Rails.application.routes.draw do
   resources :services
 
   resources :orders
-
-  resources :serviceorder do
-    resources :order
-  end
+  
 end

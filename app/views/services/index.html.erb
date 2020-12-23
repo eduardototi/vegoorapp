@@ -2,13 +2,15 @@
   <div class="clients-list">
     <% @services.each do |service| %>
       <div class="client-dados">
-        <div class="client-information">
+        <div class="service-title">
           Nome: <%= service.title %>
+        </div>
+        <div class="service-description">
           Descrição: <%= service.description %>
         </div>
         <div class="client-links">
           <%= link_to 'Visualizar', service_path(service), class: 'btn btn-primary' %>
-          <%= link_to 'Editar', edit_service_path(service), class: 'btn btn-primary' %>
+          <%= link_to 'Editar', edit_service_path(service), class: 'btn btn-primary mt-2' %>
         </div>
       </div>
     <% end %>

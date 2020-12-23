@@ -1,0 +1,4 @@
+<div class='nested-fields'>
+    <%= f.select :equipment_id, Equipment.all.map { |equipment| [ equipment.name, equipment.id ] }, include_blank: true, required: true %>
+    <%= link_to_remove_association "Remover", f %>
+</div>
