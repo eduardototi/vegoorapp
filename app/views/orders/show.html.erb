@@ -1,9 +1,18 @@
 <div class="container">
-  <div class="show-order">
+  <div class="logo">
+    <%= image_tag 'logo.jpeg', width: '100px' %>
     Ordem de Serviço: <%= @order.id %>
-    Data: <%= @order.created_at.strftime("%d/%m/%Y") %>
-    Cliente: <%= @order.client.razao_social %>
-    Endereço: <%= @order.location %>
+    Data Ordem: <%= @order.created_at.strftime("%d/%m/%Y") %>
+
+  </div>
+
+  <div class="show-order-information">
+    <li>Cliente: <%= @order.client.razao_social %></li>
+    <li>Endereço: <%= @order.client.street %> <%= @order.client.number %> <%= @order.client.city %>/<%= @order.client.state %></li>
+  </div>
+
+  <div class="informations">
+    Pela presente Ordem de serviço, objetivamos informar os trabalhadores que executam suas atividades laborais nesse setor, conforme estabelece a NR-1 , item 1.7, sobre as condições de segurança e saúde às quais estão expostos, como medida preventiva e ,tendo como parâmetro os agentes físicos, químicos, e biológicos citados na NR-9 - Programa de Prevenção de Riscos Ambientais(Lei nº 6514 de 22/12/1977,Portaria nº 3214 de 08/06/1978), bem como os procedimentos de aplicação da NR-6  - Equipamento de Proteção Individual – EPI , NR-17 – Ergonomia , de forma a padronizar comportamentos para prevenir acidentes e/ou doenças ocupacionais e NR-10 Segurança Em Instalações e Serviços em Eletricidade.
   </div>
 
   <div class="staff-informations">
@@ -14,36 +23,45 @@
     <%= @order.staff.email %>
     Telefone:
     <%= @order.staff.phone %>
+    Matricula:
+    <%= @order.staff.registration %>
+  </div>
+
+  <div class="order-location">
+    <div class="service-header">
+      Local de Execução:
+    </div>
+    <%= @order.location %>
   </div>
 
   <div class="show-order-services">
-    Serviços:
-    <% if @order.services.count > 0  %>
+    <% if @order.services.count > 0 %>
+    <div class="service-header">
+      Descrição das atividades a realizar:
+    </div>
       <% @order.services.each do |service| %>
         <%= service.title %>
         <% if @order.status %>
-          <p>Serviço Concluido</p>
+          <i class="fas fa-check"></i>
         <% else %>
-          <p>Serviço não concluido</p>
+          <i class="far fa-square"></i>
         <% end %>
       <% end %>
-    <% else %>
-      <p>Esta ordem de serviço não possui serviços associado.</p>
     <% end %>
   </div>
 
   <div class="show-order-equipments">
-    Equipamentos:
     <% if @order.utensils.count > 0 %>
+    <div class="service-header">
+      Equipamentos para execução do serviço:
+    </div>
       <% @order.utensils.each do |utensil| %>
-        <%= utensil.name %>
+        <li><%= utensil.name %></li>
       <% end %>
-    <% else %>
-      Esta ordem de serviço não possui equipamentos associados.
     <% end %>
   </div>
 
-  <div class="links">
+  <div class="links mt-3">
     <%= link_to 'Editar', edit_order_path, class: 'btn btn-primary' %>
     <%= link_to "Excluir", @order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-danger' %>
   </div>
