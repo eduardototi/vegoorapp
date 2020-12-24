@@ -4,23 +4,21 @@ STATES = ["AC", "AL", "AP", "AM", "BA", "CE", "DF",
           "RO", "RR", "SC", "SP", "SE", "TO"]
 
 class Client < ApplicationRecord
-
   belongs_to :user
   has_many :service_orders
 
-  validates :cep, presence: true, format: { with: /\A[0-9]{5}-[0-9]{3}\z/, message: "CEP em formato invalido" }
-  validates :razao_social, presence: true, uniqueness: { case_sensitive: false, message: "Razão Social já cadastrada" }
-  validates :email, presence: true, uniqueness: {
-    with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i,
-    message: "Email invalido"
-  }
-  validates :state, presence: true
-  validates :phone, presence: true, uniqueness: true
-  validates :street, presence: true
-  validates :number, presence: true
-  validates :city, presence: true
-  validates :pais, presence: true
-  validates :neighborhood, presence: true
-  validates :cnpj, presence: true, uniqueness: true
-
+  # validates :cep, presence: true, format: { with: /\A[0-9]{5}-[0-9]{3}\z/, message: "CEP em formato invalido" }
+  # validates :razao_social, presence: true, uniqueness: { case_sensitive: false, message: "Razão Social já cadastrada" }
+  # VALID_EMAIL_FORMAT = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  # validates :email, presence: true, length: { maximum: 260 }
+  # validates :email, format: { with: VALID_EMAIL_FORMAT }
+  # validates :email, uniqueness: { case_sensitive: false }
+  # validates :state, presence: true
+  # validates :phone, presence: true, uniqueness: true
+  # validates :street, presence: true
+  # validates :number, presence: true
+  # validates :city, presence: true
+  # validates :pais, presence: true
+  # validates :neighborhood, presence: true
+  # validates :cnpj, presence: true, uniqueness: true
 end
