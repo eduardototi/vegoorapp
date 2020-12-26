@@ -3,11 +3,12 @@
     <%= image_tag 'logo.jpeg', width: '100px' %>
     Ordem de Serviço: <%= @order.id %>
     Data Ordem: <%= @order.created_at.strftime("%d/%m/%Y") %>
+    Situação: <%= @order.status ? 'Encerrada' : 'Aberta' %>
   </div>
 
   <div class="show-order-information">
     <li>Cliente: <%= @order.client.razao_social %></li>
-    <li>Endereço: <%= @order.client.street %> <%= @order.client.number %> <%= @order.client.city %>/<%= @order.client.state %></li>
+    <li>Endereço: <%= @order.client.street %> Nº: <%= @order.client.number %> - <%= @order.client.city %>/<%= @order.client.state %></li>
   </div>
 
   <div class="informations">
@@ -64,8 +65,11 @@
   </div>
 
   <div class="links mt-3">
-    <%= link_to 'Editar', edit_order_path, class: 'btn btn-primary' %>
-    <%= link_to "Excluir", @order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-danger' %>
+    <%  if @order.status == false || current_user.admin %>
+      <%= link_to 'Editar', edit_order_path(@order), class: 'btn btn-primary' %>
+      <%= link_to "Excluir", @order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' }, class: 'btn btn-danger' %>
+    <% end %>
+
   </div>
 
 </div>
