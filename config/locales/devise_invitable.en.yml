@@ -10,11 +10,11 @@ en:
       no_invitations_remaining: "No invitations remaining"
       invitation_removed: "Your invitation was removed."
       new:
-        header: "Send invitation"
-        submit_button: "Send an invitation"
+        header: "Enviar convite"
+        submit_button: "Enviar"
       edit:
-        header: "Set your password"
-        submit_button: "Set my password"
+        header: "Defina seus dados"
+        submit_button: "Enviar"
     mailer:
       invitation_instructions:
         subject: "Invitation instructions"
