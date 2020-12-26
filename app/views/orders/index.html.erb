@@ -9,15 +9,14 @@
           Cliente: <%= order.client.razao_social %>
         </div>
         <div class="order-status mt-4">
-          Status: <% if order.status %>
-                    Ordem de serviço concluida
-                  <% else %>
-                    Ordem de serviço não concluida
-                  <% end %>
+          Situação: <%= order.status ? 'Encerrada' : 'Aberta' %>
         </div>
         <div class="client-links">
           <%= link_to 'Visualizar', order_path(order), class: 'btn btn-primary' %>
-          <%= link_to 'Editar', edit_order_path(order), class: 'btn btn-primary mt-2' %>
+          <%  if order.status %>
+          <% else %>
+            <%= link_to 'Editar', edit_order_path(order), class: 'btn btn-primary mt-2' %>
+          <% end %>
         </div>
       </div>
     <% end %>

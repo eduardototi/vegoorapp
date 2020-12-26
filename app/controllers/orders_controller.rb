@@ -34,6 +34,7 @@ class OrdersController < ApplicationController
   end
 
   def edit
+    @orderservices = Orderservice.where(order_id: params[:id])
   end
 
   def update
