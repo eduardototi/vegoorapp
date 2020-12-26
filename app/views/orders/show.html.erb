@@ -34,20 +34,19 @@
   </div>
 
   <div class="show-order-services">
-    <% if @order.services.count > 0 %>
-    <div class="service-header">
-      Descrição das atividades a realizar:
-    </div>
-      <% @order.services.each do |service| %>
-        <%= service.title %>
-        <% service.orderservices.each do |orderservice| %>
-          <% if orderservice.status %>
-            <i class="fas fa-check"></i>
-            Concluido: <%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
-            <%= orderservice.updated_at.strftime("%k:%M") %>h
-          <% else %>
-            <i class="far fa-square"></i>
-          <% end %>
+    <% if @orderservices.count > 0 %>
+      <div class="service-header">
+        Descrição das atividades a realizar:
+      </div>
+      <% @orderservices.each do |orderservice| %>
+        <li><%= orderservice.service.title %></li>
+        <% if orderservice.status %>
+          <i class="fas fa-check"></i>
+          Concluido: <%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
+          <%= orderservice.updated_at.strftime("%k:%M") %>h
+        <% else %>
+          <i class="far fa-square"></i>
+          Em andamento
         <% end %>
       <% end %>
     <% end %>

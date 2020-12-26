@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @orderservice = Orderservice.where(params[id: :order_ir])
+    @orderservices = Orderservice.where(order_id: params[:id])
   end
 
   def new
