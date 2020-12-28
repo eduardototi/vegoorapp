@@ -5,8 +5,8 @@ STATES = ["AC", "AL", "AP", "AM", "BA", "CE", "DF",
 
 class Client < ApplicationRecord
   has_many :users
-  has_many :service_orders
-  has_many :sf6_orders
+  has_many :orders
+  has_many :sf6_orderservices
   # validates :cep, presence: true, format: { with: /\A[0-9]{5}-[0-9]{3}\z/, message: "CEP em formato invalido" }
   # validates :razao_social, presence: true, uniqueness: { case_sensitive: false, message: "Razão Social já cadastrada" }
   # VALID_EMAIL_FORMAT = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
