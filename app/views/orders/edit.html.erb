@@ -6,35 +6,40 @@
     <div class="order-date">
       Data: <%= Date.today.strftime("%d/%m/%Y") %>
     </div>
-  <%= simple_form_for(@order) do |f| %>
-    <div class="product-new text-center">Editar Ordem de Serviço:</div>
-    <div class="form-inputs">
-      <%= f.label "Situação" %>
-      <%= f.check_box :status, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' } %>
-      <%= f.input :description, label: "Descrição" %>
-      <%= f.input :staff_id, collection: Staff.all.map { |staff| ["#{staff.first_name} #{staff.last_name}", staff.id ] }, label: "Responsável Técnico:" %>
-      <%= f.input :client_id, collection: Client.all.map { |client| [client.razao_social, client.id ] }, label: "Cliente:" %>
-      <%= f.input :location, label: "Local de execução" %>
+    <%= simple_form_for(@order) do |f| %>
+      <div class="product-new text-center">
+        Editar Ordem de Serviço:
+      </div>
+      <div class="form-inputs">
+        <%= f.label "Situação" %>
+        <%= f.check_box :status, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' } %>
+        <%= f.input :description, label: "Descrição" %>
+        <%= f.input :staff_id, collection: Staff.all.map { |staff| ["#{staff.first_name} #{staff.last_name}", staff.id ] }, label: "Responsável Técnico:" %>
+        <%= f.input :client_id, collection: Client.all.map { |client| [client.razao_social, client.id ] }, label: "Cliente:" %>
+        <%= f.input :location, label: "Local de execução" %>
 
 
-      <%= f.simple_fields_for :orderservices do |service| %>
-        <%= render 'orderservice_fields', :f => service %>
-      <% end %>
-      <div class='links-div'>
-        <%= link_to_add_association 'Adicionar Serviço', f, :orderservices, class: 'btn btn-primary my-3' %>
+        <%= f.simple_fields_for :orderservices do |service| %>
+          <%= render 'orderservice_fields', :f => service %>
+        <% end %>
+
+        <div class='links-div'>
+          <%= link_to_add_association 'Adicionar Serviço', f, :orderservices, class: 'btn btn-primary my-3' %>
+        </div>
+
+        <%= f.simple_fields_for :orderutensils do |utensil| %>
+          <%= render 'orderutensil_fields', :f => utensil %>
+        <% end %>
+
+        <div class='links-div'>
+          <%= link_to_add_association 'Adicionar Equipamento', f, :orderutensils, class: 'btn btn-primary my-3' %>
+        </div>
+
       </div>
 
-      <%= f.simple_fields_for :orderutensils do |utensil| %>
-        <%= render 'orderutensil_fields', :f => utensil %>
-      <% end %>
-      <div class='links-div'>
-        <%= link_to_add_association 'Adicionar Equipamento', f, :orderutensils, class: 'btn btn-primary my-3' %>
+      <div class="form-actions text-center">
+        <%= f.button :submit, "Salvar" %>
       </div>
-    </div>
-
-    <div class="form-actions text-center">
-      <%= f.button :submit, "Salvar" %>
-    </div>
-  <% end %>
+    <% end %>
   </div>
 </div>
