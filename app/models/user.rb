@@ -5,5 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, invite_for: 1.day
   belongs_to :client
   has_many :staffs
-
+  has_many :sf6_orders
+  has_many :orders
 end

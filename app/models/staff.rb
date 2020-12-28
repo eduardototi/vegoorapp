@@ -4,4 +4,5 @@ class Staff < ApplicationRecord
   validates :phone, presence: true, uniqueness: true
   belongs_to :user
   has_many :orders
+  has_many :sf6_orders
 end

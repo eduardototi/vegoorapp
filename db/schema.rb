@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_28_121908) do
+ActiveRecord::Schema.define(version: 2020_12_28_135549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,20 @@ ActiveRecord::Schema.define(version: 2020_12_28_121908) do
     t.string "cep"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "order_sf6s", force: :cascade do |t|
+    t.string "service_location"
+    t.boolean "status"
+    t.string "description"
+    t.bigint "client_id", null: false
+    t.bigint "staff_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_order_sf6s_on_client_id"
+    t.index ["staff_id"], name: "index_order_sf6s_on_staff_id"
+    t.index ["user_id"], name: "index_order_sf6s_on_user_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -70,6 +84,30 @@ ActiveRecord::Schema.define(version: 2020_12_28_121908) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sf6_orders", force: :cascade do |t|
+    t.string "service_location"
+    t.boolean "status"
+    t.string "description"
+    t.bigint "client_id", null: false
+    t.bigint "staff_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_sf6_orders_on_client_id"
+    t.index ["staff_id"], name: "index_sf6_orders_on_staff_id"
+    t.index ["user_id"], name: "index_sf6_orders_on_user_id"
+  end
+
+  create_table "sf6_orderservices", force: :cascade do |t|
+    t.bigint "sf6_order_id", null: false
+    t.bigint "service_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "status", default: false
+    t.index ["service_id"], name: "index_sf6_orderservices_on_service_id"
+    t.index ["sf6_order_id"], name: "index_sf6_orderservices_on_sf6_order_id"
   end
 
   create_table "staffs", force: :cascade do |t|
@@ -121,6 +159,9 @@ ActiveRecord::Schema.define(version: 2020_12_28_121908) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "order_sf6s", "clients"
+  add_foreign_key "order_sf6s", "staffs"
+  add_foreign_key "order_sf6s", "users"
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "staffs"
   add_foreign_key "orders", "users"
@@ -128,6 +169,11 @@ ActiveRecord::Schema.define(version: 2020_12_28_121908) do
   add_foreign_key "orderservices", "services"
   add_foreign_key "orderutensils", "orders"
   add_foreign_key "orderutensils", "utensils"
+  add_foreign_key "sf6_orders", "clients"
+  add_foreign_key "sf6_orders", "staffs"
+  add_foreign_key "sf6_orders", "users"
+  add_foreign_key "sf6_orderservices", "services"
+  add_foreign_key "sf6_orderservices", "sf6_orders"
   add_foreign_key "staffs", "users"
   add_foreign_key "users", "clients"
 end
