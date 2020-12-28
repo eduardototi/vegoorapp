@@ -7,13 +7,13 @@ class Sf6OrdersController < ApplicationController
   end
 
   def show
-    @sf6_orderservices = Sf6Orderservice.where(order_id: params[:id])
+    @sf6_orderservices = Sf6Orderservice.where(sf6_order_id: params[:id])
   end
 
   def new
     @sf6_order = Sf6Order.new
     @sf6_orderservice = Sf6Orderservice.new
-    # @orderutensil = Orderutensil.new
+    @orderutensil = Orderutensil.new
   end
 
   def create
@@ -21,7 +21,7 @@ class Sf6OrdersController < ApplicationController
     @sf6_order.user = current_user
     @sf6_order.status = false
     if @sf6_order.save
-      redirect_to order_path(@sf6_order)
+      redirect_to sf6_order_path(@sf6_order)
     else
       render :new
     end
@@ -29,16 +29,16 @@ class Sf6OrdersController < ApplicationController
 
   def destroy
     @sf6_order.destroy
-    redirect_to orders_path
+    redirect_to sf6_orders_path
   end
 
   def edit
-    @sf6_orderservices = Sf6Orderservice.where(order_id: params[:id])
+    @sf6_orderservices = Sf6Orderservice.where(sf6_order_id: params[:id])
   end
 
   def update
     if @sf6_order.update(sf6_order_params)
-      redirect_to order_path(@order)
+      redirect_to sf6_order_path(@sf6_order)
     else
       render :edit
     end
@@ -51,7 +51,7 @@ class Sf6OrdersController < ApplicationController
   end
 
   def sf6_order_params
-    params.require(:sf6_order).permit(:location, :description, :user_id, :status, :client_id, :staff_id, sf6_orderservices_attributes: [ :id, :service_id, :order_id, :status, :_destroy ], sf6_orderutensils_attributes: [ :id, :utensil_id, :order_id, :status, :_destroy ])
+    params.require(:sf6_order).permit(:service_location, :description, :user_id, :status, :client_id, :staff_id, sf6_orderservices_attributes: [ :id, :service_id, :order_id, :status, :_destroy ], sf6_orderutensils_attributes: [ :id, :utensil_id, :order_id, :status, :_destroy ])
   end
 
 end

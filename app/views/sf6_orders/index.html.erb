@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <div class="clients-list">
+    <% @sf6_orders.each do |order| %>
+      <div class="client-dados">
+        <div class="order-number mt-4">
+          Ordem de serviço Sf6: <%= order.id %>
+        </div>
+        <div class="order-client mt-4">
+          Cliente: <%= order.client.razao_social %>
+        </div>
+        <div class="order-status mt-4">
+          Situação: <%= order.status ? 'Encerrada' : 'Aberta' %>
+        </div>
+        <div class="client-links">
+          <%= link_to 'Visualizar', sf6_order_path(order), class: 'btn btn-primary' %>
+          <%  if order.status %>
+          <% else %>
+            <%= link_to 'Editar', edit_sf6_order_path(order), class: 'btn btn-primary mt-2' %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

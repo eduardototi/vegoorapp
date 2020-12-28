@@ -1,23 +1,28 @@
 <div class="container">
   <div class="container-form">
     <div class="order-number">
-      <%= image_tag 'sf6.jpg', width: '100px' %>
-      Ordem de Serviço SF6: <%#= Order.last.id + 1 %>
+      Ordem de Serviço número: <%= @sf6_order.id %>
     </div>
     <div class="order-date">
       Data: <%= Date.today.strftime("%d/%m/%Y") %>
     </div>
     <%= simple_form_for(@sf6_order) do |f| %>
-      <div class="product-new text-center">Nova Ordem de Serviço:</div>
+      <div class="product-new text-center">
+        Editar Ordem de Serviço:
+      </div>
       <div class="form-inputs">
+        <%= f.label "Situação" %>
+        <%= f.check_box :status, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' } %>
         <%= f.input :description, label: "Descrição" %>
         <%= f.input :staff_id, collection: Staff.all.map { |staff| ["#{staff.first_name} #{staff.last_name}", staff.id ] }, label: "Responsável Técnico:" %>
         <%= f.input :client_id, collection: Client.all.map { |client| [client.razao_social, client.id ] }, label: "Cliente:" %>
         <%= f.input :service_location, label: "Local de execução" %>
 
+
         <%= f.simple_fields_for :sf6_orderservices do |service| %>
           <%= render 'sf6_orderservice_fields', :f => service %>
         <% end %>
+
         <div class='links-div'>
           <%= link_to_add_association 'Adicionar Serviço', f, :sf6_orderservices, class: 'btn btn-primary my-3' %>
         </div>
@@ -25,13 +30,15 @@
         <%= f.simple_fields_for :sf6_orderutensils do |utensil| %>
           <%= render 'sf6_orderutensil_fields', :f => utensil %>
         <% end %>
+
         <div class='links-div'>
           <%= link_to_add_association 'Adicionar Equipamento', f, :sf6_orderutensils, class: 'btn btn-primary my-3' %>
         </div>
+
       </div>
 
       <div class="form-actions text-center">
-        <%= f.button :submit, "Criar Ordem de Serviço", class: 'btn btn-primary' %>
+        <%= f.button :submit, "Salvar" %>
       </div>
     <% end %>
   </div>

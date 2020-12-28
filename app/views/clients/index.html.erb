@@ -9,18 +9,12 @@
           Rua: <%= client.street %>
           Número: <%= client.number %>
           E-mail: <%= client.email %>
-          <div class="client-users">
-            Contatos:
-            <% client.users.each do |user| %>
-              Nome: <%= user.first_name %> <%= user.last_name %>
-              E-mail: <%= user.email %>
-            <% end %>
-          </div>
         </div>
         <div class="client-links">
           <%= link_to 'Visualizar', client_path(client), class: 'btn btn-primary' %>
           <%= link_to 'Editar', edit_client_path(client), class: 'btn btn-primary mt-3' %>
         </div>
+
       </div>
     <% end %>
   </div>
