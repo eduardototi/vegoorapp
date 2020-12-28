@@ -12,7 +12,7 @@
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <%= f.input :client_id,
-                collection: Client.all.map { |client| [client.razao_social, client.id ] }, label: "Cliente:" %>
+                collection: Client.first(2).map { |client| [client.razao_social, client.id ] }, label: "Cliente:" %>
     <%= f.input :role, collection: ['Client', 'Staff'] %>
     <%= f.input :password,
                 hint: "leave it blank if you don't want to change it",

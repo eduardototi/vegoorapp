@@ -13,4 +13,6 @@ Rails.application.routes.draw do
 
   resources :orders
 
+  resources :sf6_orders
+
 end

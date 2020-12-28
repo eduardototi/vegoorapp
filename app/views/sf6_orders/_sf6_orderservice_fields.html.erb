@@ -1,0 +1,8 @@
+<div class='nested-fields'>
+    <%= f.select :service_id, Service.all.map { |service| ["#{service.title} | #{service.description}", service.id] }, include_blank: true, required: true %>
+    <div class="field">
+      <%= f.label "Situação" %>
+      <%= f.check_box :status %>
+    </div>
+    <%= link_to_remove_association "Remover", f %>
+</div>
