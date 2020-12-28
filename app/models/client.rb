@@ -4,7 +4,7 @@ STATES = ["AC", "AL", "AP", "AM", "BA", "CE", "DF",
           "RO", "RR", "SC", "SP", "SE", "TO"]
 
 class Client < ApplicationRecord
-  belongs_to :user
+  has_many :users
   has_many :service_orders
   # validates :cep, presence: true, format: { with: /\A[0-9]{5}-[0-9]{3}\z/, message: "CEP em formato invalido" }
   # validates :razao_social, presence: true, uniqueness: { case_sensitive: false, message: "Razão Social já cadastrada" }

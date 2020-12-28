@@ -10,6 +10,9 @@
       <%= f.input :last_name,
                   required: true %>
       <%= f.input :role, collection: ['Client', 'Staff'] %>
+      <%= f.input :client_id,
+                  collection: Client.all.map { |client| [client.razao_social, client.id ] }, label: "Cliente:"
+                  required: true %>
       <%= f.input :email,
                   required: true,
                   autofocus: true,
