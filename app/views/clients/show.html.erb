@@ -2,13 +2,6 @@
   <%= @client.razao_social %>
   <%= @client.cnpj %>
   <div class="clients-users">
-    Contatos:
-    <% @users.each do |user| %>
-      <%= user.first_name %> <%= user.last_name %>
-      <%= user.email %>
-    <% end %>
-  </div>
-  <%#= raise %>
   <%= link_to 'Editar', edit_client_path, class: 'btn btn-primary' %>
   <%= link_to "Excluir", @client, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-info' %>
 </div>
