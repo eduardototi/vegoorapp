@@ -5,7 +5,6 @@ class ClientsController < ApplicationController
   end
 
   def show
-    @users = User.where(client_id: params[:id])
   end
 
   def new

@@ -9,6 +9,8 @@
       <%= f.input :first_name, label: 'Nome:' %>
       <%= f.input :last_name, label: 'Sobrenome' %>
       <%= f.hidden_field :role, value: 'Client' %>
+      <%= f.hidden_field :client_id, value: 1 %>
+      <%#= f.input :client_id, label: 'Cliente' %>
       <%= f.input :password, label: 'Senha' %>
       <%= f.input :password_confirmation, label: 'Confirmar Senha' %>
     </div>
