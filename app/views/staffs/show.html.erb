@@ -18,6 +18,7 @@
       </div>
     </div>
     <div class="staff-links">
+      <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
       <%= link_to 'Editar', edit_staff_path, class: 'btn btn-primary' %>
       <%= link_to "Excluir", @staff, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-info' %>
     </div>
