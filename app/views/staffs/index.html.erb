@@ -5,8 +5,8 @@
         <div class="client-information">
           Nome: <%= staff.first_name %> <%= staff.last_name %>
           Matricula: <%= staff.registration %>
-          Email: <%= staff.email %>
-          Telefone: <%= staff.phone %>
+          <i class="fas fa-envelope-square"> <%= staff.email %></i>
+          <i class="fas fa-phone-square"> <%= staff.phone %></i>
           Situação: <%= staff.status ? 'Inativo' : 'Ativo' %>
         </div>
         <div class="client-links">

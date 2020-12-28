@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_28_135549) do
+ActiveRecord::Schema.define(version: 2020_12_28_140702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,15 @@ ActiveRecord::Schema.define(version: 2020_12_28_135549) do
     t.index ["sf6_order_id"], name: "index_sf6_orderservices_on_sf6_order_id"
   end
 
+  create_table "sf6_orderutensils", force: :cascade do |t|
+    t.bigint "sf6_order_id", null: false
+    t.bigint "utensil_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sf6_order_id"], name: "index_sf6_orderutensils_on_sf6_order_id"
+    t.index ["utensil_id"], name: "index_sf6_orderutensils_on_utensil_id"
+  end
+
   create_table "staffs", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -174,6 +183,8 @@ ActiveRecord::Schema.define(version: 2020_12_28_135549) do
   add_foreign_key "sf6_orders", "users"
   add_foreign_key "sf6_orderservices", "services"
   add_foreign_key "sf6_orderservices", "sf6_orders"
+  add_foreign_key "sf6_orderutensils", "sf6_orders"
+  add_foreign_key "sf6_orderutensils", "utensils"
   add_foreign_key "staffs", "users"
   add_foreign_key "users", "clients"
 end

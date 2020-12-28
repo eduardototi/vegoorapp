@@ -1,7 +1,8 @@
 <div class="container">
   <div class="container-form">
     <div class="order-number">
-      Ordem de Serviço número: <%= Order.last.id + 1 %>
+      <%= image_tag 'logo.jpeg', width: '100px' %>
+      Ordem de Serviço Vegoor: <%#= Order.last.id + 1 %>
     </div>
     <div class="order-date">
       Data: <%= Date.today.strftime("%d/%m/%Y") %>

@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="logo">
+    <%= image_tag 'sf6.jpg', width: '100px' %>
+    Ordem de Serviço SF6: <%= @sf6_order.id %>
+    Data Ordem: <%= @sf6_order.created_at.strftime("%d/%m/%Y") %>
+    Situação: <%= @sf6_order.status ? 'Encerrada' : 'Aberta' %>
+  </div>
+
+  <div class="show-order-information">
+    <li>Cliente: <%= @sf6_order.client.razao_social %></li>
+    <li>Endereço: <%= @sf6_order.client.street %> Nº: <%= @sf6_order.client.number %> - <%= @sf6_order.client.city %>/<%= @sf6_order.client.state %></li>
+  </div>
+
+  <div class="informations">
+    Pela presente Ordem de serviço, objetivamos informar os trabalhadores que executam suas atividades laborais nesse setor, conforme estabelece a NR-1 , item 1.7, sobre as condições de segurança e saúde às quais estão expostos, como medida preventiva e ,tendo como parâmetro os agentes físicos, químicos, e biológicos citados na NR-9 - Programa de Prevenção de Riscos Ambientais(Lei nº 6514 de 22/12/1977,Portaria nº 3214 de 08/06/1978), bem como os procedimentos de aplicação da NR-6  - Equipamento de Proteção Individual – EPI , NR-17 – Ergonomia , de forma a padronizar comportamentos para prevenir acidentes e/ou doenças ocupacionais e NR-10 Segurança Em Instalações e Serviços em Eletricidade.
+  </div>
+
+  <div class="staff-informations">
+    Responsável técnico:
+    <%= @sf6_order.staff.first_name %>
+    <%= @sf6_order.staff.last_name %>
+    E-mail:
+    <%= @sf6_order.staff.email %>
+    Telefone:
+    <%= @sf6_order.staff.phone %>
+    Matricula:
+    <%= @sf6_order.staff.registration %>
+  </div>
+
+  <div class="order-location">
+    <div class="service-header">
+      Local de Execução:
+    </div>
+    <%= @sf6_order.service_location %>
+  </div>
+
+  <div class="show-order-services">
+    <% if @sf6_orderservices.count > 0 %>
+      <div class="service-header">
+        Descrição das atividades a realizar:
+      </div>
+      <% @sf6_orderservices.each do |orderservice| %>
+        <li><%= orderservice.service.title %></li>
+        <% if orderservice.status %>
+          <i class="fas fa-check"></i>
+          Concluido: <%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
+          <%= orderservice.updated_at.strftime("%k:%M") %>h
+        <% else %>
+          <i class="far fa-square"></i>
+          Em andamento
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="show-order-equipments">
+    <% if @sf6_order.utensils.count > 0 %>
+    <div class="service-header">
+      Equipamentos para execução do serviço:
+    </div>
+      <% @sf6_order.utensils.each do |utensil| %>
+        <li><%= utensil.name %></li>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="links mt-3">
+    <%  if @sf6_order.status == false || current_user.admin %>
+      <%= link_to 'Editar', edit_sf6_order_path(@sf6_order), class: 'btn btn-primary' %>
+      <%= link_to "Excluir", @sf6_order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' }, class: 'btn btn-danger' %>
+    <% end %>
+
+  </div>
+
+</div>
