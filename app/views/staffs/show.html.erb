@@ -1,29 +1,71 @@
-<div class="container staff">
-  <h4>Informações cadastradas:</h4>
-  <div class="staff-datas">
-    <div class="staff-information">
-      <div class="staff-fullname">
-        Nome: <%= @staff.first_name %> <%= @staff.last_name %>
-      </div>
-      <div class="staff-registration">
-        Matricula: <%= @staff.registration %>
-      </div>
-      <div class="staff-information">
-        E-mail: <%= @staff.email %>
-      </div>
-      <div class="staff-information">
-        Telefone: (<%= @staff.phone.first(2) %>) - <%= @staff.phone.last(8) %>
-      </div>
-      <div class="staff-status">
-        Situação: <%= @staff.status ? 'Inativo' : 'Ativo' %>
-      </div>
-    </div>
-  </div>
-  <div class="staff-links">
-    <%= link_to :back do %>
-      <i class="fas fa-undo"></i>
-    <% end %>
-    <%= link_to 'Editar', edit_staff_path, class: 'button' %>
-    <%= link_to "Excluir", @staff, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'button' %>
-  </div>
+<div class="container mt-4">
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Matrícula</th>
+        <th scope="col">Email</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Visualizar</th>
+        <th scope="col">Editar</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <th scope="row"><%= @staff.id %></th>
+          <td><%= @staff.first_name %> <%= @staff.last_name %></td>
+          <td><%= @staff.registration %></td>
+          <td><%= @staff.email %></td>
+          <td><%= @staff.phone %></td>
+          <td><%= link_to 'Editar', edit_staff_path(@staff) %></td>
+          <td><%= link_to "Excluir", @staff, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-danger' %></td>
+        </tr>
+    </tbody>
+  </table>
+  <% if @staff.orders.count > 0 %>
+    <table class="table table-bordered table-dark">
+      <thead>
+        <tr>
+          <th scope="col">OS Vegoor</th>
+          <th scope="col">Cliente</th>
+          <th scope="col">Situação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @staff.orders.each do |order| %>
+          <tr>
+            <th scope="row"><%= order.id %></th>
+            <td><%= order.client.razao_social %></td>
+            <td><%= order.status ? 'Encerrada' : 'Em andamento' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <% if @staff.sf6_orders.count > 0 %>
+    <table class="table table-bordered table-dark">
+      <thead>
+        <tr>
+          <th scope="col">OS SF6.....</th>
+          <th scope="col">Cliente</th>
+          <th scope="col">Situação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @staff.sf6_orders.each do |order| %>
+          <tr>
+            <th scope="row"><%= order.id %></th>
+            <td><%= order.client.razao_social %></td>
+            <td><%= order.status ? 'Encerrada' : 'Em andamento' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 </div>
+
+
+
+

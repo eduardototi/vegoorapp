@@ -15,6 +15,7 @@ class UtensilsController < ApplicationController
 
   def create
     @utensil = Utensil.new(utensil_params)
+    @utensil.status = true
     if @utensil.save
       redirect_to utensils_path
     else
@@ -45,6 +46,6 @@ class UtensilsController < ApplicationController
   end
 
   def utensil_params
-    params.require(:utensil).permit(:name)
+    params.require(:utensil).permit(:name, :status)
   end
 end

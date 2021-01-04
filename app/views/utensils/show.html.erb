@@ -1,14 +1,21 @@
 <div class="container mt-4">
-  <div class="clients-list">
-      <div class="client-dados">
-        <div class="client-information">
-          Nome: <%= @utensil.name %>
-        </div>
-        <div class="client-links">
-          <%= link_to 'Editar', edit_utensil_path, class: 'btn btn-primary' %>
-          <%= link_to "Excluir", @utensil, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-info mt-3' %>
-        </div>
-      </div>
-  </div>
-  <%= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Equipmanto</th>
+        <th scope="col">Status</th>
+        <th scope="col">Editar</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <th scope="row"><%= @utensil.id %></th>
+          <td><%= @utensil.name %></td>
+          <td><%= @utensil.status %></td>
+          <td><%= link_to 'Editar', edit_utensil_path(@utensil) %></td>
+          <td><%= link_to "Excluir", @utensil, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-danger' %></td>
+        </tr>
+    </tbody>
+  </table>
 </div>
