@@ -1,11 +1,24 @@
 <div class="footer">
-  <div class="footer-links slogan">
-    <a href="https://www.vegoor.com.br/" target="_blank" class="slogan" >Vegoor</a>
-  </div>
-  <div class="slogan">
 
+  <div class="footer-links slogan">
+    <%= link_to "https://www.vegoor.com.br/", target: "_blank" do %>
+      <%= image_tag "logo.jpeg", width: '50px' %>
+    <% end %>
   </div>
+
   <div class="footer-copyright">
-    <p> </p>
+    <%= link_to "https://www.facebook.com/vegoor/", target: "_blank" do %>
+      <i class="fab fa-facebook-square"></i>
+    <% end %>
+    <%= link_to "https://www.instagram.com/vegoor.tec/", target:"_blank" do %>
+      <i class="fab fa-instagram"></i>
+    <% end %>
+    <%= link_to "https://www.linkedin.com/company/vegoor/?viewAsMember=true", target: "_blank" do %>
+      <i class="fab fa-linkedin"></i>
+    <% end %>
+    <%= link_to "https://www.youtube.com/channel/UCfOPtNNh7CfFd4oIeXXKXgA", target: "_blank" do %>
+    <i class="fab fa-youtube"></i>
+    <% end %>
   </div>
+
 </div>
