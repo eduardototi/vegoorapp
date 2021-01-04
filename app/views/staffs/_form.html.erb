@@ -1,7 +1,9 @@
-<div class="container">
+<div class="container staff">
   <div class="container-form">
   <%= simple_form_for(staff) do |f| %>
-    <div class="product-new text-center">Cadastro de Funcionários:</div>
+    <div class="product-new text-center">
+      <h3>Dados do Funcionário:</h3>
+    </div>
     <div class="form-inputs">
       <%= f.input :first_name, label: "Nome:" %>
       <%= f.input :last_name, label: "Sobrenome:" %>
@@ -9,13 +11,15 @@
       <%= f.input :phone, label: "Telefone:", placeholder: "Somente números" %>
       <%= f.input :registration, label: "Matricula:" %>
       <div class="field">
-        <%= f.label "Situação" %>
+        <%= f.label staff.status ? 'Ativo:' : 'Inativo:' %>
         <%= f.check_box :status %>
       </div>
     </div>
     <div class="form-actions text-center">
-      <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
-      <%= f.button :submit, "Enviar", class: 'btn btn-primary' %>
+      <%= link_to :back do %>
+        <i class="fas fa-undo"></i>
+      <% end %>
+      <%= f.button :submit, "Enviar", class: 'button' %>
     </div>
   <% end %>
   </div>

@@ -1,20 +1,33 @@
 <div class="container mt-4">
   <div class="clients-list">
-    <% @staffs.each do |staff| %>
-      <div class="client-dados">
-        <div class="client-information">
-          Nome: <%= staff.first_name %> <%= staff.last_name %>
-          Matricula: <%= staff.registration %>
-          <i class="fas fa-envelope-square"> <%= staff.email %></i>
-          <i class="fas fa-phone-square"> <%= staff.phone %></i>
-          Situação: <%= staff.status ? 'Inativo' : 'Ativo' %>
-        </div>
-        <div class="client-links">
-          <%= link_to 'Visualizar', staff_path(staff), class: 'btn btn-primary' %>
-          <%= link_to 'Editar', edit_staff_path(staff), class: 'btn btn-primary mt-2' %>
-        </div>
-      </div>
-    <% end %>
+    <table class="table table-bordered table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Matrícula</th>
+          <th scope="col">Email</th>
+          <th scope="col">Telefone</th>
+          <th scope="col">Visualizar</th>
+          <th scope="col">Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @staffs.each do |staff| %>
+          <tr>
+            <th scope="row"><%= staff.id %></th>
+            <td><%= staff.first_name %> <%= staff.last_name %></td>
+            <td><%= staff.registration %></td>
+            <td><%= staff.email %></td>
+            <td><%= staff.phone %></td>
+            <td><%= link_to 'Visualizar', staff_path(staff) %></td>
+            <td><%= link_to 'Editar', edit_staff_path(staff) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
     <%= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
   </div>
 </div>
+
+

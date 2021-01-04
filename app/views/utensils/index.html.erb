@@ -1,16 +1,23 @@
 <div class="container mt-4">
-  <div class="clients-list">
-    <% @utensils.each do |utensil| %>
-      <div class="client-dados">
-        <div class="client-information">
-          Nome: <%= utensil.name %>
-        </div>
-        <div class="client-links">
-          <%= link_to 'Visualizar', utensil_path(utensil), class: 'btn btn-primary' %>
-          <%= link_to 'Editar', edit_utensil_path(utensil), class: 'btn btn-primary mt-3' %>
-        </div>
-      </div>
-    <% end %>
-  <%= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
-  </div>
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Equipamento</th>
+        <th scope="col">Visualizar</th>
+        <th scope="col">Editar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @utensils.each do |utensil| %>
+        <tr>
+          <th scope="row"><%= utensil.id %></th>
+          <td><%= utensil.name %></td>
+          <td><%= link_to 'Visualizar', utensil_path(utensil) %></td>
+          <td><%= link_to 'Editar', edit_utensil_path(utensil) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%#= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
 </div>
