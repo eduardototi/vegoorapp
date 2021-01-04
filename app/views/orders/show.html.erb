@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container order">
   <div class="logo">
     <%= image_tag 'logo.jpeg', width: '100px' %>
     Ordem de Serviço: <%= @order.id %>
@@ -6,27 +6,51 @@
     Situação: <%= @order.status ? 'Encerrada' : 'Aberta' %>
   </div>
 
-  <div class="show-order-information">
-    <li>Cliente: <%= @order.client.razao_social %></li>
-    <li>Endereço: <%= @order.client.street %> Nº: <%= @order.client.number %> - <%= @order.client.city %>/<%= @order.client.state %></li>
-  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Cliente</th>
+        <th scope="col">CNPJ</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Email</th>
+        <th scope="col">Endereço</th>
+        <th scope="col">Cidade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><%= @order.client.razao_social %></th>
+        <td><%= @order.client.cnpj %></td>
+        <td><%= @order.client.phone %></td>
+        <td><%= @order.client.email %></td>
+        <td><%= @order.client.street %> Nº: <%= @order.client.number %></td>
+        <td><%= @order.client.city %>/<%= @order.client.state %></td>
+      </tr>
+    </tbody>
+  </table>
 
-  <div class="informations">
+  <div class="informations text-justify" >
     Pela presente Ordem de serviço, objetivamos informar os trabalhadores que executam suas atividades laborais nesse setor, conforme estabelece a NR-1 , item 1.7, sobre as condições de segurança e saúde às quais estão expostos, como medida preventiva e ,tendo como parâmetro os agentes físicos, químicos, e biológicos citados na NR-9 - Programa de Prevenção de Riscos Ambientais(Lei nº 6514 de 22/12/1977,Portaria nº 3214 de 08/06/1978), bem como os procedimentos de aplicação da NR-6  - Equipamento de Proteção Individual – EPI , NR-17 – Ergonomia , de forma a padronizar comportamentos para prevenir acidentes e/ou doenças ocupacionais e NR-10 Segurança Em Instalações e Serviços em Eletricidade.
   </div>
 
-  <div class="staff-informations">
-    Responsável técnico:
-    <%= @order.staff.first_name %>
-    <%= @order.staff.last_name %>
-    E-mail:
-    <%= @order.staff.email %>
-    Telefone:
-    <%= @order.staff.phone %>
-    Matricula:
-    <%= @order.staff.registration %>
-  </div>
-
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Responsável tec.</th>
+        <th scope="col">Email</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Matrícula</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><%= @order.staff.first_name %> <%= @order.staff.last_name %></th>
+        <td><%= @order.staff.email %></td>
+        <td><%= @order.staff.phone %></td>
+        <td><%= @order.staff.registration %></td>
+      </tr>
+    </tbody>
+  </table>
   <div class="order-location">
     <div class="service-header">
       Local de Execução:
@@ -70,7 +94,6 @@
       <%= link_to 'Editar', edit_order_path(@order), class: 'btn btn-primary' %>
       <%= link_to "Excluir", @order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' }, class: 'btn btn-danger' %>
     <% end %>
-
   </div>
 
 </div>
