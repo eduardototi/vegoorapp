@@ -1,6 +1,8 @@
-<div class="container">
-  <h2>Log in</h2>
-
+<div class="container logn-in">
+  <div class="logn-in-header">
+    <%= image_tag 'logo.jpeg', width: '80px' %>
+    <%= image_tag 'sf6.jpg', width: '100px' %>
+  </div>
   <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="form-inputs">
       <%= f.input :email,
@@ -14,7 +16,7 @@
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, "Log in" %>
+      <%= f.button :submit, "Entrar", class: "button" %>
     </div>
   <% end %>
 </div>

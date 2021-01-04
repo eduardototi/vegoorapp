@@ -65,11 +65,12 @@
   </div>
 
   <div class="links mt-3">
-    <%  if @order.status == false || current_user.admin %>
+    <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
+    <%  if @order.status == true || current_user.admin %>
       <%= link_to 'Editar', edit_order_path(@order), class: 'btn btn-primary' %>
       <%= link_to "Excluir", @order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' }, class: 'btn btn-danger' %>
     <% end %>
-    <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
+
   </div>
 
 </div>
