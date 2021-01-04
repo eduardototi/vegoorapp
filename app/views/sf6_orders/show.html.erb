@@ -65,8 +65,8 @@
   </div>
 
   <div class="links mt-3">
-    <%  if @sf6_order.status == false || current_user.admin %>
-      <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
+    <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
+    <%  if @sf6_order.status == true || current_user.admin %>
       <%= link_to 'Editar', edit_sf6_order_path(@sf6_order), class: 'btn btn-primary' %>
       <%= link_to "Excluir", @sf6_order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' }, class: 'btn btn-danger' %>
     <% end %>

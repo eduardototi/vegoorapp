@@ -13,7 +13,7 @@ class Sf6OrdersController < ApplicationController
   def new
     @sf6_order = Sf6Order.new
     @sf6_orderservice = Sf6Orderservice.new
-    @orderutensil = Orderutensil.new
+    @sf6orderutensil = Orderutensil.new
   end
 
   def create
