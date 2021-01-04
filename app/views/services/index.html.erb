@@ -1,19 +1,26 @@
 <div class="container mt-4">
-  <div class="clients-list">
-    <% @services.each do |service| %>
-      <div class="client-dados">
-        <div class="service-title">
-          Nome: <%= service.title %>
-        </div>
-        <div class="service-description">
-          Descrição: <%= service.description %>
-        </div>
-        <div class="client-links">
-          <%= link_to 'Visualizar', service_path(service), class: 'btn btn-primary' %>
-          <%= link_to 'Editar', edit_service_path(service), class: 'btn btn-primary mt-2' %>
-        </div>
-      </div>
-    <% end %>
-    <%= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
-  </div>
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Serviço</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Visualizar</th>
+        <th scope="col">Editar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @services.each do |service| %>
+        <tr>
+          <th scope="row"><%= service.id %></th>
+          <td><%= service.title %></td>
+          <td><%= service.description %></td>
+          <td><%= link_to 'Visualizar', service_path(service) %></td>
+          <td><%= link_to 'Editar', edit_service_path(service) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%#= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
 </div>
+

@@ -1,18 +1,16 @@
-.staff {
+.staff-datas {
   display: felx;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
 }
 
-.staff-datas {
-  display: flex;
-}
-
-.client-information {
-  width: 80%;
+.staff-information {
+  width: 100%;
   flex-direction: column;
 }
 
 .staff-links {
-  width: 20%;
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
 }
