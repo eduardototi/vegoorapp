@@ -4,6 +4,7 @@
       <tr>
         <th scope="col">Id</th>
         <th scope="col">Equipamento</th>
+        <th scope="col">Status</th>
         <th scope="col">Visualizar</th>
         <th scope="col">Editar</th>
       </tr>
@@ -13,6 +14,7 @@
         <tr>
           <th scope="row"><%= utensil.id %></th>
           <td><%= utensil.name %></td>
+          <td><%= utensil.status ? 'Ativo' : 'Inativo' %></td>
           <td><%= link_to 'Visualizar', utensil_path(utensil) %></td>
           <td><%= link_to 'Editar', edit_utensil_path(utensil) %></td>
         </tr>

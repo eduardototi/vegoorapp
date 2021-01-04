@@ -10,10 +10,7 @@
       <%= f.input :email, label: "Email:" %>
       <%= f.input :phone, label: "Telefone:", placeholder: "Somente números" %>
       <%= f.input :registration, label: "Matricula:" %>
-      <div class="field">
-        <%= f.label staff.status ? 'Ativo:' : 'Inativo:' %>
-        <%= f.check_box :status %>
-      </div>
+      <%= f.input :status, as: :radio_buttons, label: 'Ativo' %>
     </div>
     <div class="form-actions text-center">
       <%= link_to :back do %>
@@ -24,3 +21,4 @@
   <% end %>
   </div>
 </div>
+
