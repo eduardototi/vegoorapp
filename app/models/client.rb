@@ -4,7 +4,7 @@ STATES = ["AC", "AL", "AP", "AM", "BA", "CE", "DF",
           "RO", "RR", "SC", "SP", "SE", "TO"]
 
 class Client < ApplicationRecord
-  has_many :users
+  belongs_to :user
   has_many :orders
   has_many :sf6_orderservices
   # validates :cep, presence: true, format: { with: /\A[0-9]{5}-[0-9]{3}\z/, message: "CEP em formato invalido" }
