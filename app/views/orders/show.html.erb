@@ -51,6 +51,7 @@
       </tr>
     </tbody>
   </table>
+
   <div class="order-location">
     <div class="service-header">
       Local de Execução:
@@ -58,35 +59,49 @@
     <%= @order.location %>
   </div>
 
-  <div class="show-order-services">
-    <% if @orderservices.count > 0 %>
-      <div class="service-header">
-        Descrição das atividades a realizar:
-      </div>
+  <% if @orderservices.count > 0 %>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Descrição dos Serviços</th>
+          <th scope="col">Status</th>
+          <th scope="col">Encerrado</th>
+        </tr>
+      </thead>
       <% @orderservices.each do |orderservice| %>
-        <li><%= orderservice.service.title %></li>
-        <% if orderservice.status %>
-          <i class="fas fa-check"></i>
-          Concluido: <%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
-          <%= orderservice.updated_at.strftime("%k:%M") %>h
-        <% else %>
-          <i class="far fa-square"></i>
-          Em andamento
-        <% end %>
+        <tbody>
+          <tr>
+            <th scope="row"><%= orderservice.service.title %></th>
+            <% if orderservice.status %>
+              <td><i class="fas fa-check"></i></td>
+              <td><%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
+                <%= orderservice.updated_at.strftime("%k:%M") %>h</td>
+            <% else %>
+              <td><i class="far fa-square"></i></td>
+              <td></td>
+            <% end %>
+          </tr>
+        </tbody>
       <% end %>
-    <% end %>
-  </div>
+    </table>
+  <% end %>
 
-  <div class="show-order-equipments">
-    <% if @order.utensils.count > 0 %>
-    <div class="service-header">
-      Equipamentos para execução do serviço:
-    </div>
+  <% if @order.utensils.count > 0 %>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Equipamentos</th>
+        </tr>
+      </thead>
       <% @order.utensils.each do |utensil| %>
-        <li><%= utensil.name %></li>
+        <tbody>
+          <tr>
+            <td><%= utensil.name %></td>
+          </tr>
+        </tbody>
       <% end %>
-    <% end %>
-  </div>
+    </table>
+  <% end %>
 
   <div class="links mt-3">
     <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
