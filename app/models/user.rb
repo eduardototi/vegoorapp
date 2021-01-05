@@ -6,4 +6,6 @@ class User < ApplicationRecord
   has_many :staffs
   has_many :sf6_orders
   has_many :orders
+  belongs_to :client
+
 end

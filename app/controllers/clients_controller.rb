@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :destroy, :update]
+
   def index
     @clients = Client.all
   end
@@ -45,4 +46,5 @@ class ClientsController < ApplicationController
                                    :phone, :pais, :city, :number, :neighborhood, :state,
                                    :city, :user_id, :cep)
   end
+
 end

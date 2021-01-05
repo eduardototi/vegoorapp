@@ -6,6 +6,12 @@
 
     <% resource.class.invite_key_fields.each do |field| -%>
       <div class="form-inputs">
+        <%= f.input :first_name, label: 'Nome:' %>
+        <%= f.input :last_name, label: 'Sobrenome' %>
+        <%= f.hidden_field :role, value: 'Client' %>
+        <%= f.input :client_id, collection: Client.all.map {|client| [client.razao_social, client.id] } %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
         <%= f.input field %>
       </div>
     <% end -%>
