@@ -1,18 +1,20 @@
 <div class="container">
-  Cadastro de Usuário
-  <%= simple_form_for(@user) do |f| %>
-    <div class="form-inputs">
-      <%= f.input :first_name, label: 'Nome:' %>
-      <%= f.input :last_name, label: 'Sobrenome' %>
-      <%= f.input :admin, as: :radio_buttons, label: 'Administrador' %>
-      <%= f.input :role, collection: ['Cliente', 'Funcionário'] %>
-      <%= f.input :client_id, collection: Client.all.map {|client| [client.razao_social, client.id] } %>
-      <%= f.input :email, label: 'Email' %>
-      <%= f.input :password %>
-      <%= f.input :password_confirmation %>
-    </div>
-    <div class="form-actions">
-      <%= f.button :submit, t("devise.invitations.new.submit_button"), class: 'btn btn-primary' %>
-    </div>
-  <% end %>
+  <div class="container-form">
+    <h3>Editar usuário</h3>
+    <%= simple_form_for(@user) do |f| %>
+      <div class="form-inputs">
+        <%= f.input :first_name, label: 'Nome:' %>
+        <%= f.input :last_name, label: 'Sobrenome' %>
+        <%= f.input :admin, as: :radio_buttons, label: 'Administrador' %>
+        <%= f.input :role, collection: ['Cliente', 'Funcionário'] %>
+        <%= f.input :client_id, collection: Client.all.map {|client| [client.razao_social, client.id] } %>
+        <%= f.input :email, label: 'Email' %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
+      </div>
+      <div class="form-actions">
+        <%= f.button :submit, t("devise.invitations.new.submit_button"), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
 </div>
