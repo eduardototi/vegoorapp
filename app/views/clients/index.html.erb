@@ -17,7 +17,7 @@
           <th scope="row"><%= client.id %></th>
           <td><%= client.razao_social %></td>
           <td><%= client.cnpj %></td>
-          <td><%= client.street %> <%= client.number %></td>
+          <td><%= client.street %>, N: <%= client.number %></td>
           <td><%= client.phone %></td>
           <td><%= link_to 'Visualizar', client_path(client) %></td>
           <td><%= link_to 'Editar', edit_client_path(client) %></td>
