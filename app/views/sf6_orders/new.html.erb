@@ -19,20 +19,19 @@
           <%= render 'sf6_orderservice_fields', :f => service %>
         <% end %>
         <div class='links-div'>
-          <%= link_to_add_association 'Adicionar Serviço', f, :sf6_orderservices, class: 'btn btn-primary my-3' %>
+          <%= link_to_add_association 'Adicionar Serviço', f, :sf6_orderservices, class: 'btn btn-primary my-3 d-block' %>
         </div>
 
         <%= f.simple_fields_for :sf6_orderutensils do |utensil| %>
           <%= render 'sf6_orderutensil_fields', :f => utensil %>
         <% end %>
         <div class='links-div'>
-          <%= link_to_add_association 'Adicionar Equipamento', f, :sf6_orderutensils, class: 'btn btn-primary my-3' %>
+          <%= link_to_add_association 'Adicionar Equipamento', f, :sf6_orderutensils, class: 'btn btn-primary my-3 d-block' %>
         </div>
       </div>
 
       <div class="form-actions text-center">
-        <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
-        <%= f.button :submit, "Criar Ordem de Serviço", class: 'btn btn-primary' %>
+        <%= f.button :submit, "Salvar", class: 'btn btn-primary' %>
       </div>
     <% end %>
   </div>

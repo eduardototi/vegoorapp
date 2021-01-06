@@ -1,8 +1,8 @@
-<div class='nested-fields'>
-    <%= f.select :service_id, Service.all.map { |service| ["#{service.title} | #{service.description}", service.id] }, include_blank: true, required: true %>
-    <div class="field">
-      <%= f.label "Situação" %>
-      <%= f.check_box :status %>
-    </div>
-    <%= link_to_remove_association "Remover", f, class: 'btn btn-primary' %>
+<div class='nested-fields mt-1'>
+  <h6>Escolha o serviço:</h6>
+  <%= f.select :service_id, Service.all.map { |service| ["#{service.title} | #{service.description}", service.id] }, include_blank: true, required: true, class: 'seletor' %>
+
+  <%= f.label "Finalizado" %>
+  <%= f.check_box :status %>
+  <%= link_to_remove_association "Remover", f, class: 'btn btn-danger d-block mb-2' %>
 </div>

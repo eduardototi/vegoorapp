@@ -1,7 +1,7 @@
 <div class="container order">
   <div class="logo">
     <%= image_tag 'logo.jpeg', width: '100px' %>
-    Ordem de Serviço: <%= @order.id %>
+    Ordem de Serviço n: <%= @order.id %>
     Data Ordem: <%= @order.created_at.strftime("%d/%m/%Y") %>
     Situação: <%= @order.status ? 'Encerrada' : 'Aberta' %>
   </div>
@@ -65,7 +65,7 @@
         <tr>
           <th scope="col">Descrição dos Serviços</th>
           <th scope="col">Status</th>
-          <th scope="col">Encerrado</th>
+          <th scope="col">Finalizado</th>
         </tr>
       </thead>
       <% @orderservices.each do |orderservice| %>
@@ -73,11 +73,11 @@
           <tr>
             <th scope="row"><%= orderservice.service.title %></th>
             <% if orderservice.status %>
-              <td><i class="fas fa-check"></i></td>
+              <td><i class="fas fa-check"></i> Finalizada</td>
               <td><%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
                 <%= orderservice.updated_at.strftime("%k:%M") %>h</td>
             <% else %>
-              <td><i class="far fa-square"></i></td>
+              <td><i class="far fa-square"></i> Aberta</td>
               <td></td>
             <% end %>
           </tr>
