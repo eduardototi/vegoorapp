@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <div class="clients-list">
+    <table class="table table-bordered table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Email</th>
+          <th scope="col">Role</th>
+          <th scope="col">Administrador</th>
+          <th scope="col">Visualizar</th>
+          <th scope="col">Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <th scope="row"><%= user.id %></th>
+            <td><%= user.first_name %> <%= user.last_name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+            <td><%= user.admin ? "Admin" : "Usuário" %></td>
+            <td><%= link_to 'Visualizar', user_path(user) %></td>
+            <td><%= link_to 'Editar', edit_user_path(user) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
