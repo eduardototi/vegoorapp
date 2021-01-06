@@ -1,6 +1,6 @@
 <div class="container order">
   <div class="logo">
-    <%= image_tag 'logo.jpeg', width: '100px' %>
+    <%= image_tag 'logo.jpg', width: '100px' %>
     Ordem de Serviço n: <%= @order.id %>
     Data Ordem: <%= @order.created_at.strftime("%d/%m/%Y") %>
     Situação: <%= @order.status ? 'Encerrada' : 'Aberta' %>
