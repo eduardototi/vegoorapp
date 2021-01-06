@@ -8,7 +8,7 @@
       Data: <%= Date.today.strftime("%d/%m/%Y") %>
     </div>
   <%= simple_form_for(@order) do |f| %>
-    <div class="product-new text-center">Nova Ordem de Serviço:</div>
+    <div class="text-center">Nova Ordem de Serviço:</div>
     <div class="form-inputs">
       <%= f.input :description, label: "Descrição" %>
       <%= f.input :staff_id, collection: Staff.all.map { |staff| ["#{staff.first_name} #{staff.last_name}", staff.id ] }, label: "Responsável Técnico:" %>
@@ -19,20 +19,19 @@
         <%= render 'orderservice_fields', :f => service %>
       <% end %>
       <div class='links-div'>
-        <%= link_to_add_association 'Adicionar Serviço', f, :orderservices, class: 'btn btn-primary my-3' %>
+        <%= link_to_add_association 'Adicionar Serviço', f, :orderservices, class: 'btn btn-primary d-block mb-3' %>
       </div>
 
       <%= f.simple_fields_for :orderutensils do |utensil| %>
         <%= render 'orderutensil_fields', :f => utensil %>
       <% end %>
       <div class='links-div'>
-        <%= link_to_add_association 'Adicionar Equipamento', f, :orderutensils, class: 'btn btn-primary my-3' %>
+        <%= link_to_add_association 'Adicionar Equipamento', f, :orderutensils, class: 'btn btn-primary d-block mt-3' %>
       </div>
     </div>
 
     <div class="form-actions text-center">
-      <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
-      <%= f.button :submit, "Criar Ordem de Serviço", class: 'btn btn-primary' %>
+      <%= f.button :submit, "Salvar", class: 'btn btn-primary mt-3' %>
     </div>
   <% end %>
   </div>
