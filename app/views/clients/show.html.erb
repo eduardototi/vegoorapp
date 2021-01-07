@@ -1,9 +1,79 @@
-<div class="container">
-  <%= @client.razao_social %>
-  <%= @client.cnpj %>
-  <div class="clients-users">
-    <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
-    <%= link_to 'Editar', edit_client_path, class: 'btn btn-primary' %>
-    <%= link_to "Excluir", @client, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-info' %>
+<div class="container mt-4">
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Razao Social</th>
+        <th scope="col">CNPJ</th>
+        <th scope="col">IE</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <th scope="row"><%= @client.id %></th>
+          <td><%= @client.razao_social %></td>
+          <td><%= @client.cnpj %></td>
+          <td><%= @client.ie %></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Endereço</th>
+        <th scope="col">CEP</th>
+        <th scope="col">Cidade/UF</th>
+        <th scope="col">Pais</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><%= @client.street %> N: <%= @client.number %> <%= @client.neighborhood %></td>
+          <td><%= @client.cep %></td>
+          <td><%= @client.city %>/<%= @client.state %></td>
+          <td><%= @client.pais %></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Email</th>
+        <th scope="col">Telefone</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><%= @client.email %></td>
+          <td><%= @client.phone %></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Contato</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @client.users.each do |user| %>
+        <tr>
+          <td><%= user.first_name %> <%= user.last_name %></td>
+          <td>Ainda não esta cadastrado</td>
+          <td><%= user.email %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="links text-center">
+    <%= link_to 'Editar', edit_client_path(@client), class: 'btn btn-primary mb-3' %>
+    <%= link_to "Excluir", @client, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-danger mb-3' %>
   </div>
 </div>
+
+
