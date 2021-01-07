@@ -1,11 +1,10 @@
 <div class="container order">
   <div class="logo">
-    <%= image_tag 'sf6.jpeg', width: '100px' %>
+    <%= image_tag 'sf6.jpg', width: '100px' %>
     Ordem de Serviço N: <%= @sf6_order.id %>
     Data Ordem: <%= @sf6_order.created_at.strftime("%d/%m/%Y") %>
     Situação: <%= @sf6_order.status ? 'Encerrada' : 'Aberta' %>
   </div>
-
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -106,7 +105,7 @@
     </table>
   <% end %>
 
-  <div class="links mt-3">
+  <div class="links mt-3 text-center">
     <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
     <%  if @sf6_order.status == true || current_user.admin %>
       <%= link_to 'Editar', edit_sf6_order_path(@sf6_order), class: 'btn btn-primary' %>

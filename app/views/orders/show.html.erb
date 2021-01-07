@@ -106,7 +106,7 @@
     </table>
   <% end %>
 
-  <div class="links mt-3">
+  <div class="links mt-3 text-center">
     <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
     <%  if @order.status == true || current_user.admin %>
       <%= link_to 'Editar', edit_order_path(@order), class: 'btn btn-primary' %>
