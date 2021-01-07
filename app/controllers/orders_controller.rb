@@ -24,7 +24,6 @@ class OrdersController < ApplicationController
       redirect_to order_path(@order)
     else
       render :new
-      raise
     end
   end
 
