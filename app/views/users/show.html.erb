@@ -6,6 +6,7 @@
           <th scope="col">Id</th>
           <th scope="col">Nome</th>
           <th scope="col">Email</th>
+          <th scope="col">Telefone</th>
           <th scope="col">Role</th>
           <th scope="col">Administrador</th>
           <th scope="col">Editar</th>
@@ -17,10 +18,28 @@
           <th scope="row"><%= @user.id %></th>
           <td><%= @user.first_name %> <%= @user.last_name %></td>
           <td><%= @user.email %></td>
+          <td><%= @user.phone %></td>
           <td><%= @user.role %></td>
           <td><%= @user.admin ? "Admin" : "Usuário" %></td>
           <td><%= link_to 'Editar', edit_user_path(@user) %></td>
           <td><%= link_to "Excluir", @user, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este usuário?' }, class: 'btn btn-danger' %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="table table-bordered table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Empresa</th>
+          <th scope="col">Telefone</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @user.client.razao_social %></td>
+          <td><%= @user.client.phone %></td>
+          <td><%= @user.client.email %></td>
         </tr>
       </tbody>
     </table>

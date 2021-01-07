@@ -24,7 +24,7 @@
         <% end %>
 
         <div class='links-div'>
-          <%= link_to_add_association 'Adicionar Serviço', f, :orderservices, class: 'btn btn-primary my-3' %>
+          <%= link_to_add_association 'Adicionar Serviço', f, :orderservices, class: 'btn btn-primary my-3 d-block' %>
         </div>
 
         <%= f.simple_fields_for :orderutensils do |utensil| %>
@@ -32,7 +32,7 @@
         <% end %>
 
         <div class='links-div'>
-          <%= link_to_add_association 'Adicionar Equipamento', f, :orderutensils, class: 'btn btn-primary my-3' %>
+          <%= link_to_add_association 'Adicionar Equipamento', f, :orderutensils, class: 'btn btn-primary my-3 d-block' %>
         </div>
 
       </div>
