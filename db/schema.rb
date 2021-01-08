@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_202115) do
+ActiveRecord::Schema.define(version: 2021_01_08_205330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,7 +77,9 @@ ActiveRecord::Schema.define(version: 2021_01_08_202115) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "staff_id", null: false
     t.text "comments"
+    t.bigint "contact_id", null: false
     t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["contact_id"], name: "index_orders_on_contact_id"
     t.index ["staff_id"], name: "index_orders_on_staff_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -183,6 +185,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_202115) do
     t.integer "invitations_count", default: 0
     t.bigint "client_id", null: false
     t.string "phone"
+    t.string "registration", default: "000000"
     t.index ["client_id"], name: "index_users_on_client_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -205,6 +208,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_202115) do
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "staffs"
   add_foreign_key "orders", "users"
+  add_foreign_key "orders", "users", column: "contact_id"
   add_foreign_key "orderservices", "machines"
   add_foreign_key "orderservices", "orders"
   add_foreign_key "orderservices", "services"
