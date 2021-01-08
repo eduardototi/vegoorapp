@@ -1,0 +1,6 @@
+<div class='nested-fields mt-1'>
+  <h6>Selecione os Epi's:</h6>
+  <%= f.select :epi_id, Epi.all.map { |epi| [epi.name, epi.id] }, include_blank: true, required: true %>
+  <%= f.input :amount, label: 'Quantidade' %>
+  <%= link_to_remove_association "Remover", f, class: 'btn btn-danger d-block mb-2' %>
+</div>

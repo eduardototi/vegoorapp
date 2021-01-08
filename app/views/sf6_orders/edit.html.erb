@@ -37,6 +37,14 @@
           <%= link_to_add_association 'Adicionar Equipamento', f, :sf6_orderutensils, class: 'btn btn-primary my-3 d-block' %>
         </div>
 
+        <%= f.simple_fields_for :epi_sf6orders do |epi| %>
+          <%= render 'epi_sf6order_fields', :f => epi %>
+        <% end %>
+
+        <div class='links-div'>
+          <%= link_to_add_association 'Selecionar Epis', f, :epi_sf6orders, class: 'btn btn-primary my-3 d-block' %>
+        </div>
+
       </div>
 
       <div class="form-actions text-center">
