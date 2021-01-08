@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_161653) do
+ActiveRecord::Schema.define(version: 2021_01_08_171504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,32 @@ ActiveRecord::Schema.define(version: 2021_01_08_161653) do
     t.string "pais"
     t.string "neighborhood"
     t.string "cep"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "epi_orders", force: :cascade do |t|
+    t.bigint "epi_id", null: false
+    t.bigint "order_id", null: false
+    t.integer "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["epi_id"], name: "index_epi_orders_on_epi_id"
+    t.index ["order_id"], name: "index_epi_orders_on_order_id"
+  end
+
+  create_table "epi_sf6orders", force: :cascade do |t|
+    t.bigint "epi_id", null: false
+    t.bigint "sf6_order_id", null: false
+    t.integer "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["epi_id"], name: "index_epi_sf6orders_on_epi_id"
+    t.index ["sf6_order_id"], name: "index_epi_sf6orders_on_sf6_order_id"
+  end
+
+  create_table "epis", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -171,6 +197,10 @@ ActiveRecord::Schema.define(version: 2021_01_08_161653) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "epi_orders", "epis"
+  add_foreign_key "epi_orders", "orders"
+  add_foreign_key "epi_sf6orders", "epis"
+  add_foreign_key "epi_sf6orders", "sf6_orders"
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "staffs"
   add_foreign_key "orders", "users"

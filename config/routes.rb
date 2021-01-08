@@ -19,4 +19,6 @@ Rails.application.routes.draw do
 
   resources :machines
 
+  resources :epis
+
 end

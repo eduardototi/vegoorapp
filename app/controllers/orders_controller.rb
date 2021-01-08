@@ -8,12 +8,14 @@ class OrdersController < ApplicationController
 
   def show
     @orderservices = Orderservice.where(order_id: params[:id])
+    @epi_orders = EpiOrder.where(order_id: params[:id])
   end
 
   def new
     @order = Order.new
     @orderservice = Orderservice.new
     @orderutensil = Orderutensil.new
+    @epi_order = EpiOrder.new
   end
 
   def create
@@ -23,6 +25,7 @@ class OrdersController < ApplicationController
     if @order.save
       redirect_to order_path(@order)
     else
+      raise
       render :new
     end
   end
@@ -34,6 +37,7 @@ class OrdersController < ApplicationController
 
   def edit
     @orderservices = Orderservice.where(order_id: params[:id])
+    @epi_order = EpiOrder.where(order_id: params[:id])
   end
 
   def update
@@ -51,7 +55,10 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:location, :comments, :description, :user_id, :status, :client_id, :staff_id, orderservices_attributes: [ :id, :service_id, :order_id, :status, :machine_id, :machineserie, :_destroy ], orderutensils_attributes: [ :id, :utensil_id, :order_id, :status, :_destroy ])
+    params.require(:order).permit(:location, :comments, :description, :user_id, :status, :client_id, :staff_id,
+                                  orderservices_attributes: [:id, :service_id, :order_id, :status, :machine_id, :machineserie, :_destroy],
+                                  orderutensils_attributes: [:id, :utensil_id, :order_id, :status, :_destroy],
+                                  epi_orders_attributes: [ :id, :order_id, :epi_id, :amount, :_destroy])
   end
 
 end

@@ -37,6 +37,14 @@
           <%= link_to_add_association 'Adicionar Equipamento', f, :orderutensils, class: 'btn btn-primary my-3 d-block' %>
         </div>
 
+
+        <%= f.simple_fields_for :epi_orders do |epi| %>
+          <%= render 'epi_order_fields', :f => epi %>
+        <% end %>
+        <div class='links-div'>
+          <%= link_to_add_association 'Selecionar Epis', f, :epi_orders, class: 'btn btn-primary my-3 d-block' %>
+        </div>
+
       </div>
 
       <div class="form-actions text-center">

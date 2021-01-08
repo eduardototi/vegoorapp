@@ -1,0 +1,23 @@
+<div class="container mt-4">
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">EPI</th>
+        <th scope="col">Visualizar</th>
+        <th scope="col">Editar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @epis.each do |epi| %>
+        <tr>
+          <th scope="row"><%= epi.id %></th>
+          <td><%= epi.name %></td>
+          <td><%= link_to 'Visualizar', epi_path(epi) %></td>
+          <td><%= link_to 'Editar', edit_epi_path(epi) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%#= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
+</div>
