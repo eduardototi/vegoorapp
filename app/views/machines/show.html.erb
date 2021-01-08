@@ -5,6 +5,7 @@
         <th scope="col">Id</th>
         <th scope="col">Maquina</th>
         <th scope="col">Desdcrição</th>
+        <th scope="col">Status</th>
         <th scope="col">Editar</th>
       </tr>
     </thead>
@@ -13,6 +14,7 @@
           <th scope="row"><%= @machine.id %></th>
           <td><%= @machine.name %></td>
           <td><%= @machine.description %></td>
+          <td><%= @machine.status ? 'Ativo' : 'Inativo' %></td>
           <td><%= link_to 'Editar', edit_machine_path(@machine) %></td>
           <td><%= link_to "Excluir", @machine, method: :delete, data: { confirm: 'Tem certeza que deseja deletar esta maquina?' }, class: 'btn btn-danger' %></td>
         </tr>

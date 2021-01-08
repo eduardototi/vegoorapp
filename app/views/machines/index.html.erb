@@ -5,6 +5,7 @@
         <th scope="col">Id</th>
         <th scope="col">Maquina</th>
         <th scope="col">Descrição</th>
+        <th scope="col">Status</th>
         <th scope="col">Visualizar</th>
         <th scope="col">Editar</th>
       </tr>
@@ -15,6 +16,7 @@
           <th scope="row"><%= machine.id %></th>
           <td><%= machine.name %></td>
           <td><%= machine.description %></td>
+          <td><%= machine.status ? 'Ativo' : 'Inativo' %></td>
           <td><%= link_to 'Visualizar', machine_path(machine) %></td>
           <td><%= link_to 'Editar', edit_machine_path(machine) %></td>
         </tr>
