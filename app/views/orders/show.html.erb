@@ -93,6 +93,11 @@
     </table>
   <% end %>
 
+  <div class="order-description mb-3">
+    Observações:
+    <%= @order.comments %>
+  </div>
+
   <% if @order.utensils.count > 0 %>
     <table class="table table-bordered">
       <thead>

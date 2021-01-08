@@ -22,6 +22,8 @@
         <%= link_to_add_association 'Adicionar Serviço', f, :orderservices, class: 'btn btn-primary d-block mb-3' %>
       </div>
 
+      <%= f.input :comments, label: "Observações" %>
+
       <%= f.simple_fields_for :orderutensils do |utensil| %>
         <%= render 'orderutensil_fields', :f => utensil %>
       <% end %>
