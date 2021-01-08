@@ -6,6 +6,7 @@
       <div class="form-inputs">
         <%= f.input :first_name, label: 'Nome:' %>
         <%= f.input :last_name, label: 'Sobrenome' %>
+        <%= f.input :registration, label: 'Mátricula' %>
         <%= f.input :admin, as: :radio_buttons, label: 'Administrador' %>
         <%= f.input :role, collection: ['Cliente', 'Técnico', 'Diretor', 'Gerente', 'Pesquisador'] %>
         <%= f.input :client_id, collection: Client.all.map {|client| [client.razao_social, client.id] }, label: 'Cliente' %>

@@ -25,7 +25,6 @@ class OrdersController < ApplicationController
     if @order.save
       redirect_to order_path(@order)
     else
-      raise
       render :new
     end
   end
@@ -55,7 +54,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:location, :comments, :description, :user_id, :status, :client_id, :staff_id,
+    params.require(:order).permit(:location, :comments, :contact_id, :description, :user_id, :status, :client_id, :staff_id,
                                   orderservices_attributes: [:id, :service_id, :order_id, :status, :machine_id, :machineserie, :_destroy],
                                   orderutensils_attributes: [:id, :utensil_id, :order_id, :status, :_destroy],
                                   epi_orders_attributes: [ :id, :order_id, :epi_id, :amount, :_destroy])

@@ -2,6 +2,7 @@ class Order < ApplicationRecord
   belongs_to :staff
   belongs_to :user
   belongs_to :client
+  belongs_to :contact, class_name: "User"
   has_many :orderservices, dependent: :destroy
   has_many :services, through: :orderservices
   accepts_nested_attributes_for :orderservices, reject_if: :all_blank, allow_destroy: true
