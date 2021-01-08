@@ -17,4 +17,6 @@ Rails.application.routes.draw do
 
   resources :sf6_orders
 
+  resources :machines
+
 end

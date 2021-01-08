@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Maquina</th>
+        <th scope="col">Desdcrição</th>
+        <th scope="col">Editar</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <th scope="row"><%= @machine.id %></th>
+          <td><%= @machine.name %></td>
+          <td><%= @machine.description %></td>
+          <td><%= link_to 'Editar', edit_machine_path(@machine) %></td>
+          <td><%= link_to "Excluir", @machine, method: :delete, data: { confirm: 'Tem certeza que deseja deletar esta maquina?' }, class: 'btn btn-danger' %></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
