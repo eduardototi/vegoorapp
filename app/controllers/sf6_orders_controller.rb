@@ -14,7 +14,7 @@ class Sf6OrdersController < ApplicationController
   def new
     @sf6_order = Sf6Order.new
     @sf6_orderservice = Sf6Orderservice.new
-    @sf6orderutensil = Orderutensil.new
+    @sf6orderutensil = Sf6Orderutensil.new
     @epi_sf6order = EpiSf6order.new
   end
 
@@ -23,7 +23,6 @@ class Sf6OrdersController < ApplicationController
     @sf6_order.user = current_user
     @sf6_order.status = false
     if @sf6_order.save
-      raise
       redirect_to sf6_order_path(@sf6_order)
     else
       render :new

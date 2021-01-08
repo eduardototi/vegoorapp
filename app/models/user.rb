@@ -8,4 +8,8 @@ class User < ApplicationRecord
   has_many :orders
   belongs_to :client
 
+  validates :role, inclusion: { in: ['Cliente', 'Técnico', 'Diretor', 'Gerente', 'Pesquisador'] }
+  validates :phone, format: { with: /\(\d{2}\)\d{4,5}-\d{4}/,
+                              message: "only accepts format (XX)XXXXX-XXXX"
+                            }
 end
