@@ -92,6 +92,11 @@
     </table>
   <% end %>
 
+  <div class="order-description mb-3">
+    Descrição:
+    <%= @sf6_order.comments %>
+  </div>
+
   <% if @sf6_order.utensils.count > 0 %>
     <table class="table table-bordered">
       <thead>
