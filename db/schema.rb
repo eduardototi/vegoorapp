@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_133936) do
+ActiveRecord::Schema.define(version: 2021_01_08_144050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,9 @@ ActiveRecord::Schema.define(version: 2021_01_08_133936) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "status", default: false
+    t.bigint "machine_id", null: false
+    t.string "machineserie"
+    t.index ["machine_id"], name: "index_orderservices_on_machine_id"
     t.index ["order_id"], name: "index_orderservices_on_order_id"
     t.index ["service_id"], name: "index_orderservices_on_service_id"
   end
@@ -99,6 +102,9 @@ ActiveRecord::Schema.define(version: 2021_01_08_133936) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "status", default: false
+    t.bigint "machine_id", null: false
+    t.string "machineserie"
+    t.index ["machine_id"], name: "index_sf6_orderservices_on_machine_id"
     t.index ["service_id"], name: "index_sf6_orderservices_on_service_id"
     t.index ["sf6_order_id"], name: "index_sf6_orderservices_on_sf6_order_id"
   end
@@ -165,6 +171,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_133936) do
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "staffs"
   add_foreign_key "orders", "users"
+  add_foreign_key "orderservices", "machines"
   add_foreign_key "orderservices", "orders"
   add_foreign_key "orderservices", "services"
   add_foreign_key "orderutensils", "orders"
@@ -172,6 +179,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_133936) do
   add_foreign_key "sf6_orders", "clients"
   add_foreign_key "sf6_orders", "staffs"
   add_foreign_key "sf6_orders", "users"
+  add_foreign_key "sf6_orderservices", "machines"
   add_foreign_key "sf6_orderservices", "services"
   add_foreign_key "sf6_orderservices", "sf6_orders"
   add_foreign_key "sf6_orderutensils", "sf6_orders"
