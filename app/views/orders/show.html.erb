@@ -67,6 +67,8 @@
       <thead>
         <tr>
           <th scope="col">Descrição dos Serviços</th>
+          <th scope="col">Equipamento</th>
+          <th scope="col">Série</th>
           <th scope="col">Status</th>
           <th scope="col">Finalizado</th>
         </tr>
@@ -75,6 +77,8 @@
         <tbody>
           <tr>
             <th scope="row"><%= orderservice.service.title %></th>
+            <td scope="row"><%= orderservice.machine.name %></td>
+            <td scope="row"><%= orderservice.machineserie %></td>
             <% if orderservice.status %>
               <td><i class="fas fa-check"></i> Finalizada</td>
               <td><%= orderservice.updated_at.strftime("%d/%m/%Y") %> -

@@ -51,7 +51,7 @@ class Sf6OrdersController < ApplicationController
   end
 
   def sf6_order_params
-    params.require(:sf6_order).permit(:service_location, :description, :user_id, :status, :client_id, :staff_id, sf6_orderservices_attributes: [ :id, :service_id, :order_id, :status, :_destroy ], sf6_orderutensils_attributes: [ :id, :utensil_id, :order_id, :status, :_destroy ])
+    params.require(:sf6_order).permit(:service_location, :description, :user_id, :status, :client_id, :staff_id, sf6_orderservices_attributes: [ :id, :service_id, :order_id, :status, :machine_id, :machineserie, :_destroy ], sf6_orderutensils_attributes: [ :id, :utensil_id, :order_id, :status, :_destroy ])
   end
 
 end
