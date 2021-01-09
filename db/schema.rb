@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_220404) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "status", default: false
+    t.boolean "status", default: true
   end
 
   create_table "orders", force: :cascade do |t|
@@ -150,17 +150,6 @@ ActiveRecord::Schema.define(version: 2021_01_09_220404) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["sf6_order_id"], name: "index_sf6_orderutensils_on_sf6_order_id"
     t.index ["utensil_id"], name: "index_sf6_orderutensils_on_utensil_id"
-  end
-
-  create_table "staffs", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "phone"
-    t.string "email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "registration"
-    t.boolean "status"
   end
 
   create_table "users", force: :cascade do |t|

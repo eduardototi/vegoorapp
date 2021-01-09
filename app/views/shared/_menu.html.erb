@@ -2,9 +2,10 @@
   <%= link_to root_path, class: "navbar-brand" do %>
     <%= image_tag "logo.jpg", width: '50px' %>
   <% end %>
-  <%= current_user.first_name %>
+
   <!-- Links -->
   <% if user_signed_in? %>
+    <%= current_user.first_name %>
     <ul class="navbar-nav w-100 justify-content-around">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
