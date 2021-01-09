@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_09_141649) do
+ActiveRecord::Schema.define(version: 2021_01_09_143547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,7 +120,9 @@ ActiveRecord::Schema.define(version: 2021_01_09_141649) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "comments"
+    t.bigint "contact_id", null: false
     t.index ["client_id"], name: "index_sf6_orders_on_client_id"
+    t.index ["contact_id"], name: "index_sf6_orders_on_contact_id"
     t.index ["user_id"], name: "index_sf6_orders_on_user_id"
   end
 
@@ -209,6 +211,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_141649) do
   add_foreign_key "orderutensils", "utensils"
   add_foreign_key "sf6_orders", "clients"
   add_foreign_key "sf6_orders", "users"
+  add_foreign_key "sf6_orders", "users", column: "contact_id"
   add_foreign_key "sf6_orderservices", "machines"
   add_foreign_key "sf6_orderservices", "services"
   add_foreign_key "sf6_orderservices", "sf6_orders"

@@ -15,6 +15,7 @@
         <%= f.check_box :status, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' } %>
         <%= f.input :description, label: "Descrição" %>
         <%= f.input :user_id, collection: User.where(role: "Técnico").map { |user| ["#{user.first_name} #{user.last_name}", user.id ] }, label: "Responsável Técnico:" %>        <%= f.input :client_id, collection: Client.all.map { |client| [client.razao_social, client.id ] }, label: "Cliente:" %>
+        <%= f.input :contact_id, collection: User.where(role: 'Cliente').map { |user| ["#{user.first_name} #{user.last_name}", user.id ]}, label: "Contato Cliente:" %>
         <%= f.input :service_location, label: "Local de execução" %>
 
 
