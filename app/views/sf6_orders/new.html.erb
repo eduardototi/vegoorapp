@@ -11,7 +11,7 @@
       <div class="product-new text-center">Nova Ordem de Serviço:</div>
       <div class="form-inputs">
         <%= f.input :description, label: "Descrição:" %>
-        <%= f.input :staff_id, collection: Staff.all.map { |staff| ["#{staff.first_name} #{staff.last_name}", staff.id ] }, label: "Responsável Técnico:" %>
+        <%= f.input :user_id, collection: User.where(role: "Técnico").map { |user| ["#{user.first_name} #{user.last_name}", user.id ] }, label: "Responsável Técnico:" %>
         <%= f.input :client_id, collection: Client.all.map { |client| [client.razao_social, client.id ] }, label: "Cliente:" %>
         <%= f.input :service_location, label: "Local de execução:" %>
 

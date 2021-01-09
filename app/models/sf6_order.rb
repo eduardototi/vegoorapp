@@ -1,6 +1,5 @@
 class Sf6Order < ApplicationRecord
   belongs_to :client
-  belongs_to :staff
   belongs_to :user
   has_many :sf6_orderservices, dependent: :destroy
   has_many :services, through: :sf6_orderservices

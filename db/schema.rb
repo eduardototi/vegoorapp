@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_205330) do
+ActiveRecord::Schema.define(version: 2021_01_09_141649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,12 +75,10 @@ ActiveRecord::Schema.define(version: 2021_01_08_205330) do
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "staff_id", null: false
     t.text "comments"
     t.bigint "contact_id", null: false
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["contact_id"], name: "index_orders_on_contact_id"
-    t.index ["staff_id"], name: "index_orders_on_staff_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -118,13 +116,11 @@ ActiveRecord::Schema.define(version: 2021_01_08_205330) do
     t.boolean "status"
     t.string "description"
     t.bigint "client_id", null: false
-    t.bigint "staff_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "comments"
     t.index ["client_id"], name: "index_sf6_orders_on_client_id"
-    t.index ["staff_id"], name: "index_sf6_orders_on_staff_id"
     t.index ["user_id"], name: "index_sf6_orders_on_user_id"
   end
 
@@ -155,12 +151,10 @@ ActiveRecord::Schema.define(version: 2021_01_08_205330) do
     t.string "last_name"
     t.string "phone"
     t.string "email"
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "registration"
     t.boolean "status"
-    t.index ["user_id"], name: "index_staffs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -206,7 +200,6 @@ ActiveRecord::Schema.define(version: 2021_01_08_205330) do
   add_foreign_key "epi_sf6orders", "epis"
   add_foreign_key "epi_sf6orders", "sf6_orders"
   add_foreign_key "orders", "clients"
-  add_foreign_key "orders", "staffs"
   add_foreign_key "orders", "users"
   add_foreign_key "orders", "users", column: "contact_id"
   add_foreign_key "orderservices", "machines"
@@ -215,13 +208,11 @@ ActiveRecord::Schema.define(version: 2021_01_08_205330) do
   add_foreign_key "orderutensils", "orders"
   add_foreign_key "orderutensils", "utensils"
   add_foreign_key "sf6_orders", "clients"
-  add_foreign_key "sf6_orders", "staffs"
   add_foreign_key "sf6_orders", "users"
   add_foreign_key "sf6_orderservices", "machines"
   add_foreign_key "sf6_orderservices", "services"
   add_foreign_key "sf6_orderservices", "sf6_orders"
   add_foreign_key "sf6_orderutensils", "sf6_orders"
   add_foreign_key "sf6_orderutensils", "utensils"
-  add_foreign_key "staffs", "users"
   add_foreign_key "users", "clients"
 end
