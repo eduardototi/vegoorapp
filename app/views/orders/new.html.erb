@@ -12,18 +12,23 @@
         Nova Ordem de Serviço:
       </div>
       <div class="form-inputs">
+        <%= f.label "Serviço de campo:" %>
+        <%= f.check_box :field %>
+        <%= f.label "Serviço de Laboratório:" %>
+        <%= f.check_box :laboratory %>
         <%= f.input :description, label: "Descrição" %>
         <%= f.input :user_id, collection: User.where(role: 'Técnico').map {|user| [ "#{user.first_name} #{user.last_name}", user.id]}, label: "Responsável Técnico:" %>
         <%= f.input :client_id, collection: Client.all.map { |client| [client.razao_social, client.id ] }, label: "Cliente:" %>
         <%= f.input :location, label: "Local de execução" %>
         <%= f.input :contact_id, collection: User.where(role: 'Cliente').map { |user| ["#{user.first_name} #{user.last_name}", user.id ]}, label: "Contato Cliente" %>
 
-        <%= f.simple_fields_for :orderservices do |service| %>
-          <%= render 'orderservice_fields', :f => service %>
-        <% end %>
         <div class='links-div'>
           <%= link_to_add_association 'Adicionar Serviço', f, :orderservices, class: 'btn btn-primary d-block mb-3' %>
         </div>
+
+        <%= f.simple_fields_for :orderservices do |service| %>
+          <%= render 'orderservice_fields', :f => service %>
+        <% end %>
 
         <%= f.input :comments, label: "Observações" %>
 
@@ -33,6 +38,7 @@
         <div class='links-div'>
           <%= link_to_add_association 'Adicionar Equipamento', f, :orderutensils, class: 'btn btn-primary d-block mt-3' %>
         </div>
+
 
         <%= f.simple_fields_for :epi_orders do |epi| %>
           <%= render 'epi_order_fields', :f => epi %>
