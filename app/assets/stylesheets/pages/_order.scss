@@ -9,43 +9,27 @@
 .logo {
   padding: 10px;
   width: 100%;
-  align-items: space-around;
-  font-size: 25px;
+  font-size: 20px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.show-order-information {
-  border-top: 1px solid black;
+.order-information {
+  padding: 10px;
   font-size: 15px;
-  padding: 10px;
 }
 
-.informations {
-  padding: 10px;
-}
-
-.staff-informations {
-  font-size: 15px;
-  padding: 10px;
-}
-
-
-.show-order-services {
-  font-size: 15px;
-  padding: 10px;
-}
-
-.show-order-equipments {
-  font-size: 15px;
-  padding: 10px;
-}
-
-.order-location {
-  font-size: 15px;
-  padding: 10px;
-}
 
 .order-description {
   widows: 100%;
   border: 1px solid rgba(0, 0, 0, .5);
+  padding: 10px;
+}
+
+.service-tipe {
+  font-size: 15px;
+  flex-direction: column;
   padding: 10px;
 }
