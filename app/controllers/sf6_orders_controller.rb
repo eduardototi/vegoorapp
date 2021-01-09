@@ -20,7 +20,6 @@ class Sf6OrdersController < ApplicationController
 
   def create
     @sf6_order = Sf6Order.new(sf6_order_params)
-    @sf6_order.user = current_user
     @sf6_order.status = false
     if @sf6_order.save
       redirect_to sf6_order_path(@sf6_order)
@@ -54,7 +53,7 @@ class Sf6OrdersController < ApplicationController
   end
 
   def sf6_order_params
-    params.require(:sf6_order).permit(:service_location, :comments, :description, :user_id, :status, :client_id, :staff_id, sf6_orderservices_attributes: [ :id, :service_id, :order_id, :status, :machine_id, :machineserie, :_destroy ], sf6_orderutensils_attributes: [ :id, :utensil_id, :order_id, :status, :_destroy ], epi_sf6orders_attributes: [ :id, :order_id, :epi_id, :amount, :_destroy ])
+    params.require(:sf6_order).permit(:service_location, :comments, :description, :user_id, :status, :client_id, sf6_orderservices_attributes: [ :id, :service_id, :order_id, :status, :machine_id, :machineserie, :_destroy ], sf6_orderutensils_attributes: [ :id, :utensil_id, :order_id, :status, :_destroy ], epi_sf6orders_attributes: [ :id, :order_id, :epi_id, :amount, :_destroy ])
   end
 
 end

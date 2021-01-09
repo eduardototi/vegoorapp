@@ -1,5 +1,4 @@
 class Order < ApplicationRecord
-  belongs_to :staff
   belongs_to :user
   belongs_to :client
   belongs_to :contact, class_name: "User"
