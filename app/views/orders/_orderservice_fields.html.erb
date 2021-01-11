@@ -1,4 +1,4 @@
-<div class='nested-fields mt-1'>
+<div class='nested-fields'>
   <h6>Escolha o serviço</h6>
   <%= f.select :service_id, Service.all.map { |service| ["#{service.title} | #{service.description}", service.id] }, include_blank: true, required: true, class: 'w-100' %>
   <%= f.label "Finalizado" %>

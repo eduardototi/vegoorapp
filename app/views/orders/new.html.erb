@@ -7,9 +7,9 @@
     <div class="order-date">
       Data: <%= Date.today.strftime("%d/%m/%Y") %>
     </div>
-    <%= simple_form_for(@order) do |f| %>
+    <%= simple_form_for(@order, remote: true) do |f| %>
       <div class="text-center">
-        Nova Ordem de Serviço:
+        <h6>Nova Ordem de Serviço:</h6>
       </div>
       <div class="form-inputs">
         <%= f.label "Serviço de campo:" %>
@@ -22,29 +22,89 @@
         <%= f.input :location, label: "Local de execução" %>
         <%= f.input :contact_id, collection: User.where(role: 'Cliente').map { |user| ["#{user.first_name} #{user.last_name}", user.id ]}, label: "Contato Cliente" %>
 
-        <div class='links-div'>
-          <%= link_to_add_association 'Adicionar Serviço', f, :orderservices, class: 'btn btn-primary d-block mb-3' %>
-        </div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#exampleModal" >
+          Adicionar Serviços
+        </button>
 
-        <%= f.simple_fields_for :orderservices do |service| %>
-          <%= render 'orderservice_fields', :f => service %>
-        <% end %>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Adicionar Serviços</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= f.simple_fields_for :orderservices do |service| %>
+                  <%= render 'orderservice_fields', :f => service %>
+                <% end %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salvar</button>
+                <%= link_to_add_association 'Adicionar Serviço', f, :orderservices, class: 'btn btn-primary d-block'%>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <%= f.input :comments, label: "Observações" %>
 
-        <%= f.simple_fields_for :orderutensils do |utensil| %>
-          <%= render 'orderutensil_fields', :f => utensil %>
-        <% end %>
-        <div class='links-div'>
-          <%= link_to_add_association 'Adicionar Equipamento', f, :orderutensils, class: 'btn btn-primary d-block mt-3' %>
+        <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#exampleModal2"  >
+          Adicionar Equipamentos
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Adicionar Equipamentos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= f.simple_fields_for :orderutensils do |utensil| %>
+                  <%= render 'orderutensil_fields', :f => utensil %>
+                <% end %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salvar</button>
+                <%= link_to_add_association 'Adicionar Equipamento', f, :orderutensils, class: 'btn btn-primary d-block' %>
+              </div>
+            </div>
+          </div>
         </div>
 
 
-        <%= f.simple_fields_for :epi_orders do |epi| %>
-          <%= render 'epi_order_fields', :f => epi %>
-        <% end %>
-        <div class='links-div'>
-          <%= link_to_add_association 'Selecionar Epis', f, :epi_orders, class: 'btn btn-primary my-3 d-block' %>
+        <button type="button" class="btn btn-primary w-100 mt-3" data-toggle="modal" data-target="#exampleModal3"  >
+          Selecionar EPI's
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Selecionar EPI's</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <%= f.simple_fields_for :epi_orders do |epi| %>
+                  <%= render 'epi_order_fields', :f => epi %>
+                <% end %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salvar</button>
+                <%= link_to_add_association 'Selecionar Epis', f, :epi_orders, class: 'btn btn-primary d-block' %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
