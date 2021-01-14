@@ -59,12 +59,28 @@ ActiveRecord::Schema.define(version: 2021_01_09_220404) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "equipment", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "machines", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "status", default: true
+  end
+
+  create_table "orderequipments", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "equipment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "status", default: false
+    t.index ["equipment_id"], name: "index_orderequipments_on_equipment_id"
+    t.index ["order_id"], name: "index_orderequipments_on_order_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -75,12 +91,14 @@ ActiveRecord::Schema.define(version: 2021_01_09_220404) do
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "staff_id", null: false
     t.text "comments"
     t.bigint "contact_id", null: false
     t.boolean "field", default: false
     t.boolean "laboratory", default: false
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["contact_id"], name: "index_orders_on_contact_id"
+    t.index ["staff_id"], name: "index_orders_on_staff_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -152,6 +170,17 @@ ActiveRecord::Schema.define(version: 2021_01_09_220404) do
     t.index ["utensil_id"], name: "index_sf6_orderutensils_on_utensil_id"
   end
 
+  create_table "staffs", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
+    t.string "email"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_staffs_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -172,7 +201,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_220404) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.bigint "client_id", null: false
+    t.bigint "client_id"
     t.string "phone"
     t.string "registration", default: "000000"
     t.index ["client_id"], name: "index_users_on_client_id"
@@ -194,7 +223,10 @@ ActiveRecord::Schema.define(version: 2021_01_09_220404) do
   add_foreign_key "epi_orders", "orders"
   add_foreign_key "epi_sf6orders", "epis"
   add_foreign_key "epi_sf6orders", "sf6_orders"
+  add_foreign_key "orderequipments", "equipment"
+  add_foreign_key "orderequipments", "orders"
   add_foreign_key "orders", "clients"
+  add_foreign_key "orders", "staffs"
   add_foreign_key "orders", "users"
   add_foreign_key "orders", "users", column: "contact_id"
   add_foreign_key "orderservices", "machines"
@@ -210,5 +242,6 @@ ActiveRecord::Schema.define(version: 2021_01_09_220404) do
   add_foreign_key "sf6_orderservices", "sf6_orders"
   add_foreign_key "sf6_orderutensils", "sf6_orders"
   add_foreign_key "sf6_orderutensils", "utensils"
+  add_foreign_key "staffs", "users"
   add_foreign_key "users", "clients"
 end
