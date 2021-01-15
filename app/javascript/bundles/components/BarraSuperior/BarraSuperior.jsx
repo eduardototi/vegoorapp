@@ -32,22 +32,21 @@ export default class BarraSuperior extends React.Component {
   render() {
     return (
       <div>
-        <nav className = "navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label = "Main navigation">
+        <nav className = "navbar navbar-expand-md fixed-top navbar-dark bg-dark" aria-label = "Main navigation">
           <div className = "container-fluid">
             <a className = "navbar-brand">
               <i className = "fa fa-home homeIcon"></i>
             </a>
 
-            <button className =  "navbar-toggler p-0 border-0" type = "button" data-bs-toggle = "offcanvas" aria-label = "Toggle navigation" onClick = {this.collapse}>
+            <button className = "navbar-toggler p-0 border-0" type = "button" data-bs-toggle = "offcanvas" aria-label = "Toggle navigation" onClick = {this.collapse}>
               <span className = "navbar-toggler-icon"></span>
             </button>
 
             <div className = "navbar-collapse offcanvas-collapse" id = "navbarsExampleDefault">
-              <ul className = "navbar-nav me-auto mb-2 mb-lg-0">
-
+              <ul className = "navbar-nav mr-auto ">
                 <ItemNavBar titulo = "Usuários"
-                              subitems = {["Novo", "Listar"]}
-                              links = {["", ""]}/>
+                            subitems = {["Novo", "Listar"]}
+                            links = {["", ""]}/>
 
                 <ItemNavBar titulo = "Clientes"
                             subitems = {["Novo", "Listar"]}
@@ -62,34 +61,15 @@ export default class BarraSuperior extends React.Component {
                             links = {["", ""]}/>
 
                 <ItemNavBar titulo = "Ordens de Serviço"
-                            subitems = {["Nova OS Vegoor", "Listar OS Vegoor", "Nova OS"]}
-                            links = {["", ""]}/>
-
-                <li className = "nav-item dropdown pointerCursor disabledTextSelection">
-                  <a className = "nav-link dropdown-toggle" id = "navbardrop" data-toggle = "dropdown">
-                    Título
-                  </a>
-                  <ul className = "dropdown-menu">
-
-                    <li className = "nav-item dropdown">
-                      <a className = "dropdown-item">
-                        Nova
-                      </a>
-                      <ul className = "dropdown-menu">
-                        <li>
-                          Vegoor
-                        </li>
-                      </ul>
-                    </li>
-
-                  </ul>
-                </li>
+                            subitems = {["Nova OS Vegoor", "Listar OS Vegoor", "Nova OS SF6", "Listar OS SF6"]}
+                            links = {["", "", "", ""]}/>
 
               </ul>
 
-              <button className = "btn btn-outline-danger text-right">
-                  Logout
-              </button>
+                <button className = "btn btn-outline-danger">
+                    Sair
+                </button>
+
             </div>
           </div>
         </nav>

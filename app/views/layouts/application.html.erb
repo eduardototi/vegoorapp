@@ -12,10 +12,10 @@
     <%= javascript_pack_tag 'components-bundle' %>
   </head>
 
-  <body>
+  <body class = "bg-secondary">
     <%= react_component("BarraSuperior", prerender: false) %>
     <%= render 'shared/flashes' %>
-    <%= render 'shared/menu' %>
+    <!-- render 'shared/menu' -->
     <%= render 'shared/footer' %>
 
     <main class = "container">
