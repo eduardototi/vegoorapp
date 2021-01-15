@@ -9,12 +9,17 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= favicon_link_tag asset_path('logo.jpg') %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+    <%= javascript_pack_tag 'components-bundle' %>
   </head>
 
   <body>
+    <%= react_component("BarraSuperior", prerender: false) %>
     <%= render 'shared/flashes' %>
     <%= render 'shared/menu' %>
     <%= render 'shared/footer' %>
-    <%= yield %>
+
+    <main class = "container">
+      <%= yield %>
+    </main>
   </body>
 </html>
