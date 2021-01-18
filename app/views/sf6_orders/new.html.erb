@@ -15,11 +15,15 @@
         <div class="new">
           <p>
             <%= f.check_box :field %>
-            <%= f.label "Serviço de campo" %>
+            <%= f.label "Serviço de Campo" %>
           </p>
           <p>
             <%= f.check_box :laboratory %>
             <%= f.label "Serviço de Laboratório" %>
+          </p>
+           <p>
+            <%= f.check_box :factory %>
+            <%= f.label "Serviço de Oficina" %>
           </p>
         </div>
         <%= f.input :description, label: "Descrição:" %>

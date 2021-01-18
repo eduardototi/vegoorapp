@@ -11,12 +11,24 @@
         Editar Ordem de Serviço:
       </div>
       <div class="form-inputs">
-        <%= f.label "Situação" %>
-        <%= f.check_box :status, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' } %>
-        <%= f.label "Serviço de campo:" %>
-        <%= f.check_box :field %>
-        <%= f.label "Serviço de Laboratório:" %>
-        <%= f.check_box :laboratory %>
+        <div class="factory">
+          <%= f.label "Situação" %>
+          <%= f.check_box :status, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' } %>
+        </div>
+         <div class="new">
+          <p>
+            <%= f.check_box :field %>
+            <%= f.label "Serviço de Campo" %>
+          </p>
+          <p>
+            <%= f.check_box :laboratory %>
+            <%= f.label "Serviço de Laboratório" %>
+          </p>
+           <p>
+            <%= f.check_box :factory %>
+            <%= f.label "Serviço de Oficina" %>
+          </p>
+        </div>
         <%= f.input :description, label: "Descrição" %>
         <%= f.input :user_id, collection: User.where(role: "Técnico").map { |user| ["#{user.first_name} #{user.last_name}", user.id ] }, label: "Responsável Técnico:" %>        <%= f.input :client_id, collection: Client.all.map { |client| [client.razao_social, client.id ] }, label: "Cliente:" %>
         <%= f.input :contact_id, collection: User.where(role: 'Cliente').map { |user| ["#{user.first_name} #{user.last_name}", user.id ]}, label: "Contato Cliente:" %>

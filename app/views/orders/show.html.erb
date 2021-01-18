@@ -21,6 +21,13 @@
           <h5><i class="far fa-square"> Serviço de Laboratório</i></h5>
         <% end %>
       </div>
+      <div class="laboratory">
+        <% if @order.factory %>
+          <h5><i class="fas fa-check"> Serviço de Oficina</i></h5>
+        <% else %>
+          <h5><i class="far fa-square"> Serviço de Oficina</i></h5>
+        <% end %>
+      </div>
     </div>
   </div>
 
