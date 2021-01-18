@@ -7,15 +7,25 @@
     <div class="order-date">
       Data: <%= Date.today.strftime("%d/%m/%Y") %>
     </div>
-    <%= simple_form_for(@order, remote: true) do |f| %>
+    <%= simple_form_for(@order) do |f| %>
       <div class="text-center">
         <h6>Nova Ordem de Serviço:</h6>
       </div>
       <div class="form-inputs">
-        <%= f.label "Serviço de campo:" %>
-        <%= f.check_box :field %>
-        <%= f.label "Serviço de Laboratório:" %>
-        <%= f.check_box :laboratory %>
+        <div class="new">
+          <p>
+            <%= f.check_box :field %>
+            <%= f.label "Serviço de campo" %>
+          </p>
+          <p>
+            <%= f.check_box :laboratory %>
+            <%= f.label "Serviço de Laboratório" %>
+          </p>
+          <p>
+            <%= f.check_box :factory %>
+            <%= f.label "Serviço de Oficina" %>
+          </p>
+        </div>
         <%= f.input :description, label: "Descrição" %>
         <%= f.input :user_id, collection: User.where(role: 'Técnico').map {|user| [ "#{user.first_name} #{user.last_name}", user.id]}, label: "Responsável Técnico:" %>
         <%= f.input :client_id, collection: Client.all.map { |client| [client.razao_social, client.id ] }, label: "Cliente:" %>

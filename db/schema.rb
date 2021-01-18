@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_09_220404) do
+ActiveRecord::Schema.define(version: 2021_01_18_184551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_220404) do
     t.bigint "contact_id", null: false
     t.boolean "field", default: false
     t.boolean "laboratory", default: false
+    t.boolean "factory", default: false
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["contact_id"], name: "index_orders_on_contact_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -125,6 +126,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_220404) do
     t.bigint "contact_id", null: false
     t.boolean "field", default: false
     t.boolean "laboratory", default: false
+    t.boolean "factory", default: false
     t.index ["client_id"], name: "index_sf6_orders_on_client_id"
     t.index ["contact_id"], name: "index_sf6_orders_on_contact_id"
     t.index ["user_id"], name: "index_sf6_orders_on_user_id"
