@@ -1,9 +1,14 @@
 import ReactOnRails from "react-on-rails";
 
 import BarraSuperior from "../bundles/components/BarraSuperior/BarraSuperior";
-import FormCadastroUsuario from "../bundles/components/FormCadastroUsuario/FormCadastroUsuario";
+import FormCadastroUsuario from "../bundles/components/CadastrarUsuarios/FormCadastroUsuario";
+import ListaUsuarios from "../bundles/components/ListarUsuarios/ListaUsuarios";
+import FormCadastroCliente from "../bundles/components/CadastrarClientes/FormCadastroCliente";
+
 
 ReactOnRails.register({
   BarraSuperior,
-  FormCadastroUsuario
+  FormCadastroUsuario,
+  ListaUsuarios,
+  FormCadastroCliente
 });
