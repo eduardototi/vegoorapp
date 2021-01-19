@@ -13,10 +13,12 @@ Rails.application.routes.draw do
 
   resources :orders
 
+  resources :vegoor_reports
+
   resources :sf6_orders
 
   resources :machines
 
   resources :epis
-
+  
 end
