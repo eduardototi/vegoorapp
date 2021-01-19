@@ -1,6 +1,13 @@
 import PropTypes from "prop-types";
 import React from "react";
 import MyRegex from "../../util/MyRegex";
+import CampoCep from "../Comum/Forms/CampoCep";
+import CampoCnpj from "../Comum/Forms/CampoCnpj";
+import CampoTexto from "../Comum/Forms/CampoTexto";
+import CampoEmail from "../Comum/Forms/CampoEmail";
+import CampoNumerico from "../Comum/Forms/CampoNumerico";
+import CampoTelefone from "../Comum/Forms/CampoTelefone";
+import CampoDropdown from "../Comum/Forms/CampoDropdown";
 
 export default class FormCadastroCliente extends React.Component {
   static propTypes = {
@@ -27,7 +34,8 @@ export default class FormCadastroCliente extends React.Component {
       cep: "",
       estado: "",
       cidade: "",
-      pais: ""
+      pais: "",
+      estados: []
     };
 
     this.setRazaoSocial = this.setRazaoSocial.bind(this);
@@ -43,6 +51,14 @@ export default class FormCadastroCliente extends React.Component {
     this.setEstado = this.setEstado.bind(this);
     this.setCidade = this.setCidade.bind(this);
     this.setPais = this.setPais.bind(this);
+
+    let estados = [];
+
+    for(let i in this.props.estados){
+      estados.push([this.props.estados[i], this.props.estados[i]]);
+    }
+
+    this.state.estados = estados;
   }
 
   setRazaoSocial(e){
@@ -104,113 +120,98 @@ export default class FormCadastroCliente extends React.Component {
           <div className = "container">
             <div className = "row">
               <div className = "col">
-                <label htmlFor = "razaoSocial">
-                  Razão Social
-                </label>
-                <input id = "razaoSocial" type = "text" className = "form-control" placeholder = "Razão Social" onChange = {this.setRazaoSocial} required/>
+                <CampoTexto id = "razaoSocial"
+                            label = "Razão Social"
+                            placeholder = "true"
+                            setState = {this.setRazaoSocial}/>
               </div>
-
               <div className = "col">
-                <label htmlFor = "cpnj">
-                  CNPJ
-                </label>
-                <input id = "cpnj" type = "text" className = "form-control" placeholder = "CPNJ" onChange = {this.setCnpj} pattern = {MyRegex.getRegexCnpj()} required/>
-              </div>
-            </div>
-
-            <div className = "row mt-2">
-              <div className = "col">
-                <label htmlFor = "matricula">
-                  Insc. Estadual
-                </label>
-                <input id = "matricula" type = "text" className = "form-control" placeholder = "Insc. Estadual" onChange = {this.setInscEstadual} required/>
-              </div>
-
-              <div className = "col">
-                <label htmlFor = "unidade">
-                  Unidade
-                </label>
-                <input id = "unidade" type = "text" className = "form-control" placeholder = "Unidade" onChange = {this.setUnidade} required/>
+                <CampoTexto id = "cnpj"
+                            label = "CNPJ"
+                            placeholder = "true"
+                            setState = {this.setCnpj}/>
               </div>
             </div>
 
             <div className = "row mt-2">
               <div className = "col">
-                <label htmlFor = "email">
-                  E-mail
-                </label>
-                <input id = "email" type = "email" className = "form-control" placeholder = "E-mail" onChange = {this.setEmail} required/>
+                <CampoTexto id = "inscEstadual"
+                            label = "Insc. Estadual"
+                            placeholder = "true"
+                            setState = {this.setInscEstadual}/>
               </div>
-
               <div className = "col">
-                <label htmlFor = "telefone">
-                  Telefone
-                </label>
-                <input id = "telefone" type = "text" className = "form-control" placeholder = "Telefone" onChange = {this.setTelefone} pattern = {MyRegex.getRegexTelefone()} required/>
-              </div>
-            </div>
-
-            <div className = "row mt-2">
-              <div className = "col">
-                <label htmlFor = "endereco">
-                  Endereço
-                </label>
-                <input id = "rua" endereco = "text" className = "form-control" placeholder = "Endereço" onChange = {this.setRua} required/>
+                <CampoTexto id = "unidade"
+                            label = "Unidade"
+                            placeholder = "true"
+                            setState = {this.setUnidade}/>
               </div>
             </div>
 
             <div className = "row mt-2">
               <div className = "col">
-                <label htmlFor = "numero">
-                  Número
-                </label>
-                <input id = "numero" type = "text" className = "form-control" placeholder = "Número" onChange = {this.setNumero} required/>
+                <CampoEmail id = "email"
+                            label = "E-mail"
+                            placeholder = "true"
+                            setState = {this.setEmail}/>
               </div>
-
               <div className = "col">
-                <label htmlFor = "bairro">
-                  Bairro
-                </label>
-                <input id = "bairro" type = "text" className = "form-control" placeholder = "Bairro" onChange = {this.setBairro} required/>
-              </div>
-
-              <div className = "col">
-                <label htmlFor = "cep">
-                  CEP
-                </label>
-                <input id = "cep" type = "text" className = "form-control" placeholder = "CEP" onChange = {this.setCep} pattern = {MyRegex.getRegexCep()} required/>
+                <CampoTelefone id = "telefone"
+                               label = "Telefone"
+                               placeholder = "true"
+                               setState = {this.setTelefone}/>
               </div>
             </div>
 
             <div className = "row mt-2">
               <div className = "col">
-                <label htmlFor = "cidade">
-                  Cidade
-                </label>
-                <input id = "cidade" type = "text" className = "form-control" placeholder = "Cidade" onChange = {this.setCidade} required/>
+                <CampoTexto id = "endereco"
+                            label = "Endereço"
+                            placeholder = "true"
+                            setState = {this.setRua}/>
               </div>
-
+            </div>
+            <div className = "row mt-2">
               <div className = "col">
-                <label htmlFor = "bairro">
-                  Estado
-                </label>
-                <select id = "bairro" className = "form-control" onChange = {this.setBairro} required>
-                  <option defaultValue>Selecione um estado</option>
-                  {this.props.estados.map((estado) => {
-                    return (
-                      <option key = {"estado" + estado} value = {estado}>
-                        {estado}
-                      </option>
-                    )
-                  })}
-                </select>
+                <CampoNumerico id = "numero"
+                               label = "Número"
+                               step = "1"
+                               placeholder = "true"
+                               setState = {this.setNumero}/>
               </div>
-
               <div className = "col">
-                <label htmlFor = "pais">
-                  País
-                </label>
-                <input id = "pais" type = "text" className = "form-control" placeholder = "País" onChange = {this.setPais} required/>
+                <CampoTexto id = "bairro"
+                            label = "Bairro"
+                            placeholder = "true"
+                            setState = {this.setBairro}/>
+              </div>
+              <div className = "col">
+                <CampoCep id = "cep"
+                          label = "CEP"
+                          placeholder = "true"
+                          setState = {this.setCep}/>
+              </div>
+            </div>
+
+            <div className = "row mt-2">
+              <div className = "col">
+                <CampoTexto id = "cidade"
+                            label = "Cidade"
+                            placeholder = "true"
+                            setState = {this.setCidade}/>
+              </div>
+              <div className = "col">
+                <CampoDropdown id = "bairro"
+                               label = "Estado"
+                               opc = {this.state.estados}
+                               selecionado = "Selecione..."
+                               setState = {this.setEstado}/>
+              </div>
+              <div className = "col">
+                <CampoTexto id = "pais"
+                            label = "País"
+                            placeholder = "true"
+                            setState = {this.setPais}/>>
               </div>
             </div>
 

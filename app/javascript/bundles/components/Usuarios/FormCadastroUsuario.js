@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import MyRegex from "../../util/MyRegex";
 import CampoTexto from "../Comum/Forms/CampoTexto";
 import CampoEmail from "../Comum/Forms/CampoEmail";
 import CampoSenha from "../Comum/Forms/CampoSenha";
