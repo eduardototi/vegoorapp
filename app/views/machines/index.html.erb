@@ -1,5 +1,14 @@
 <div class="container mt-4">
   <table class="table table-bordered table-dark">
+    <div class = "container mt-4">
+      <%= react_component("Lista",
+                          props: {"cabecalho": ["Id", "Máquina", "Descrição", "Status"],
+                                  "colunas": ["id", "name", "description", "status"],
+                                  "data": @machines.as_json},
+                          prerender: false) %>
+    </div>
+
+    <!--
     <thead>
       <tr>
         <th scope="col">Id</th>
@@ -11,17 +20,18 @@
       </tr>
     </thead>
     <tbody>
-      <% @machines.each do |machine| %>
+      # @machines.each do |machine|
         <tr>
-          <th scope="row"><%= machine.id %></th>
-          <td><%= machine.name %></td>
-          <td><%= machine.description %></td>
-          <td><%= machine.status ? 'Ativo' : 'Inativo' %></td>
-          <td><%= link_to 'Visualizar', machine_path(machine) %></td>
-          <td><%= link_to 'Editar', edit_machine_path(machine) %></td>
+          <th scope="row">< machine.id %></th>
+          <td>< machine.name %></td>
+          <td>< machine.description %></td>
+          <td>< machine.status ? 'Ativo' : 'Inativo' %></td>
+          <td>< link_to 'Visualizar', machine_path(machine) %></td>
+          <td>< link_to 'Editar', edit_machine_path(machine) %></td>
         </tr>
-      <% end %>
+      # end %>
     </tbody>
   </table>
-  <%#= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
+  <= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
+  -->
 </div>

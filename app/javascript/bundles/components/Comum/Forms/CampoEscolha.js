@@ -1,6 +1,6 @@
 import React from "react";
 
-const CampoMultiplaEscolha = (props) => {
+const CampoEscolha = (props) => {
   let id = props.id ? props.id : props.label;
 
   return(
@@ -15,7 +15,7 @@ const CampoMultiplaEscolha = (props) => {
 
           return(
             <div key = {idOpc} className = "float-left">
-              <input id = {idOpc} name = {id} type = "radio" value = {item[1]} onChange = {props.setState} onClick = {props.onClick}/>
+              <input id = {idOpc} name = {id} type = "radio" value = {item[1]} onChange = {props.setState}/>
               <label htmlFor = {idOpc}>
                 {item[0]}
               </label>&nbsp;
@@ -27,4 +27,4 @@ const CampoMultiplaEscolha = (props) => {
   )
 }
 
-export default CampoMultiplaEscolha;
+export default CampoEscolha;

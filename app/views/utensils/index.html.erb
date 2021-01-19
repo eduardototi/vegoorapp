@@ -1,25 +1,7 @@
-<div class="container mt-4">
-  <table class="table table-bordered table-dark">
-    <thead>
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Equipamento</th>
-        <th scope="col">Status</th>
-        <th scope="col">Visualizar</th>
-        <th scope="col">Editar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @utensils.each do |utensil| %>
-        <tr>
-          <th scope="row"><%= utensil.id %></th>
-          <td><%= utensil.name %></td>
-          <td><%= utensil.status ? 'Ativo' : 'Inativo' %></td>
-          <td><%= link_to 'Visualizar', utensil_path(utensil) %></td>
-          <td><%= link_to 'Editar', edit_utensil_path(utensil) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%#= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
+<div class = "container mt-4">
+  <%= react_component("Lista",
+                      props: {"cabecalho": ["Id", "Equipamento", "Status"],
+                              "colunas": ["id", "name", "status"],
+                              "data": @utensils.as_json},
+                      prerender: false) %>
 </div>

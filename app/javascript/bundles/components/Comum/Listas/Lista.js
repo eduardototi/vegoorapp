@@ -5,7 +5,7 @@ import MyParser from "../../../util/MyParser";
 export default class Lista extends React.Component {
   static propTypes = {
     cabecalho: PropTypes.array.isRequired,
-    itens: PropTypes.array.isRequired,
+    colunas: PropTypes.array.isRequired,
     data: PropTypes.array.isRequired
   };
 
@@ -18,18 +18,18 @@ export default class Lista extends React.Component {
   }
 
   substituiValores(item){
-    for(let i in this.props.itens){
+    for(let i in this.props.colunas){
       //Armazena os itens da query que serão utilizados
-      var itensQuery = MyParser.separaItensSelecao(this.props.itens[i]);
+      var itensQuery = MyParser.separaItensSelecao(this.props.colunas[i]);
 
       for(let j in itensQuery){
         //Substitui no vetor que possui os nomes das colunas da tabela pelo
         //seu respectivo valor
-        this.props.itens[i] = this.props.itens[i].replace(itensQuery[j], item[itensQuery[j]])
+        this.props.colunas[i] = this.props.colunas[i].replace(itensQuery[j], item[itensQuery[j]])
       }
 
       //Armazena o item sem as chaves e espaços excessivos
-      this.props.itens[i] = MyParser.removeChaves(this.props.itens[i]);
+      this.props.colunas[i] = MyParser.removeChaves(this.props.colunas[i]);
     }
   }
 
@@ -50,12 +50,14 @@ export default class Lista extends React.Component {
               <th scope = "col" colSpan = "2">Ações</th>
             </tr>
           </thead>
+          {this.props.data.length > 0 ?
+
           <tbody className = "bg-light">
             <tr scope = "row">
               {this.props.data.map((itemData) => {
                 this.substituiValores(itemData);
 
-                return this.props.itens.map((item) => {
+                return this.props.colunas.map((item) => {
                   return (
                     <td key = {item} scope = "col">
                       {item}
@@ -68,6 +70,8 @@ export default class Lista extends React.Component {
               <td scope = "col">Editar</td>
             </tr>
           </tbody>
+
+          : null }
         </table>
       </div>
     )

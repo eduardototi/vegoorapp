@@ -1,3 +1,12 @@
+<div class = "container mt-4">
+  <%= react_component("Lista",
+                      props: {"cabecalho": ["Id", "Título", "Descrição"],
+                              "colunas": ["id", "title", "description"],
+                              "data": @services.as_json},
+                      prerender: false) %>
+</div>
+
+<!--
 <div class="container mt-4">
   <table class="table table-bordered table-dark">
     <thead>
@@ -10,17 +19,17 @@
       </tr>
     </thead>
     <tbody>
-      <% @services.each do |service| %>
+       @services.each do |service| %>
         <tr>
-          <th scope="row"><%= service.id %></th>
-          <td><%= service.title %></td>
-          <td><%= service.description %></td>
-          <td><%= link_to 'Visualizar', service_path(service) %></td>
-          <td><%= link_to 'Editar', edit_service_path(service) %></td>
+          <th scope="row">< service.id %></th>
+          <td>< service.title %></td>
+          <td>< service.description %></td>
+          <td>< link_to 'Visualizar', service_path(service) %></td>
+          <td>< link_to 'Editar', edit_service_path(service) %></td>
         </tr>
-      <% end %>
+      < end %>
     </tbody>
   </table>
-  <%#= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
+  <= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
 </div>
-
+-->

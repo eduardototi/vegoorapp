@@ -115,7 +115,7 @@ export default class FormCadastroUsuario extends React.Component {
               <div className = "col">
                 <CampoMultiplaEscolha id = "administrador"
                                       label = "Administrador"
-                                      opc = {[["Sim", "true"], ["Não", "false"]]}
+                                      opc = {[["Sim", true], ["Não", false]]}
                                       setState = {this.setAdministrador}/>
               </div>
             </div>

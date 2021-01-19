@@ -1,3 +1,13 @@
+<div class = "container mt-4">
+  <%= react_component("Lista",
+                      props: {"cabecalho": ["Id", "EPI"],
+                              "colunas": ["id", "name"],
+                              "data": @epis.as_json},
+                      prerender: false) %>
+</div>
+
+<!--
+
 <div class="container mt-4">
   <table class="table table-bordered table-dark">
     <thead>
@@ -9,15 +19,17 @@
       </tr>
     </thead>
     <tbody>
-      <% @epis.each do |epi| %>
+       @epis.each do |epi| %>
         <tr>
-          <th scope="row"><%= epi.id %></th>
-          <td><%= epi.name %></td>
-          <td><%= link_to 'Visualizar', epi_path(epi) %></td>
-          <td><%= link_to 'Editar', edit_epi_path(epi) %></td>
+          <th scope="row">< epi.id %></th>
+          <td>< epi.name %></td>
+          <td>< link_to 'Visualizar', epi_path(epi) %></td>
+          <td>< link_to 'Editar', edit_epi_path(epi) %></td>
         </tr>
-      <% end %>
+       end %>
     </tbody>
   </table>
-  <%#= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
+  <= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
 </div>
+
+-->

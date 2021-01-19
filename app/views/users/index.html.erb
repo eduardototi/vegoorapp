@@ -1,7 +1,7 @@
 <div class = "container mt-4">
   <%= react_component("Lista",
                       props: {"cabecalho": ["Id", "Nome", "E-mail", "Telefone", "Função", "Administrador"],
-                              "itens": ["id", "first_name { } last_name", "email", "phone", "role", "admin"],
+                              "colunas": ["id", "first_name { } last_name", "email", "phone", "role", "admin"],
                               "data": @users.as_json},
                       prerender: false) %>
 </div>
