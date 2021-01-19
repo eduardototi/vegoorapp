@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_18_184551) do
+ActiveRecord::Schema.define(version: 2021_01_19_132748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,17 @@ ActiveRecord::Schema.define(version: 2021_01_18_184551) do
 
   create_table "epis", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "field_results", force: :cascade do |t|
+    t.string "parameter"
+    t.string "unity"
+    t.string "fase_a"
+    t.string "fase_b"
+    t.string "fase_c"
+    t.string "reference"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -192,6 +203,18 @@ ActiveRecord::Schema.define(version: 2021_01_18_184551) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "vegoor_reports", force: :cascade do |t|
+    t.text "goal"
+    t.text "reception_test"
+    t.boolean "warrant"
+    t.text "conclusion"
+    t.text "observations"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "order_id", null: false
+    t.index ["order_id"], name: "index_vegoor_reports_on_order_id"
+  end
+
   add_foreign_key "epi_orders", "epis"
   add_foreign_key "epi_orders", "orders"
   add_foreign_key "epi_sf6orders", "epis"
@@ -213,4 +236,5 @@ ActiveRecord::Schema.define(version: 2021_01_18_184551) do
   add_foreign_key "sf6_orderutensils", "sf6_orders"
   add_foreign_key "sf6_orderutensils", "utensils"
   add_foreign_key "users", "clients"
+  add_foreign_key "vegoor_reports", "orders"
 end

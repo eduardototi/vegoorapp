@@ -1,0 +1,88 @@
+<div class="container order">
+    
+    <div class="logo">
+        <%= image_tag 'logo.jpg', width: '100px' %>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Cliente</th>
+                <th scope="col">CNPJ</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Endereço</th>
+                <th scope="col">Cidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row"><%= @vegoor_report.order.client.razao_social %></th>
+                <td><%= @vegoor_report.order.client.cnpj %></td>
+                <td><%= @vegoor_report.order.client.phone %></td>
+                <td><%= @vegoor_report.order.client.email %></td>
+                <td><%= @vegoor_report.order.client.street %> Nº: <%= @vegoor_report.order.client.number %></td>
+                <td><%= @vegoor_report.order.client.city %>/<%= @vegoor_report.order.client.state %></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="order-description mb-3 text-justify" >
+        <strong>Introdução:</strong>
+        Estudos realizados por instituições de pesquisas em energia elétrica, bem como fabricantes dos equipamentos elétricos, demonstram que a ocorrência de falhas incipientes nos equipamentos isolados a SF6, provocam a decomposição parcial deste gás, ocasionando a formação de compostos que podem fornecer informações sobre a existência ou não destas falhas incipientes, potenciais causadores de vazamentos. As descargas elétricas de baixa ou alta energia em hexafluoreto de enxofre (SF6) levam à geração e ao acúmulo de produtos de decomposição estáveis. Um dos efeitos negativos destes produtos sobre as superfícies isolantes de disjuntores e compartimentos de subestações é a redução substancial da resistência de superfície bem como uma degeneração irreversível dos elementos isolantes, condutores e de vedação por corrosão. Além disso, é também de fundamental importância, do ponto de vista da durabilidade e da manutenção preventiva dos equipamentos, o controle da qualidade do gás isolante relativamente à contaminação por umidade e outras impurezas, que ocorre quando o equipamento apresenta vazamentos. O gás hexafluoreto de enxofre (SF6) é mais de 22.000 vezes mais ativo na geração do efeito estufa do que o dióxido de carbono (CO2) e persiste na atmosfera por mais de 3.000 anos. Assim sua emissão à atmosfera é restrita pelo tratado de Viena, no âmbito do protocolo de Kioto. É, portanto, de fundamental importância o controle dos vazamentos em instalações elétricas isoladas a gás SF6.
+    </div>
+
+    <div class="order-description mb-3 text-justify" >
+        <strong>Objetivos:</strong>
+        <%= @vegoor_report.goal %>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Descrição dos Serviços Executados</th>
+                <th scope="col">Equipamento</th>
+                <th scope="col">Série</th>
+                <th scope="col">Status</th>
+                <th scope="col">Finalizado</th>
+            </tr>
+        </thead>
+        <% @vegoor_report.order.orderservices.each do |orderservice| %>
+            <tbody>
+                <tr>
+                    <th scope="row"><%= orderservice.service.title %></th>
+                    <td scope="row"><%= orderservice.machine.name %></td>
+                    <td scope="row"><%= orderservice.machineserie %></td>
+                    <% if orderservice.status %>
+                        <td><i class="fas fa-check"></i> Finalizada</td>
+                        <td><%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
+                        <%= orderservice.updated_at.strftime("%k:%M") %>h</td>
+                    <% else %>
+                    <td><i class="far fa-square"></i> Aberta</td>
+                    <td></td>
+                    <% end %>
+                </tr>
+            </tbody>
+        <% end %>
+    </table>
+
+    <div class="order-description mb-3 text-justify" >
+        <strong>Teste de Recepção:</strong>
+        <%= @vegoor_report.reception_test %>
+    </div>
+
+    <div class="order-description mb-3 text-justify" >
+        <strong>Conclusões:</strong>
+        <%= @vegoor_report.conclusion %>
+    </div>
+
+    <div class="order-description mb-3 text-justify" >
+        <strong>Observações e Recomendações:</strong>
+        <%= @vegoor_report.observations %>
+    </div>
+
+    <div class="order-description mb-3 text-justify" >
+        <%= Date.today.strftime("%d/%m/%Y") %>
+    </div>
+
+</div>
