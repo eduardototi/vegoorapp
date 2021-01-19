@@ -63,8 +63,11 @@ export default class BarraSuperior extends React.Component {
                 <ItemNavBar titulo = "Ordens de Serviço"
                             subitems = {["Nova OS Vegoor", "Listar OS Vegoor", "Nova OS SF6", "Listar OS SF6"]}
                             links = {["", "", "", ""]}/>
-
               </ul>
+
+                <span className = "text-white mr-2">
+                  Bem-vindo, {this.props.usuarioAtual}
+                </span>
 
                 <button className = "btn btn-outline-danger">
                     Sair

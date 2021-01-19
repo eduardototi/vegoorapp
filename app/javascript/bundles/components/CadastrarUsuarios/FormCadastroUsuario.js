@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import MyRegex from "../../util/MyRegex";
 
 export default class FormCadastroUsuario extends React.Component {
   static propTypes = {
@@ -159,7 +160,7 @@ export default class FormCadastroUsuario extends React.Component {
                 <label htmlFor = "telefone">
                   Telefone
                 </label>
-                <input id = "telefone" type = "text" className = "form-control" placeholder = "Telefone" pattern = "[0-9]{8,9}" onChange = {this.setTelefone} required/>
+                <input id = "telefone" type = "text" className = "form-control" placeholder = "Telefone" pattern = "[0-9]{8,9}" onChange = {this.setTelefone} pattern = {MyRegex.getRegexTelefone()} required/>
               </div>
             </div>
 

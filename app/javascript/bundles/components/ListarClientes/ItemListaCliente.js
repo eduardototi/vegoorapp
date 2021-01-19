@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-export default class ItemListaUsuario extends React.Component {
+export default class ItemListaCliente extends React.Component {
   static propTypes = {
     //name: PropTypes.string.isRequired,
   };
@@ -21,14 +21,14 @@ export default class ItemListaUsuario extends React.Component {
   render() {
     return (
         <tr scope = "col">
-          <th scope = "row">{this.props.idUsuario}</th>
-          <td scope = "row">{this.props.nome + " " + this.props.sobrenome} </td>
-          <td scope = "row">{this.props.email}</td>
+          <td scope = "row">{this.props.razaoSocial} </td>
+          <td scope = "row">{this.props.cnpj}</td>
+          <td scope = "row">{this.props.unidade}</td>
+          <td scope = "row">{this.props.endereco}</td>
           <td scope = "row">{this.props.telefone}</td>
-          <td scope = "row">{this.props.funcao}</td>
-          <td scope = "row">{this.props.administrador ? "Admin" : "Usuário"}</td>
+          <td scope = "row">{this.props.email}</td>
           <td scope = "row">Visualizar</td>
-          <td>Editar</td>
+          <td scope = "row">Editar</td>
         </tr>
     );
   }

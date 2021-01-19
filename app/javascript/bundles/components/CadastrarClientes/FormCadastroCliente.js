@@ -114,7 +114,7 @@ export default class FormCadastroCliente extends React.Component {
                 <label htmlFor = "cpnj">
                   CNPJ
                 </label>
-                <input id = "cpnj" type = "text" className = "form-control" placeholder = "CPNJ" onChange = {this.setCnpj} required/>
+                <input id = "cpnj" type = "text" className = "form-control" placeholder = "CPNJ" onChange = {this.setCnpj} pattern = {MyRegex.getRegexCnpj()} required/>
               </div>
             </div>
 
@@ -146,7 +146,7 @@ export default class FormCadastroCliente extends React.Component {
                 <label htmlFor = "telefone">
                   Telefone
                 </label>
-                <input id = "telefone" type = "text" className = "form-control" placeholder = "Telefone" onChange = {this.setTelefone} required/>
+                <input id = "telefone" type = "text" className = "form-control" placeholder = "Telefone" onChange = {this.setTelefone} pattern = {MyRegex.getRegexTelefone()} required/>
               </div>
             </div>
 
@@ -178,7 +178,7 @@ export default class FormCadastroCliente extends React.Component {
                 <label htmlFor = "cep">
                   CEP
                 </label>
-                <input id = "cep" type = "text" className = "form-control" placeholder = "CEP" onChange = {this.setCep} required/>
+                <input id = "cep" type = "text" className = "form-control" placeholder = "CEP" onChange = {this.setCep} pattern = {MyRegex.getRegexCep()} required/>
               </div>
             </div>
 

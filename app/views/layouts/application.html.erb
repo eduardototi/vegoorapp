@@ -13,10 +13,17 @@
   </head>
 
   <body class = "bg-secondary">
-    <%= react_component("BarraSuperior", prerender: false) %>
+    <% if user_signed_in? %>
+      <%= react_component("BarraSuperior", props: {"usuarioAtual": current_user.first_name}, prerender: false) %>
+    <% end %>
+
     <%= render 'shared/flashes' %>
     <!-- render 'shared/menu' -->
     <%= render 'shared/footer' %>
+
+    <% if user_signed_in? %>
+      <!-- footer vai aqui -->
+    <% end %>
 
     <main class = "container">
       <%= yield %>
