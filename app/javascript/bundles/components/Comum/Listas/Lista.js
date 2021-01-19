@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import MyParser from "../../util/MyParser";
+import MyParser from "../../../util/MyParser";
 
 export default class Lista extends React.Component {
   static propTypes = {

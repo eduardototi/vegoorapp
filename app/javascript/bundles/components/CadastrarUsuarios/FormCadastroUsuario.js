@@ -1,6 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
 import MyRegex from "../../util/MyRegex";
+import CampoTexto from "../Comum/Forms/CampoTexto";
+import CampoEmail from "../Comum/Forms/CampoEmail";
+import CampoSenha from "../Comum/Forms/CampoSenha";
+import CampoTelefone from "../Comum/Forms/CampoTelefone";
+import CampoDropdown from "../Comum/Forms/CampoDropdown";
+import CampoMultiplaEscolha from "../Comum/Forms/CampoMultiplaEscolha";
 
 export default class FormCadastroUsuario extends React.Component {
   static propTypes = {
@@ -86,97 +92,79 @@ export default class FormCadastroUsuario extends React.Component {
           <div className = "container">
             <div className = "row">
               <div className = "col">
-                <label htmlFor = "nome">
-                  Nome
-                </label>
-                <input id = "nome" type = "text" className = "form-control" placeholder = "Nome" onChange = {this.setNome} required/>
-              </div>
-
-              <div className = "col">
-                <label htmlFor = "sobrenome">
-                  Sobrenome
-                </label>
-                <input id = "sobrenome" type = "text" className = "form-control" placeholder = "Sobrenome" onChange = {this.setSobrenome} required/>
-              </div>
-            </div>
-
-            <div className = "row mt-2">
-              <div className = "col">
-                <label htmlFor = "matricula">
-                  Matrícula
-                </label>
-                <input id = "matricula" type = "text" className = "form-control" placeholder = "Matrícula" pattern = "[0-9]{6}" onChange = {this.setMatricula} required/>
+                <CampoTexto id = "nome"
+                            label = "Nome"
+                            placeholder = "true"
+                            setState = {this.setNome}/>
               </div>
               <div className = "col">
-                <label>
-                  Administrador
-                </label><br/>
-
-                <div className = "mt-2">
-                  <input id = "admSim" name = "administrador" type = "radio" value = "true" onChange = {this.setAdministrador} required/>
-                  <label htmlFor = "admSim">
-                    Sim
-                  </label>&nbsp;
-
-                  <input id = "admNao" name = "administrador" type = "radio" value = "false" onChange = {this.setAdministrador} required/>
-                  <label htmlFor = "admNao">
-                    Não
-                  </label>
-                </div>
+                <CampoTexto id = "sobrenome"
+                            label = "Sobrenome"
+                            placeholder = "true"
+                            setState = {this.setSobrenome}/>
               </div>
             </div>
 
             <div className = "row mt-2">
               <div className = "col">
-                <label htmlFor = "funcao">
-                  Função
-                </label>
-                <select id = "funcao" className = "form-control" onChange = {this.setFuncao} required>
-                  <option defaultValue>Selecione...</option>
-                  <option>Cliente</option>
-                </select>
+                <CampoTexto id = "matricula"
+                            label = "Matrícula"
+                            placeholder = "true"
+                            pattern = "[0-9]{6}"
+                            setState = {this.setMatricula}/>
               </div>
-
               <div className = "col">
-                <label htmlFor = "cliente">
-                  Cliente
-                </label>
-                <select id = "cliente" className = "form-control" onChange = {this.setCliente} required>
-                  <option defaultValue>Selecione...</option>
-                  <option>Vegoor</option>
-                </select>
+                <CampoMultiplaEscolha id = "administrador"
+                                      label = "Administrador"
+                                      opc = {[["Sim", "true"], ["Não", "false"]]}
+                                      setState = {this.setAdministrador}/>
               </div>
             </div>
 
             <div className = "row mt-2">
               <div className = "col">
-                <label htmlFor = "email">
-                  E-mail
-                </label>
-                <input id = "email" type = "email" className = "form-control" placeholder = "E-mail" onChange = {this.setEmail} required/>
+                <CampoDropdown id = "funcao"
+                               label = "Função"
+                               opc = {[["Cliente", "1"], ["Funcionário", "2"]]}
+                               selecionado = "Selecione..."
+                               setState = {this.setFuncao}/>
               </div>
-
               <div className = "col">
-                <label htmlFor = "telefone">
-                  Telefone
-                </label>
-                <input id = "telefone" type = "text" className = "form-control" placeholder = "Telefone" pattern = "[0-9]{8,9}" onChange = {this.setTelefone} pattern = {MyRegex.getRegexTelefone()} required/>
+                <CampoDropdown id = "cliente"
+                               label = "Cliente"
+                               opc = {[["Vegoor", "1"], ["SF6", "2"]]}
+                               selecionado = "Selecione..."
+                               setState = {this.setCliente}/>
               </div>
             </div>
 
             <div className = "row mt-2">
               <div className = "col">
-                <label htmlFor = "senha">
-                  Senha
-                </label>
-                <input id = "senha" type = "password" className = "form-control" placeholder = "Senha" onChange = {this.setSenha} required/>
+                <CampoEmail id = "email"
+                            label = "E-mail"
+                            placeholder = "true"
+                            setState = {this.setEmail}/>
               </div>
-
               <div className = "col">
-                <label htmlFor = "senhaConf">
-                  Confirme a Senha
-                </label>
-                <input id = "senhaConf" type = "password" className = "form-control" placeholder = "Confirme a senha" onChange = {this.setSenhaConf} required/>
+                <CampoTelefone id = "telefone"
+                               label = "Telefone"
+                               placeholder = "true"
+                               setState = {this.setTelefone}/>
+              </div>
+            </div>
+
+            <div className = "row mt-2">
+              <div className = "col">
+                <CampoSenha id = "senha"
+                            label = "Senha"
+                            placeholder = "true"
+                            setState = {this.setSenha}/>
+              </div>
+              <div className = "col">
+                <CampoSenha id = "senhaConf"
+                            label = "Confirme a Senha"
+                            placeholder = "true"
+                            setState = {this.setSenhaConf}/>
               </div>
             </div>
 
