@@ -2,9 +2,22 @@
     
     <div class="logo">
         <%= image_tag 'logo.jpg', width: '100px' %>
+        <div>
+            Data: 
+            <%= @vegoor_report.created_at.strftime("%d/%m/%y") %>
+        </div>
+        <div>
+            <% if @vegoor_report.status %>
+                Laudo Técnico Final: <%= @vegoor_report.id %>
+                OS: <%= @vegoor_report.order_id %>
+            <% else %>
+                Laudo Técnico Preliminar: <%= @vegoor_report.id %>
+                OS: <%= @vegoor_report.order_id %>
+            <% end %>
+        </div>
     </div>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered mt-2">
         <thead>
             <tr>
                 <th scope="col">Cliente</th>
@@ -82,7 +95,18 @@
     </div>
 
     <div class="order-description mb-3 text-justify" >
+        <strong>Garantia do Fabricante: </strong>
+        <%= @vegoor_report.warrant ? 'Sim' : 'Não' %>
+    </div>
+
+    <div class="order-description mb-3 text-justify" >
         <%= Date.today.strftime("%d/%m/%Y") %>
+    </div>
+    
+    <div class="links mt-3 text-center">
+        <%= link_to 'Editar', edit_vegoor_report_path(@vegoor_report), class: 'btn btn-primary' %>
+        <%= link_to "Excluir", @vegoor_report, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este Laudo?' }, class: 'btn btn-danger' %>
+        <%= link_to 'Visualizar OS', order_path(@vegoor_report.order), class: 'btn btn-primary' %>
     </div>
 
 </div>

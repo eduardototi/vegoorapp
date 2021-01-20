@@ -10,16 +10,17 @@ class VegoorReportsController < ApplicationController
     end
   
     def new
-        @vegoor_report = VegoorReport.new
+      @vegoor_report = VegoorReport.new
+      @order = Order.find(params[:order_id])
+      @vegoor_report.order_id = @order.id
     end
   
     def create
-        @vegoor_report = VegoorReport.new(vegoor_report_params)
-        if @vegoor_report.save
-            redirect_to vegoor_report_path(@vegoor_report)
-        else
-            raise
-            render :new
+      @vegoor_report = VegoorReport.new(vegoor_report_params)
+      if @vegoor_report.save
+          redirect_to vegoor_report_path(@vegoor_report)
+      else
+          render :new
       end
     end
   

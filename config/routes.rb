@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 
   resources :services
 
-  resources :orders
+  resources :orders do
+    resources :vegoor_reports, only: [ :new ]
+  end
 
   resources :vegoor_reports
 

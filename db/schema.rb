@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_19_132748) do
+ActiveRecord::Schema.define(version: 2021_01_20_195700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -212,6 +212,7 @@ ActiveRecord::Schema.define(version: 2021_01_19_132748) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "order_id", null: false
+    t.boolean "status", default: false
     t.index ["order_id"], name: "index_vegoor_reports_on_order_id"
   end
 
