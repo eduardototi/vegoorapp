@@ -2,7 +2,7 @@
   <div class="logo">
     <%= image_tag 'logo.jpg', width: '100px' %>
     <div class="order-information">
-      <h4>Ordem de Serviço n: <%= @order.id %></h4>
+      <h4>Ordem de Serviço: <strong><%= @order.id %></strong></h4>
       <h4>Data Ordem: <%= @order.created_at.strftime("%d/%m/%Y") %></h4>
       <h4>Situação: <%= @order.status ? 'Encerrada' : 'Aberta' %></h4>
     </div>
@@ -176,13 +176,16 @@
     </table>
   <% end %>
 
-
   <div class="links mt-3 text-center">
     <%= link_to 'Voltar', :back, class: 'btn btn-primary' %>
     <%  if @order.status == true || current_user.admin %>
       <%= link_to 'Editar', edit_order_path(@order), class: 'btn btn-primary' %>
+      <% if @order.vegoor_report %>
+        <%= link_to 'Visualizar Laudo', vegoor_report_path(@order.vegoor_report), class: "btn btn-primary" %>
+      <% else %>
+        <%= link_to 'Gerar Laudo', new_order_vegoor_report_path(@order), class: 'btn btn-primary' %>
+      <% end %>
       <%= link_to "Excluir", @order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' }, class: 'btn btn-danger' %>
-      <%= link_to 'Laudo', new_vegoor_report_path(@order), class: 'btn btn-primary' %>
     <% end %>
   </div>
 </div>

@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :user
   belongs_to :client
+  has_one :vegoor_report
   belongs_to :contact, class_name: "User"
   has_many :orderservices, dependent: :destroy
   has_many :services, through: :orderservices
