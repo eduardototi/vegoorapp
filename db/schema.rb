@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_20_195700) do
+ActiveRecord::Schema.define(version: 2021_01_20_210222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,19 @@ ActiveRecord::Schema.define(version: 2021_01_20_195700) do
     t.index ["utensil_id"], name: "index_sf6_orderutensils_on_utensil_id"
   end
 
+  create_table "sf6_reports", force: :cascade do |t|
+    t.text "goal"
+    t.text "reception_test"
+    t.boolean "warrant", default: false
+    t.text "conclusion"
+    t.text "observations"
+    t.boolean "status", default: false
+    t.bigint "sf6_order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sf6_order_id"], name: "index_sf6_reports_on_sf6_order_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -236,6 +249,7 @@ ActiveRecord::Schema.define(version: 2021_01_20_195700) do
   add_foreign_key "sf6_orderservices", "sf6_orders"
   add_foreign_key "sf6_orderutensils", "sf6_orders"
   add_foreign_key "sf6_orderutensils", "utensils"
+  add_foreign_key "sf6_reports", "sf6_orders"
   add_foreign_key "users", "clients"
   add_foreign_key "vegoor_reports", "orders"
 end
