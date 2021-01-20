@@ -5,9 +5,14 @@ const CampoEscolha = (props) => {
 
   return(
     <div>
-      <label>
-        {props.label}
-      </label><br/>
+      {props.label ?
+      <div>
+        <label>
+          {props.label}
+        </label><br/>
+      </div>
+      : null
+      }
 
       <div className = "mt-2">
         {props.opc.map((item) => {
@@ -15,9 +20,9 @@ const CampoEscolha = (props) => {
 
           return(
             <div key = {idOpc} className = "float-left">
-              <input id = {idOpc} name = {id} type = "radio" value = {item[1]} onChange = {props.setState}/>
+              <input id = {idOpc} name = {id} type = "checkbox" value = {item[1]} onChange = {props.setState}/>
               <label htmlFor = {idOpc}>
-                {item[0]}
+                &nbsp;{item[0]}
               </label>&nbsp;
             </div>
           )

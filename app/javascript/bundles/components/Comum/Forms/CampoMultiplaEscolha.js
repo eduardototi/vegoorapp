@@ -5,9 +5,14 @@ const CampoMultiplaEscolha = (props) => {
 
   return(
     <div>
-      <label>
-        {props.label}
-      </label><br/>
+      {props.label ?
+      <div>
+        <label>
+          {props.label}
+        </label><br/>
+      </div>
+      : null
+      }
 
       <div className = "mt-2">
         {props.opc.map((item) => {
