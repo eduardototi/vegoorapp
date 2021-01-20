@@ -1,3 +1,4 @@
+<!--
 <div class="container mt-4">
   <table class="table table-bordered table-dark">
     <thead>
@@ -11,11 +12,11 @@
     </thead>
     <tbody>
         <tr>
-          <th scope="row"><%= @client.id %></th>
-          <td><%= @client.razao_social %></td>
-          <td><%= @client.cnpj %></td>
-          <td><%= @client.ie %></td>
-          <td><%= @client.unity %></td>
+          <th scope="row">= @client.id %></th>
+          <td>= @client.razao_social %></td>
+          <td>= @client.cnpj %></td>
+          <td>= @client.ie %></td>
+          <td>= @client.unity %></td>
         </tr>
     </tbody>
   </table>
@@ -31,10 +32,10 @@
     </thead>
     <tbody>
         <tr>
-          <td><%= @client.street %> N: <%= @client.number %> <%= @client.neighborhood %></td>
-          <td><%= @client.cep %></td>
-          <td><%= @client.city %>/<%= @client.state %></td>
-          <td><%= @client.pais %></td>
+          <td>= @client.street %> N: = @client.number %> = @client.neighborhood %></td>
+          <td>= @client.cep %></td>
+          <td>= @client.city %>/= @client.state %></td>
+          <td>= @client.pais %></td>
         </tr>
     </tbody>
   </table>
@@ -48,8 +49,8 @@
     </thead>
     <tbody>
         <tr>
-          <td><%= @client.email %></td>
-          <td><%= @client.phone %></td>
+          <td>= @client.email %></td>
+          <td>= @client.phone %></td>
         </tr>
     </tbody>
   </table>
@@ -63,19 +64,18 @@
       </tr>
     </thead>
     <tbody>
-      <% @client.users.each do |user| %>
+       @client.users.each do |user| %>
         <tr>
-          <td><%= user.first_name %> <%= user.last_name %></td>
-          <td><%= user.phone %></td>
-          <td><%= user.email %></td>
+          <td>= user.first_name %> = user.last_name %></td>
+          <td>= user.phone %></td>
+          <td>= user.email %></td>
         </tr>
-      <% end %>
+       end %>
     </tbody>
   </table>
   <div class="links text-center">
-    <%= link_to 'Editar', edit_client_path(@client), class: 'btn btn-primary mb-3' %>
-    <%= link_to "Excluir", @client, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-danger mb-3' %>
+    = link_to 'Editar', edit_client_path(@client), class: 'btn btn-primary mb-3' %>
+    = link_to "Excluir", @client, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-danger mb-3' %>
   </div>
 </div>
-
-
+-->

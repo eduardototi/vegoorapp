@@ -13,6 +13,7 @@ const CampoTexto = (props) => {
              className = "form-control"
              placeholder = {props.placeholder ? props.label : ""}
              pattern = {props.pattern}
+             value = {props.value}
              onChange = {props.setState}/>
     </div>
   )

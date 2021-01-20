@@ -14,6 +14,7 @@ const CampoCnpj = (props) => {
              className = "form-control"
              placeholder = {props.placeholder ? props.label : ""}
              pattern = {MyRegex.getRegexCnpj()}
+             value = {props.value}
              onChange = {props.setState}/>
     </div>
   )

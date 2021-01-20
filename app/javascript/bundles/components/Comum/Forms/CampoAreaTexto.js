@@ -14,6 +14,7 @@ const CampoAreaTexto = (props) => {
                 rows = {props.rows}
                 cols = {props.cols}
                 placeholder = {props.placeholder ? props.label : ""}
+                value = {props.value}
                 onChange = {props.setState}/>
     </div>
   )

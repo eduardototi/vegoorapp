@@ -14,6 +14,7 @@ const CampoTelefone = (props) => {
              className = "form-control"
              placeholder = {props.placeholder ? props.label : ""}
              pattern = {MyRegex.getRegexTelefone()}
+             value = {props.value}
              onChange = {props.setState}/>
     </div>
   )

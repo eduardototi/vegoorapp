@@ -23,6 +23,8 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @roles = [["Cliente", "Cliente"], ["Técnico", "Técnico"], ["Diretor", "Diretor"], ["Gerente", "Gerente"], ["Pesquisador", "Pesquisador"]]
+    @clients = Client.all.map {|client| [client.razao_social, client.id] }
   end
 
   def update

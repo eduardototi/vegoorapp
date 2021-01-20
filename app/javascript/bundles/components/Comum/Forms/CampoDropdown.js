@@ -1,16 +1,15 @@
 import React from "react";
+import MyUtil from "../../../util/MyUtil";
 
 const CampoDropdown = (props) => {
   let id = props.id ? props.id : props.label;
-  let selecionado = <option defaultValue> {props.selecionado} </option>;
-  let opc = props.opc;
+  let indiceSelecionado = -1;
 
   //Procura o valor selecionado (defaultValue) na lista de opções, caso exista
-  //nela, ele é substituido pela a achada e removido da lista
-  for(let i in opc){
-    if(props.selecionado == opc[i][0]){
-      selecionado = <option value = {opc[i][1]} defaultValue> {opc[i][0]} </option>
-      delete opc[i];
+  //nela, a variável indiceSelecionado recebe a sua posição na lista
+  for(let i in props.opc){
+    if(props.selecionado == props.opc[i][0] || props.selecionado == props.opc[i][1]){
+      indiceSelecionado = i;
     }
   }
 
@@ -20,10 +19,20 @@ const CampoDropdown = (props) => {
         {props.label}
       </label>
       <select id = {id} className = "form-control" onChange = {props.setState}>
-        {selecionado}
-        {opc.map((item) => {
+        {indiceSelecionado >= 0 ?
+          <option value = {props.opc[indiceSelecionado][1]} defaultValue>
+            {props.opc[indiceSelecionado][0]}
+          </option>
+        :
+        <option defaultValue>
+          ERRO: DEFAULT NÃO ENCONTRADO
+        </option>}
+
+        {props.opc.map((item) => {
           return (
-            <option key = {id + "" + item[0]} value = {item[1]}>{item[0]}</option>
+            <option key = {"keyDropdown" + id + MyUtil.keyAleatoria()} value = {item[1]}>
+              {item[0]}
+            </option>
           )
         })}
       </select>

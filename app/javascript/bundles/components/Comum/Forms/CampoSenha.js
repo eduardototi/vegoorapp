@@ -12,6 +12,7 @@ const CampoSenha = (props) => {
              type = "password"
              className = "form-control"
              placeholder = {props.placeholder ? props.label : ""}
+             value = {props.value}
              onChange = {props.setState}/>
     </div>
   )

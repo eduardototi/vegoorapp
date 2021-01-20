@@ -12,6 +12,7 @@ const CampoEmail = (props) => {
              type = "email"
              className = "form-control"
              placeholder = {props.placeholder ? props.label : ""}
+             value = {props.value}
              onChange = {props.setState}/>
     </div>
   )

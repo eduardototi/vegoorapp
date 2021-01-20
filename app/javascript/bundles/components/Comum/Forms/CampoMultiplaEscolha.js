@@ -20,7 +20,22 @@ const CampoMultiplaEscolha = (props) => {
 
           return(
             <div key = {idOpc} className = "float-left">
-              <input id = {idOpc} name = {id} type = "radio" value = {item[1]} onChange = {props.setState} onClick = {props.onClick}/>
+              {item[1] === props.selecionado ?
+              <input id = {idOpc}
+                     name = {id}
+                     type = "radio"
+                     value = {item[1]}
+                     onChange = {props.setState}
+                     onClick = {props.onClick}
+                     checked/>
+              :
+              <input id = {idOpc}
+                     name = {id}
+                     type = "radio"
+                     value = {item[1]}
+                     onChange = {props.setState}
+                     onClick = {props.onClick}/>}
+
               <label htmlFor = {idOpc}>
                 {item[0]}
               </label>&nbsp;
