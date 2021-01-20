@@ -1,7 +1,10 @@
 <div class="container order">
     
     <div class="logo">
-        <%= image_tag 'logo.jpg', width: '100px' %>
+        <div>
+            <h6><%= image_tag 'sf6.jpg', width: '100px' %>
+            Rua Luiz Gulin, 723, Barracão 04, Bairro Osasco, CEP 83403-150, Colombo - PR CNPJ 09.422.282/0002-70 Fone: 55-41-3328 0366</h6>
+        </div>
         <div>
             Data: 
             <%= @sf6_report.created_at.strftime("%d/%m/%y") %>
