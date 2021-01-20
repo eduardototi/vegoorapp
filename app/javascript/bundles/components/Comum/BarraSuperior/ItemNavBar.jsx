@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import MyUtil from "../../../util/MyUtil";
 import "../../../styles/BarraSuperior.css";
 
 export default class ItemNavBar extends React.Component {
@@ -13,10 +14,6 @@ export default class ItemNavBar extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-    };
-
   }
 
   render() {
@@ -30,10 +27,10 @@ export default class ItemNavBar extends React.Component {
 
             {this.props.subitems.map((valor) => {
               return(
-              <div key = {this.props.titulo + valor}>
+              <div key = {"keyNav" + MyUtil.keyAleatoria()}>
                 <li>
-                  <a className = "dropdown-item">
-                    {valor}
+                  <a className = "dropdown-item" href = {valor[1]}>
+                    {valor[0]}
                   </a>
                 </li>
               </div>)

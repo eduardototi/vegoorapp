@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import {Link} from "react-router-dom";
 import ItemNavBar from "./ItemNavBar";
 import "../../../styles/BarraSuperior.css";
 
@@ -34,7 +35,7 @@ export default class BarraSuperior extends React.Component {
       <div>
         <nav className = "navbar navbar-expand-md fixed-top navbar-dark bg-dark" aria-label = "Main navigation">
           <div className = "container-fluid">
-            <a className = "navbar-brand">
+            <a className = "navbar-brand" href = "/">
               <i className = "fa fa-home homeIcon"></i>
             </a>
 
@@ -45,24 +46,24 @@ export default class BarraSuperior extends React.Component {
             <div className = "navbar-collapse offcanvas-collapse" id = "navbarsExampleDefault">
               <ul className = "navbar-nav mr-auto ">
                 <ItemNavBar titulo = "Usuários"
-                            subitems = {["Novo", "Listar"]}
-                            links = {["", ""]}/>
+                            subitems = {[["Novo", "/users/new"], ["Listar", "/users"]]}/>
 
                 <ItemNavBar titulo = "Clientes"
-                            subitems = {["Novo", "Listar"]}
-                            links = {["", ""]}/>
+                            subitems = {[["Novo", "/clients/new"], ["Listar", "/clients"]]}/>
 
                 <ItemNavBar titulo = "Equipamentos"
-                            subitems = {["Novo Equipamento", "Listar Equipamentos", "Nova Máquina", "Listar Máquinas", "Novo Epi", "Listar Epis"]}
-                            links = {["", "", "", "", "", ""]}/>
+                            subitems = {[["Novo Equipamento", "/utensils/new"],
+                                        ["Listar Equipamentos", "/utensils"],
+                                        ["Nova Máquina", "/machines/new"],
+                                        ["Listar Máquinas", "/machines"],
+                                        ["Novo Epi", "/epis/new"],
+                                        ["Listar Epis", "/epis"]]}/>
 
                 <ItemNavBar titulo = "Serviços"
-                            subitems = {["Novo", "Listar"]}
-                            links = {["", ""]}/>
+                            subitems = {[["Novo", "/services/new"], ["Listar", "/services"]]}/>
 
                 <ItemNavBar titulo = "Ordens de Serviço"
-                            subitems = {["Nova OS Vegoor", "Listar OS Vegoor", "Nova OS SF6", "Listar OS SF6"]}
-                            links = {["", "", "", ""]}/>
+                            subitems = {[["Nova", "/orders/new"], ["Listar", "/orders"]]}/>
               </ul>
 
                 <span className = "text-white mr-2">

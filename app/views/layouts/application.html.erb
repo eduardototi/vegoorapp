@@ -6,23 +6,31 @@
     <%= csp_meta_tag %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= favicon_link_tag asset_path('logo.jpg') %>
+
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+
+
     <%= javascript_pack_tag 'components-bundle' %>
+
   </head>
 
   <body class = "bg-secondary">
-    <% if user_signed_in? %>
+     <% if user_signed_in? %>
       <%= react_component("BarraSuperior", props: {"usuarioAtual": current_user.first_name}, prerender: false) %>
-    <% end %>
+     <% end %>
 
-    <%= render 'shared/flashes' %>
-    <!-- render 'shared/menu' -->
-    <%= render 'shared/footer' %>
+    <!--
+    = #render 'shared/flashes' %>
+     render 'shared/menu'
+    -->
+
+    <%= render "shared/footer" %>
+
 
     <% if user_signed_in? %>
-      <!-- footer vai aqui -->
     <% end %>
 
     <main class = "container">

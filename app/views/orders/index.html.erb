@@ -1,3 +1,13 @@
+<div class = "container mt-4">
+  <%= react_component("Lista",
+                      props: {"cabecalho": ["Número", "Cliente", "Situação"],
+                              "colunas": ["id", "client.razao_social", "status"],
+                              "data": @orders.as_json},
+                      prerender: false) %>
+</div>
+
+
+<!--
 <div class="container mt-4">
   <table class="table table-bordered table-dark">
     <thead>
@@ -9,15 +19,16 @@
       </tr>
     </thead>
     <tbody>
-      <% @orders.each do |order| %>
+       @orders.each do |order| %>
         <tr>
-          <th scope="row"><%= order.id %></th>
-          <td><%= order.client.razao_social %></td>
-          <td><%= order.status ? 'Encerrada' : 'Aberta' %></td>
-          <td><%= link_to 'Visualizar', order_path(order) %></td>
+          <th scope="row">< order.id %></th>
+          <td>< order.client.razao_social %></td>
+          <td>< order.status ? 'Encerrada' : 'Aberta' %></td>
+          <td>< link_to 'Visualizar', order_path(order) %></td>
         </tr>
-      <% end %>
+       end %>
     </tbody>
   </table>
-  <%#= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
+  <= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
 </div>
+-->

@@ -1,10 +1,10 @@
 import React from "react";
-import {Rote, Switch} from "react-router-dom";
 
-const App = () => {
-  return (
-    <div></div>
-  )
+export default class App extends React.Component {
+  render() {
+    return(
+      <div>
+      </div>
+    )
+  }
 }
-
-export default App

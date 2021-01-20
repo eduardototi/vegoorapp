@@ -5,10 +5,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import App from "../bundles/components/App";
+import App from "../bundles/components/App.js";
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(
-    document.body.appendChild(document.createElement('div')),
+    <div>
+    </div>,
+    document.body.appendChild(document.createElement("div"))
   )
 })

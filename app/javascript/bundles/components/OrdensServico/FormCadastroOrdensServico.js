@@ -39,7 +39,12 @@ export default class FormCadastroOrdensServico extends React.Component {
       servicoPanelFinalizado: "",
       servicoPanelMaquina: "",
       servicoPanelNumeroSerie: "",
-      listaServicos: []
+      listaServicos: [],
+      equipamentoPanelEquipamento: "",
+      listaEquipamentos: [],
+      epiPanelEpi: "",
+      epiPanelQuantia: "",
+      listaEpis: []
     };
 
     this.setPrestadora = this.setPrestadora.bind(this);
@@ -58,11 +63,17 @@ export default class FormCadastroOrdensServico extends React.Component {
     this.setServicoPanelFinalizado = this.setServicoPanelFinalizado.bind(this);
     this.setServicoPanelMaquina = this.setServicoPanelMaquina.bind(this);
     this.setServicoPanelNumeroSerie = this.setServicoPanelNumeroSerie.bind(this);
+    this.setEquipamentoPanelEquipamento = this.setEquipamentoPanelEquipamento.bind(this);
+    this.setEpiPanelEpi = this.setEpiPanelEpi.bind(this);
+    this.setEpiPanelQuantia = this.setEpiPanelQuantia.bind(this);
 
     this.mudaImagem = this.mudaImagem.bind(this);
     this.mostraPanel = this.mostraPanel.bind(this);
 
     this.novoItemServico = this.novoItemServico.bind(this);
+    this.novoItemEquipamento = this.novoItemEquipamento.bind(this);
+    this.novoItemEpi = this.novoItemEpi.bind(this);
+    this.deletaItem = this.deletaItem.bind(this);
   }
 
   setPrestadora(e){
@@ -125,6 +136,18 @@ export default class FormCadastroOrdensServico extends React.Component {
     this.setState({servicoPanelNumeroSerie: e.target.value});
   }
 
+  setEquipamentoPanelEquipamento(e){
+    this.setState({equipamentoPanelEquipamento: e.target.value});
+  }
+
+  setEpiPanelEpi(e){
+    this.setState({epiPanelEpi: e.target.value});
+  }
+
+  setEpiPanelQuantia(e){
+    this.setState({epiPanelQuantia: e.target.value});
+  }
+
   mudaImagem(e){
     let selecao = e.target.value;
     let imgVegoor = document.getElementById("imgVegoor");
@@ -162,6 +185,7 @@ export default class FormCadastroOrdensServico extends React.Component {
     //Adiciona um novo serviço a lista de serviços
     novaListaServicos.push(<ItemAdicao id = {id}
                                        key = {key}
+                                       deleta = {() => this.deletaItem(id, "listaServicos")}
                                        data = {[["Serviço", this.state.servicoPanelServico],
                                                ["Finalizado", this.state.servicoPanelFinalizado],
                                                ["Máquina", this.state.servicoPanelMaquina],
@@ -171,11 +195,62 @@ export default class FormCadastroOrdensServico extends React.Component {
     this.setState({listaServicos: novaListaServicos});
   }
 
+  novoItemEquipamento(){
+    //Cópia da lista atual de equipamentos para alteração
+    let novaListaEquipamentos = this.state.listaEquipamentos;
+    let id = "itemListaEquipamento" + MyUtil.numeroAleatorio();
+    let key = "keyItemListaEquipamento" + MyUtil.numeroAleatorio();
+
+    //Adiciona um novo equipamento a lista de equipamentos
+    novaListaEquipamentos.push(<ItemAdicao id = {id}
+                                           key = {key}
+                                           deleta = {() => this.deletaItem(id, "listaEquipamentos")}
+                                           data = {[["Equipamento", this.state.equipamentoPanelEquipamento]]}/>)
+
+    //Atualização da lista de equipamentos com o novo item inserido
+    this.setState({listaEquipamentos: novaListaEquipamentos});
+  }
+
+  novoItemEpi(){
+    //Cópia da lista atual de epis para alteração
+    let novaListaEpis = this.state.listaEpis;
+    let id = "itemListaEpi" + MyUtil.numeroAleatorio();
+    let key = "keyItemListaEpi" + MyUtil.numeroAleatorio();
+
+    //Adiciona uma nova epi a lista de epis
+    novaListaEpis.push(<ItemAdicao id = {id}
+                                   key = {key}
+                                   deleta = {() => this.deletaItem(id, "listaEpis")}
+                                   data = {[["Epi", this.state.epiPanelEpi],
+                                            ["Quantia", this.state.epiPanelQuantia]]}/>)
+
+    //Atualização da lista de epis com o novo item inserido
+    this.setState({listaEpis: novaListaEpis});
+  }
+
+  deletaItem(id, state){
+    //Busca em um state específico o id do componente desejado e remove
+    for(let i in this.state[state]){
+      if(this.state[state][i].props.id === id){
+        delete this.state[state][i];
+      }
+    }
+
+    //Remove do html o elemento da lista
+    document.getElementById(id).remove();
+  }
+
   render() {
     return (
       <div>
         <form>
           <div className = "container">
+
+            <div className = "row mt-2">
+              <div className = "col">
+                Data: {MyUtil.dataAtual()}
+              </div>
+            </div>
 
             <div className = "row mt-2">
               <div className = "col">
@@ -258,6 +333,8 @@ export default class FormCadastroOrdensServico extends React.Component {
               </div>
             </div>
 
+            {/*Sessão de Serviços*/}
+
             <div className = "row mt-3">
               <div className = "col text-left">
                 <h5 className = "h5">
@@ -318,13 +395,143 @@ export default class FormCadastroOrdensServico extends React.Component {
             <div>
               {this.state.listaServicos.map((servico) => {
                 return (
-                  <div className = "row mt-2" key = {"lista" + MyUtil.keyAleatoria()}>
+                  <div className = "row mt-2" key = {"listaServicos" + MyUtil.keyAleatoria()}>
                     <div className = "col">
                       {servico}
                     </div>
                   </div>
                 )
               })}
+            </div>
+
+            {/*Fim da Sessão de Serviços*/}
+
+
+            {/*Sessão de Equipamentos*/}
+
+            <div className = "row mt-4">
+              <div className = "col text-left">
+                <h5 className = "h5">
+                  Equipamentos
+                </h5>
+              </div>
+
+              <div className = "col text-right">
+                <button type = "button" className = "btn btn-primary btn-sm" onClick = {() => this.mostraPanel("modalEquipamento")}>
+                  Adicionar Equipamento
+                </button>
+              </div>
+            </div>
+
+            <div className = "row mt-2">
+              <div className = "col">
+                <Modal id = "modalEquipamento"
+                       key = "keyModalEquipamento"
+                       titulo = "Adicionar um Equipamento"
+                       novoItem = {this.novoItemEquipamento}
+                       campos = {[[<div key = "rowEuipamentoPanel1" className = "row">
+                                    <div className = "col">
+                                      <CampoDropdown id = "equipamentoPanel"
+                                                     key = "keyServicoPanel"
+                                                     label = "Equipamento"
+                                                     selecionado = "Selecione..."
+                                                     opc = {[["Equipamento 1", 1], ["Equipamento 2", 2]]}
+                                                     setState = {this.setEquipamentoPanelEquipamento}/>
+                                    </div>
+                                   </div>]]}/>
+              </div>
+            </div>
+
+            <div>
+              {this.state.listaEquipamentos.map((equipamento) => {
+                return (
+                  <div className = "row mt-2" key = {"listaEquipamentos" + MyUtil.keyAleatoria()}>
+                    <div className = "col">
+                      {equipamento}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+            {/*Fim da Sessão de Equipamentos*/}
+
+
+            {/*Sessão de EPIs*/}
+
+            <div className = "row mt-4">
+              <div className = "col text-left">
+                <h5 className = "h5">
+                  EPIs
+                </h5>
+              </div>
+
+              <div className = "col text-right">
+                <button type = "button" className = "btn btn-primary btn-sm" onClick = {() => this.mostraPanel("modalEpi")}>
+                  Adicionar EPI
+                </button>
+              </div>
+            </div>
+
+            <div className = "row mt-2">
+              <div className = "col">
+                <Modal id = "modalEpi"
+                       key = "keyModalEpi"
+                       titulo = "Adicionar uma EPI"
+                       novoItem = {this.novoItemEpi}
+                       campos = {[[<div key = "rowEpiPanel1" className = "row">
+                                    <div className = "col">
+                                      <CampoDropdown id = "epiPanel"
+                                                     key = "keyEpiPanel"
+                                                     label = "EPI"
+                                                     selecionado = "Selecione..."
+                                                     opc = {[["EPI 1", 1], ["EPI 2", 2]]}
+                                                     setState = {this.setEpiPanelEpi}/>
+
+                                    </div>
+                                    <div className = "col">
+                                      <CampoNumerico id = "rowEpiPanel2"
+                                                     key = "keyQuantiaPanel"
+                                                     label = "Quantidade"
+                                                     min = "0"
+                                                     step = "1"
+                                                     placeholder = {true}
+                                                     setState = {this.setEquipamentoPanelEquipamento}/>
+                                    </div>
+                                   </div>]]}/>
+              </div>
+            </div>
+
+            <div>
+              {this.state.listaEpis.map((epi) => {
+                return (
+                  <div className = "row mt-2" key = {"listaEpis" + MyUtil.keyAleatoria()}>
+                    <div className = "col">
+                      {epi}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+            {/*Fim da Sessão de EPIs*/}
+
+            <div className = "row mt-4">
+              <div className = "col">
+                <CampoAreaTexto id = "observacoes"
+                                label = "Observações"
+                                placeholder = {true}
+                                rows = "5"
+                                setState = {this.setObservacoes}/>
+              </div>
+            </div>
+
+            <div className = "row mt-5">
+              <div className = "col text-center">
+                <button type = "button" className = "btn btn-primary btn">
+                  Emitir
+                </button>
+              </div>
             </div>
 
           </div>
