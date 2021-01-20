@@ -1,6 +1,6 @@
 <div class='container order'>
     <div class="logo">
-        <%= image_tag 'logo.jpg', width: '100px' %>
+        <%= image_tag 'sf6.jpg', width: '100px' %>
     </div>
 
     <table class="table table-bordered mt-2">
@@ -16,20 +16,20 @@
         </thead>
         <tbody>
         <tr>
-            <th scope="row" class="text-center"><%= @order.id %></th>
-            <td class="text-center"><%= @order.created_at.strftime("%d/%m/%Y") %></td>
-            <td class="text-center"><%= @order.status ? 'Encerrada' : 'Aberta' %></td>
-            <% if @order.field %>
+            <th scope="row" class="text-center"><%= @sf6_order.id %></th>
+            <td class="text-center"><%= @sf6_order.created_at.strftime("%d/%m/%Y") %></td>
+            <td class="text-center"><%= @sf6_order.status ? 'Encerrada' : 'Aberta' %></td>
+            <% if @sf6_order.field %>
                 <td class="text-center"><i class="fas fa-check"></i></td>
             <% else %>
                 <td></td>
             <% end %>
-            <% if @order.laboratory %>
+            <% if @sf6_order.laboratory %>
                 <td class="text-center"><i class="fas fa-check"></i></td>
             <% else %>
                 <td></td>
             <% end %>
-            <% if @order.factory %>
+            <% if @sf6_order.factory %>
                 <td class="text-center"><i class="fas fa-check"></i></td>
             <% else %>
                 <td></td>
@@ -51,12 +51,12 @@
         </thead>
         <tbody>
         <tr>
-            <th scope="row"><%= @order.client.razao_social %></th>
-            <td><%= @order.client.cnpj %></td>
-            <td><%= @order.client.phone %></td>
-            <td><%= @order.client.email %></td>
-            <td><%= @order.client.street %> Nº: <%= @order.client.number %></td>
-            <td><%= @order.client.city %>/<%= @order.client.state %></td>
+            <th scope="row"><%= @sf6_order.client.razao_social %></th>
+            <td><%= @sf6_order.client.cnpj %></td>
+            <td><%= @sf6_order.client.phone %></td>
+            <td><%= @sf6_order.client.email %></td>
+            <td><%= @sf6_order.client.street %> Nº: <%= @sf6_order.client.number %></td>
+            <td><%= @sf6_order.client.city %>/<%= @sf6_order.client.state %></td>
         </tr>
         </tbody>
     </table>
@@ -71,9 +71,9 @@
         </thead>
         <tbody>
         <tr>
-            <th scope="row"><%= @order.contact.first_name %> <%= @order.contact.last_name %></th>
-            <td><%= @order.contact.email %></td>
-            <td><%= @order.contact.phone %></td>
+            <th scope="row"><%= @sf6_order.contact.first_name %> <%= @sf6_order.contact.last_name %></th>
+            <td><%= @sf6_order.contact.email %></td>
+            <td><%= @sf6_order.contact.phone %></td>
         </tr>
         </tbody>
     </table>
@@ -90,7 +90,7 @@
           <th scope="col">Finalizado</th>
         </tr>
       </thead>
-      <% @order.orderservices.each do |orderservice| %>
+      <% @sf6_order.sf6_orderservices.each do |orderservice| %>
         <tbody>
           <tr>
             <th scope="row"><%= orderservice.service.title %></th>
@@ -107,9 +107,9 @@
       <% end %>
     </table>
 
-    <%= simple_form_for(@vegoor_report) do |f| %>
+    <%= simple_form_for(@sf6_report) do |f| %>
         <%= f.input :goal, label: "Objetivo" %>
-        <%= f.hidden_field :order_id %>
+        <%= f.hidden_field :sf6_order_id %>
         <%= f.input :reception_test, label: "Texte de recepção" %>
         <%= f.input :conclusion, label: "Conclusão" %>
         <%= f.input :observations, label: "Observações" %>
@@ -128,12 +128,13 @@
         </thead>
         <tbody>
         <tr>
-            <th scope="row"><%= @order.user.first_name %> <%= @order.user.last_name %></th>
-            <td><%= @order.user.email %></td>
-            <td><%= @order.user.phone %></td>
+            <th scope="row"><%= @sf6_order.user.first_name %> <%= @sf6_order.user.last_name %></th>
+            <td><%= @sf6_order.user.email %></td>
+            <td><%= @sf6_order.user.phone %></td>
         </tr>
         </tbody>
     </table>
+
 
 </div>
 

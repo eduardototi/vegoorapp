@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Ordem de Serviço</th>
+        <th scope="col">Laudo</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Situação</th>
+        <th scope="col">Visualizar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sf6_reports.each do |report| %>
+        <tr>
+          <th scope="row"><%= report.sf6_order.id %></th>
+          <th scope="row"><%= report.id %></th>
+          <td><%= report.sf6_order.client.razao_social %></td>
+          <td><%= report.status ? 'Final' : 'Preliminar' %></td>
+          <td><%= link_to 'Visualizar', sf6_report_path(report) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%#= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
+</div>

@@ -30,7 +30,7 @@ class VegoorReportsController < ApplicationController
     end
   
     def edit
-      @vegoor_report = VegoorReport.where(vegoor_report_id: params[:id])
+      @order = Order.find(params[:id])
     end
   
     def update
