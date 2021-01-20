@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
+import MyUtil from "../../util/MyUtil";
 import Modal from "../Comum/Modal/Modal";
+import ItemAdicao from "../Comum/Modal/ItemAdicao";
 import CampoTexto from "../Comum/Forms/CampoTexto";
 import CampoEscolha from "../Comum/Forms/CampoEscolha";
 import CampoNumerico from "../Comum/Forms/CampoNumerico";
@@ -36,7 +38,8 @@ export default class FormCadastroOrdensServico extends React.Component {
       servicoPanelServico: "",
       servicoPanelFinalizado: "",
       servicoPanelMaquina: "",
-      servicoPanelNumeroSerie: ""
+      servicoPanelNumeroSerie: "",
+      listaServicos: []
     };
 
     this.setPrestadora = this.setPrestadora.bind(this);
@@ -58,6 +61,8 @@ export default class FormCadastroOrdensServico extends React.Component {
 
     this.mudaImagem = this.mudaImagem.bind(this);
     this.mostraPanel = this.mostraPanel.bind(this);
+
+    this.novoItemServico = this.novoItemServico.bind(this);
   }
 
   setPrestadora(e){
@@ -146,6 +151,24 @@ export default class FormCadastroOrdensServico extends React.Component {
   mostraPanel(id){
     //Deixa visível um componente panel
     document.getElementById(id).style.display = "block";
+  }
+
+  novoItemServico(){
+    //Cópia da lista atual de serviços para alteração
+    let novaListaServicos = this.state.listaServicos;
+    let id = "itemListaServico" + MyUtil.numeroAleatorio();
+    let key = "keyItemListaServico" + MyUtil.numeroAleatorio();
+
+    //Adiciona um novo serviço a lista de serviços
+    novaListaServicos.push(<ItemAdicao id = {id}
+                                       key = {key}
+                                       data = {[["Serviço", this.state.servicoPanelServico],
+                                               ["Finalizado", this.state.servicoPanelFinalizado],
+                                               ["Máquina", this.state.servicoPanelMaquina],
+                                               ["Número de Série", this.state.servicoPanelNumeroSerie]]}/>)
+
+    //Atualização da lista de serviços com o novo item inserido
+    this.setState({listaServicos: novaListaServicos});
   }
 
   render() {
@@ -243,7 +266,7 @@ export default class FormCadastroOrdensServico extends React.Component {
               </div>
 
               <div className = "col text-right">
-                <button type = "button" className = "btn btn-primary btn-sm" onClick = {() => this.mostraPanel("addServicoModal")}>
+                <button type = "button" className = "btn btn-primary btn-sm" onClick = {() => this.mostraPanel("modalServico")}>
                   Adicionar Serviço
                 </button>
               </div>
@@ -251,10 +274,10 @@ export default class FormCadastroOrdensServico extends React.Component {
 
             <div className = "row mt-2">
               <div className = "col">
-                <Modal id = "addServico"
-                       idModal = "addServicoModal"
-                       idAdicaoItens = "areaItensServico"
+                <Modal id = "modalServico"
+                       key = "keyModalServico"
                        titulo = "Adicionar um Serviço"
+                       novoItem = {this.novoItemServico}
                        campos = {[[<div key = "rowServicoPanel1" className = "row">
                                     <div className = "col">
                                       <CampoDropdown id = "servicoPanel"
@@ -290,6 +313,18 @@ export default class FormCadastroOrdensServico extends React.Component {
                                     </div>
                                   </div>]]}/>
               </div>
+            </div>
+
+            <div>
+              {this.state.listaServicos.map((servico) => {
+                return (
+                  <div className = "row mt-2" key = {"lista" + MyUtil.keyAleatoria()}>
+                    <div className = "col">
+                      {servico}
+                    </div>
+                  </div>
+                )
+              })}
             </div>
 
           </div>
