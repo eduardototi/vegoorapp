@@ -58,6 +58,11 @@ class MyUtil {
 
     return dia + "/" + mes + "/" + ano.toString();
   }
+
+  //Retorna uma cópia de um objeto
+  deepCopy(objeto){
+    return JSON.parse(JSON.stringify(objeto));
+  }
 }
 
 export default new MyUtil();

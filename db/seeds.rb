@@ -41,6 +41,20 @@ end
     password_confirmation: "123456",
     )
   user.save!
+
+  user = User.create(
+    first_name: 'Matheus',
+    last_name: 'Siqueira',
+    email: 'matheus@email.com',
+    admin: true,
+    role: 'Técnico',
+    client_id: 1,
+    phone: '(41)12345-1234',
+    registration: '123456',
+    password: "123456",
+    password_confirmation: "123456",
+    )
+  user.save!
 end
 
 puts 'Seed finalizado com sucesso'

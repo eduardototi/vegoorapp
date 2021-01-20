@@ -2,6 +2,7 @@
   <%= react_component("Lista",
                       props: {"cabecalho": ["Id", "Nome", "E-mail", "Telefone", "Função", "Administrador"],
                               "colunas": ["id", "first_name { } last_name", "email", "phone", "role", "admin"],
+                              "linkAcoes": "users",
                               "data": @users.as_json},
                       prerender: false) %>
 </div>
