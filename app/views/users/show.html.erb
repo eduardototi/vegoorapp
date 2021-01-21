@@ -1,18 +1,22 @@
 <div class = "container mt-4">
   <div class = "mb-3">
-    <%= link_to("Voltar", :back, {:class => "h5 text-white"}) %>
+    <%= link_to "Voltar", users_path, class: "h5 text-white" %>
   </div>
 
-  <%= react_component("ListaVisualizacao",
-                      props: {"cabecalho": ["Id", "Nome", "Matrícula", "E-mail", "Telefone", "Função", "Administrador"],
-                              "colunas": ["id", "first_name { } last_name", "registration", "email", "phone", "role", "admin"],
+  <%= react_component("Visualizacao",
+                      props: {"cabecalho": ["Nome", "Matrícula", "E-mail", "Telefone", "Função", "Administrador",
+                                            "Empresa", "Telefone", "E-mail"],
+                              "colunas": ["first_name { } last_name", "registration", "email", "phone", "role", "admin",
+                                          "razao_social", "phone", "email"],
                               "linkAcoes": "users",
+                              "acoes": true,
                               "data": @user.as_json},
                       prerender: false) %>
-
-  <%= react_component("ListaVisualizacaoSemAcoes",
-                      props: {"cabecalho": ["Empresa", "Telefone", "E-mail"],
+  <br/>
+  <%= react_component("Visualizacao",
+                      props: {"cabecalho": ["Empresa", "Telefone Empresa", "E-mail Empresa"],
                               "colunas": ["razao_social", "phone", "email"],
+                              "acoes": false,
                               "data": @user.client.as_json},
                       prerender: false) %>
 </div>

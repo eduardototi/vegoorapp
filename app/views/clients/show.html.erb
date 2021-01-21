@@ -1,3 +1,21 @@
+<div class = "container mt-4">
+  <div class = "mb-3">
+    <%= link_to "Voltar", clients_path, class: "h5 text-white" %>
+  </div>
+
+  <%= react_component("Visualizacao",
+                      props: {"cabecalho": ["Razão Social", "CNPJ", "Inscrição Estadual", "Unidade",
+                                            "Endereço", "CEP", "Cidade / UF", "País",
+                                            "E-mail", "Telefone"],
+                              "colunas": ["razao_social", "cnpj", "ie", "unity",
+                                          "street{, Nº } number neighborhood", "cep", "city {/} state", "pais",
+                                          "email", "phone"],
+                              "linkAcoes": "clients",
+                              "acoes": true,
+                              "data": @client.as_json},
+                      prerender: false) %>
+</div>
+
 <!--
 <div class="container mt-4">
   <table class="table table-bordered table-dark">

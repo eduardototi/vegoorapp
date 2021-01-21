@@ -4,7 +4,7 @@ class MyParser {
 
   //Remove as chaves da string
   removePlacer(string){
-    let regex = /\{[0-9a-zA-Z,.ºª: ]{1,}\}/gi;
+    let regex = /\{[0-9a-zA-Z,.ºª:/ ]{1,}\}/gi;
     //Deixa somente os campos da query que serão utilizados e
     //retira os espaços em branco excessivos
     let novaString = string.replace(regex, "").replace(/[ ]{1,}/, " ");

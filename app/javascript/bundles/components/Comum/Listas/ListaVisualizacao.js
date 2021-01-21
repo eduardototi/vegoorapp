@@ -19,13 +19,15 @@ export default class ListaVisualizacao extends React.Component {
 
     this.state = {
       dataConv: [],
-      dadosTrocados: []
+      dadosTrocados: [],
+      convData: []
     }
 
     this.convData();
     this.substituiValores();
 
     this.exclui = this.exclui.bind(this);
+    this.convData = this.convData.bind(this);
   }
 
   //Converte o prop data de objeto para um dicionário
@@ -77,13 +79,17 @@ export default class ListaVisualizacao extends React.Component {
                   </th>
                 )
               })}
-
-              <th scope = "col" colSpan = "2">Ações</th>
+              {this.props.acoes ?
+              <th scope = "col" colSpan = "2">
+                Ações
+              </th>
+              : null}
             </tr>
           </thead>
           {this.state.dataConv.length > 0 ?
 
           <tbody className = "bg-light">
+          {this.props.acoes ?
             <tr scope = "row">
               {this.state.dadosTrocados.map((coluna) => {
                 return (
@@ -104,6 +110,17 @@ export default class ListaVisualizacao extends React.Component {
                 </a>
               </td>
             </tr>
+          :
+            <tr scope = "row">
+              {this.state.dadosTrocados.map((coluna) => {
+                return (
+                  <td key = {"itemLinhaLista" + MyUtil.keyAleatoria()}  scope = "col">
+                    {coluna}
+                  </td>
+                )
+
+              })}
+            </tr>}
 
           </tbody>
 

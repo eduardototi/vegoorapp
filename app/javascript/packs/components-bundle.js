@@ -3,7 +3,7 @@ import ReactOnRails from "react-on-rails";
 //Comum
 import Lista from "../bundles/components/Comum/Listas/Lista";
 import ListaVisualizacao from "../bundles/components/Comum/Listas/ListaVisualizacao";
-import ListaVisualizacaoSemAcoes from "../bundles/components/Comum/Listas/ListaVisualizacaoSemAcoes";
+import Visualizacao from "../bundles/components/Comum/Visualizacao/Visualizacao";
 import BarraSuperior from "../bundles/components/Comum/BarraSuperior/BarraSuperior";
 //Usuários
 import FormCadastroUsuario from "../bundles/components/Usuarios/FormCadastroUsuario";
@@ -24,7 +24,7 @@ import FormCadastroOrdensServico from "../bundles/components/OrdensServico/FormC
 ReactOnRails.register({
   Lista,
   ListaVisualizacao,
-  ListaVisualizacaoSemAcoes,
+  Visualizacao,
   BarraSuperior,
   FormCadastroUsuario,
   FormEdicaoUsuario,
