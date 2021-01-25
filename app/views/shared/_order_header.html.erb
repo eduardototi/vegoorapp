@@ -1,0 +1,28 @@
+<div class="order-information">
+    <h4>Ordem de Serviço: <strong><%= order.id %></strong></h4>
+    <h4>Data Ordem: <%= order.created_at.strftime("%d/%m/%Y") %></h4>
+    <h4>Situação: <%= order.status ? 'Encerrada' : 'Aberta' %></h4>
+</div>
+<div class="service-tipe">
+    <div class="field">
+    <% if order.field %>
+        <h5><i class="fas fa-check"> Serviço de Campo</i></h5>
+    <% else %>
+        <h5><i class="far fa-square"> Serviço de Campo</i></h5>
+    <% end %>
+    </div>
+    <div class="laboratory">
+    <% if order.laboratory %>
+        <h5><i class="fas fa-check"> Serviço de Laboratório</i></h5>
+    <% else %>
+        <h5><i class="far fa-square"> Serviço de Laboratório</i></h5>
+    <% end %>
+    </div>
+    <div class="laboratory">
+    <% if order.factory %>
+        <h5><i class="fas fa-check"> Serviço de Oficina</i></h5>
+    <% else %>
+        <h5><i class="far fa-square"> Serviço de Oficina</i></h5>
+    <% end %>
+    </div>
+</div>

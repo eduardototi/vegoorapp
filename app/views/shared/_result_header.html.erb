@@ -1,0 +1,11 @@
+<div>
+    Data: 
+    <%= report.created_at.strftime("%d/%m/%y") %>
+</div>
+<div>
+    <% if report.status %>
+        Laudo Técnico Final: <%= report.order_id %>
+    <% else %>
+        Laudo Técnico Preliminar: <%= report.order_id %>
+    <% end %>
+</div>

@@ -1,4 +1,4 @@
-<thead class="table table-bordered table-dark">
+<thead class="table table-bordered table-dark mt-3">
   <tr>
     <th scope="col">Parametro</th>
     <th scope="col">Unidade</th>
@@ -6,6 +6,9 @@
     <th scope="col">Fase B</th>
     <th scope="col">Fase C</th>
     <th scope="col">Referência</th>
+    <th scope="col">Editar</th>
+    <th scope="col">Excluir</th>
+
   </tr>
 </thead>
 <% orderservice.orderservice_reports.each do |result| %>
@@ -17,7 +20,7 @@
       <td><%= result.fase_b %></td>
       <td><%= result.fase_c %></td>
       <td><%= result.reference %></td>
-      <td><%= link_to 'Editar', edit_orderservice_report_path(result) %></td>
+      <td><%= link_to 'Editar', edit_orderservice_report_path(result), class: 'btn btn-primary' %></td>
       <td><%= link_to "Excluir", result, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este resultado?' }, class: 'btn btn-danger' %></td>
     </tr>
   </tbody>
