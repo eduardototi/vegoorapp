@@ -5,7 +5,6 @@ class Order < ApplicationRecord
   belongs_to :contact, class_name: "User"
   has_many :orderservices, dependent: :destroy
   has_many :services, through: :orderservices
-  has_many :orderservice_reports, through: :orderservices
   accepts_nested_attributes_for :orderservices, reject_if: :all_blank, allow_destroy: true
   has_many :orderutensils, dependent: :destroy
   has_many :utensils, through: :orderutensils

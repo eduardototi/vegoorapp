@@ -17,6 +17,8 @@
       <td><%= result.fase_b %></td>
       <td><%= result.fase_c %></td>
       <td><%= result.reference %></td>
+      <td><%= link_to 'Editar', edit_orderservice_report_path(result) %></td>
+      <td><%= link_to "Excluir", result, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este resultado?' }, class: 'btn btn-danger' %></td>
     </tr>
   </tbody>
 <% end %>
