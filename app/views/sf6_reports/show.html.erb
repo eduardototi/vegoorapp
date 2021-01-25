@@ -11,11 +11,9 @@
         </div>
         <div>
             <% if @sf6_report.status %>
-                Laudo Técnico Final: <%= @sf6_report.id %>
-                OS: <%= @sf6_report.sf6_order_id %>
+                Laudo Técnico Final: <%= @sf6_report.sf6_order.id %>
             <% else %>
-                Laudo Técnico Preliminar: <%= @sf6_report.id %>
-                OS: <%= @sf6_report.sf6_order_id %>
+                Laudo Técnico Preliminar: <%= @sf6_report.sf6_order.id %>
             <% end %>
         </div>
     </div>
