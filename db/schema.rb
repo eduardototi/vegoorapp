@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_20_210222) do
+ActiveRecord::Schema.define(version: 2021_01_25_140211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,18 @@ ActiveRecord::Schema.define(version: 2021_01_20_210222) do
     t.boolean "status", default: true
   end
 
+  create_table "operations_numbers", force: :cascade do |t|
+    t.string "unity"
+    t.string "fase_a"
+    t.string "fase_b"
+    t.string "fase_c"
+    t.string "reference"
+    t.bigint "orderservice_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["orderservice_id"], name: "index_operations_numbers_on_orderservice_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.text "description"
     t.boolean "status"
@@ -94,6 +106,19 @@ ActiveRecord::Schema.define(version: 2021_01_20_210222) do
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["contact_id"], name: "index_orders_on_contact_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "orderservice_reports", force: :cascade do |t|
+    t.string "parameter"
+    t.string "unity"
+    t.string "fase_a"
+    t.string "fase_b"
+    t.string "fase_c"
+    t.string "reference"
+    t.bigint "orderservice_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["orderservice_id"], name: "index_orderservice_reports_on_orderservice_id"
   end
 
   create_table "orderservices", force: :cascade do |t|
@@ -233,9 +258,11 @@ ActiveRecord::Schema.define(version: 2021_01_20_210222) do
   add_foreign_key "epi_orders", "orders"
   add_foreign_key "epi_sf6orders", "epis"
   add_foreign_key "epi_sf6orders", "sf6_orders"
+  add_foreign_key "operations_numbers", "orderservices"
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "users"
   add_foreign_key "orders", "users", column: "contact_id"
+  add_foreign_key "orderservice_reports", "orderservices"
   add_foreign_key "orderservices", "machines"
   add_foreign_key "orderservices", "orders"
   add_foreign_key "orderservices", "services"

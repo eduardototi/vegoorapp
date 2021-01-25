@@ -26,5 +26,7 @@ Rails.application.routes.draw do
   resources :machines
 
   resources :epis
-  
+
+  resources :orderservice_reports
+
 end

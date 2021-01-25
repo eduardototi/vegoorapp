@@ -1,0 +1,22 @@
+<thead class="table table-bordered table-dark">
+  <tr>
+    <th scope="col">Parametro</th>
+    <th scope="col">Unidade</th>
+    <th scope="col">Fase A</th>
+    <th scope="col">Fase B</th>
+    <th scope="col">Fase C</th>
+    <th scope="col">Referência</th>
+  </tr>
+</thead>
+<% orderservice.orderservice_reports.each do |result| %>
+  <tbody class="table table-bordered table-dark">
+    <tr>
+      <td><%= result.parameter %></td>
+      <td><%= result.unity %></td>
+      <td><%= result.fase_a %></td>
+      <td><%= result.fase_b %></td>
+      <td><%= result.fase_c %></td>
+      <td><%= result.reference %></td>
+    </tr>
+  </tbody>
+<% end %>
