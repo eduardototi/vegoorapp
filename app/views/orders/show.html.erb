@@ -129,11 +129,19 @@
               <td><i class="far fa-square"></i> Aberta</td>
               <td></td>
             <% end %>
+            <td>
+              <%= link_to 'Add resultado', new_orderservice_report_path(orderservice) %>
+            </td>
           </tr>
         </tbody>
+          <% if orderservice.orderservice_reports.count > 0 %>
+            <%= render 'service_reports_show', orderservice: orderservice %>
+          <% end %>
       <% end %>
     </table>
   <% end %>
+
+  
 
   <div class="order-description mb-3">
     Observações:
