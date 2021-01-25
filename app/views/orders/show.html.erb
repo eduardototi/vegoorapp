@@ -113,6 +113,8 @@
           <th scope="col">Série</th>
           <th scope="col">Status</th>
           <th scope="col">Finalizado</th>
+          <th>Link</th>
+          <th>Link</th>
         </tr>
       </thead>
       <% @orderservices.each do |orderservice| %>
@@ -135,7 +137,7 @@
           </tr>
         </tbody>
           <% if orderservice.orderservice_reports.count > 0 %>
-            <%= render 'service_reports_show', orderservice: orderservice %>
+            <%= render 'shared/service_reports_show', orderservice: orderservice %>
           <% end %>
       <% end %>
     </table>

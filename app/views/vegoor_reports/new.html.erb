@@ -102,6 +102,9 @@
             <% else %>
               <td></td>
             <% end %>
+            <% if orderservice.orderservice_reports.count > 0 %>
+                <%= render 'shared/service_reports_show', orderservice: orderservice %>
+            <% end %>
           </tr>
         </tbody>
       <% end %>
