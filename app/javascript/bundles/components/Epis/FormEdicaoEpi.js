@@ -33,7 +33,7 @@ export default class FormEdicaoEpi extends React.Component {
     this.setState({nome: e.target.value});
   }
 
-  handleSubmit(e){
+  async handleSubmit(e){
     //Evita que a página recarregue após o envio do formulário
     e.preventDefault();
 
@@ -52,7 +52,7 @@ export default class FormEdicaoEpi extends React.Component {
       let url = "/update_epi";
       let payload = {"id": this.state.id,
                      "name": this.state.nome};
-      let response = MyRequests.put(url, payload);
+      let response = await MyRequests.put(url, payload);
       let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
       notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);

@@ -39,7 +39,7 @@ export default class FormCadastroServico extends React.Component {
     this.setState({descricao: e.target.value});
   }
 
-  handleSubmit(e){
+  async handleSubmit(e){
     //Evita que a página recarregue após o envio do formulário
     e.preventDefault();
 
@@ -58,7 +58,7 @@ export default class FormCadastroServico extends React.Component {
       let url = "/create_service";
       let payload = {"title": this.state.servico,
                      "description": this.state.descricao};
-      let response = MyRequests.post(url, payload);
+      let response = await MyRequests.post(url, payload);
       let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
       notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);

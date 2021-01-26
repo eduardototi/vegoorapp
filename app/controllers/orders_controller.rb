@@ -4,6 +4,15 @@ class OrdersController < ApplicationController
 
   def index
     @orders = Order.all
+    @ordersEditado = []
+    max = (@orders.length() - 1)
+
+    for i in 0..max do
+      order = {"id": @orders[i].id,
+               "razao_social": @orders[i].client.razao_social,
+               "status": @orders[i].status}
+      @ordersEditado.push(order)
+    end
   end
 
   def show
@@ -12,16 +21,6 @@ class OrdersController < ApplicationController
   end
 
   def new
-    #@vegoorOrder = Order.new
-    #@vegoorOrderService = Orderservice.new
-    #@vegoorOrderUtensil = Orderutensil.new
-    #@vegoorOrderEpi = EpiOrder.new
-
-    #@sf6Order = Sf6Order.new
-    #@sf6OrderService = Sf6Orderservice.new
-    #@sf6OrderUtensil = Sf6Orderutensil.new
-    #@sf6OrderEpi = EpiSf6order.new
-
     @servicos = Service.all.map { |servico| [servico.title, servico.id ] };
     @maquinas = Machine.all.map { |maquina| [maquina.name, maquina.id ] };
     @equipamentos = Utensil.all.map { |equipamento| [equipamento.name, equipamento.id ] };
@@ -37,7 +36,7 @@ class OrdersController < ApplicationController
     @order.status = false
 
     if @order.save
-      redirect_to order_path(@order)
+      redirect_to orders_path
     else
       render :new
     end

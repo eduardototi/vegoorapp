@@ -40,7 +40,7 @@ export default class FormEdicaoEquipamento extends React.Component {
     this.setState({ativo: e.target.value});
   }
 
-  handleSubmit(e){
+  async handleSubmit(e){
     //Evita que a página recarregue após o envio do formulário
     e.preventDefault();
 
@@ -60,7 +60,7 @@ export default class FormEdicaoEquipamento extends React.Component {
       let payload = {"id": this.state.id,
                      "name": this.state.nome,
                      "status": this.state.ativo};
-      let response = MyRequests.put(url, payload);
+      let response = await MyRequests.put(url, payload);
       let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
       notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);

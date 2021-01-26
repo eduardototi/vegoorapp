@@ -37,51 +37,22 @@ export default class FormCadastroOrdensServico extends React.Component {
       prestadora: "",
       servicoCampo: "",
       servicoLaboratorio: "",
-      descricao: "teste vegoor",
-      responsavel: "Matheus Siqueira",
-      cliente: "Teste",
-      local: "Local de teste vegoor",
-      contatoCliente: "Contato de teste vegoor",
-      observacoes: "Observações teste vegoor",
+      descricao: "",
+      responsavel: "",
+      cliente: "",
+      local: "",
+      contatoCliente: "",
+      observacoes: "",
       servicoPanelServico: "",
       servicoPanelFinalizado: "",
       servicoPanelMaquina: "",
       servicoPanelNumeroSerie: "",
-      listaServicos: [<ItemAdicao id = "servico1"
-                                  key = "keyservico1"
-                                  deleta = {() => this.deletaItem("servico1", "listaServicos")}
-                                  data = {[["Serviço", 1],
-                                           ["Finalizado", true],
-                                           ["Máquina", 1],
-                                           ["Número de Série", "123456"]]}/>,
-                      <ItemAdicao id = "servico2"
-                                  key = "keyservico2"
-                                  deleta = {() => this.deletaItem("servico2", "listaServicos")}
-                                  data = {[["Serviço", 1],
-                                           ["Finalizado", false],
-                                           ["Máquina", 1],
-                                           ["Número de Série", "654321"]]}/>],
+      listaServicos: [],
       equipamentoPanelEquipamento: "",
-      listaEquipamentos: [<ItemAdicao id = "equipamento1"
-                                      key = "keyequipamento1"
-                                      deleta = {() => this.deletaItem("equipamento1", "listaEquipamentos")}
-                                      data = {[["Equipamento", 2]]}/>,
-                         <ItemAdicao id = "equipamento2"
-                                     key = "keyequipamento2"
-                                     deleta = {() => this.deletaItem("equipamento2", "listaEquipamentos")}
-                                     data = {[["Equipamento", 4]]}/>],
+      listaEquipamentos: [],
       epiPanelEpi: "",
       epiPanelQuantia: "",
-      listaEpis: [<ItemAdicao id = "epi1"
-                              key = "keyepi1"
-                              deleta = {() => this.deletaItem("epi1", "listaEpis")}
-                              data = {[["Epi", 1],
-                                       ["Quantia", 2]]}/>,
-                 <ItemAdicao id = "epi2"
-                             key = "keyepi2"
-                             deleta = {() => this.deletaItem("epi2", "listaEpis")}
-                             data = {[["Epi", 1],
-                                      ["Quantia", 10]]}/>],
+      listaEpis: [],
       notificacoes: []
     };
 
@@ -256,7 +227,7 @@ export default class FormCadastroOrdensServico extends React.Component {
     document.getElementById(id).remove();
   }
 
-  handleSubmit(e){
+  async handleSubmit(e){
     //Evita que a página recarregue após o envio do formulário
     e.preventDefault();
 
@@ -286,37 +257,49 @@ export default class FormCadastroOrdensServico extends React.Component {
       }
       else{
         let url = this.state.prestadora == "vegoor" ? "/create_vegoor_order" : "/create_sf6_order";
+        let payloadEpis = {};
+        let payloadEquipamentos = {};
+        let payloadServicos = {};
 
-        let payload = {"location": this.state.local,
-                       "comments": this.state.observacoes,
-                       "field": this.state.servicoCampo,
-                       "laboratory": this.state.servicoLaboratorio,
-                       "contact_id": parseInt(this.state.contatoCliente),
-                       "description": this.state.descricao,
-                       "user_id": this.props.usuarioAtual.id,
-                       "status": false,
-                       "client_id": parseInt(this.state.cliente),
-                       "orderservices_attributes": {"id": 1}}
+        for(let i in this.state.listaEpis){
+          payloadEpis[Date.now()] = {
+            "epi_id": this.state.listaEpis[i].props.data[0][1],
+            "amount": this.state.listaEpis[i].props.data[1][1],
+          }
+        }
 
-        console.log(payload);
+        for(let i in this.state.listaEquipamentos){
+          payloadEquipamentos[Date.now()] = {
+            "utensil_id": this.state.listaEquipamentos[i].props.data[0][1]
+          }
+        }
 
-        let response = MyRequests.post(url, payload);
+        for(let i in this.state.listaServicos){
+          payloadServicos[Date.now()] = {
+            "service_id": this.state.listaServicos[i].props.data[0][1],
+            "status": this.state.listaServicos[i].props.data[1][1] ? 1 : 0,
+            "machine_id": this.state.listaServicos[i].props.data[2][1],
+            "machineserie": this.state.listaServicos[i].props.data[3][1]
+          }
+        }
+
+        let payload = {"order": {"location": this.state.local,
+                                 "comments": this.state.observacoes,
+                                 "field": this.state.servicoCampo != "" ? true : false,
+                                 "laboratory": this.state.servicoLaboratorio != "" ? true : false,
+                                 "contact_id": parseInt(this.state.contatoCliente),
+                                 "description": this.state.descricao,
+                                 "user_id": this.props.usuarioAtual.id,
+                                 "status": false,
+                                 "client_id": parseInt(this.state.cliente),
+                                 "Orderservices": payloadServicos,
+                                 "Orderutensils": payloadEquipamentos,
+                                 "epi_orders_attributes": payloadEpis}}
+
+        let response = await MyRequests.post(url, payload);
         let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
         notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
-
-        /*
-        orderservices_attributes: [:id, :service_id, :order_id, :status, :machine_id, :machineserie, :_destroy],
-        orderutensils_attributes: [:id, :utensil_id, :order_id, :status, :_destroy],
-        epi_orders_attributes: [ :id, :order_id, :epi_id, :amount, :_destroy]
-
-        let url = "/create_epi";
-        let payload = {"name": this.state.nome};
-        let response = MyRequests.post(url, payload);
-        let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
-
-        notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
-        */
       }
     }
 
@@ -610,6 +593,7 @@ export default class FormCadastroOrdensServico extends React.Component {
                                 label = "Observações"
                                 placeholder = {true}
                                 rows = "5"
+                                value = {this.state.observacoes}
                                 setState = {this.setObservacoes}/>
               </div>
             </div>

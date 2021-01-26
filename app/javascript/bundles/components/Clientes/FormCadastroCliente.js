@@ -121,7 +121,7 @@ export default class FormEdicaoCliente extends React.Component {
     this.setState({pais: e.target.value});
   }
 
-  handleSubmit(e){
+  async handleSubmit(e){
     //Evita que a página recarregue após o envio do formulário
     e.preventDefault();
     let notificacoesNovas = [];
@@ -154,7 +154,7 @@ export default class FormEdicaoCliente extends React.Component {
                      "city": this.state.cidade,
                      "user_id": parseInt(this.state.idUsuario),
                      "cep": this.state.cep};
-      let response = MyRequests.post(url, payload);
+      let response = await MyRequests.post(url, payload);
       let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
       notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);

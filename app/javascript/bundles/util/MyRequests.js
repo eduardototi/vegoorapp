@@ -5,9 +5,7 @@ class MyRequests{
 
   }
 
-  post(url, payload){
-    //Mensagem de retorno
-    var retorno = {"code": 200, "msg": "Criado com sucesso!"};
+  async post(url, payload){
     //Obtém um token para validar o request
     const token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
@@ -16,21 +14,19 @@ class MyRequests{
     axios.defaults.headers.common["X-CSRF-TOKEN"] = token;
     axios.defaults.headers.common["Content-type"] = "application/json";
 
-    axios.post(url, payload)
-         .then(response => {
-           retorno["msg"] = response;
-         })
-         .catch(response => {
-           retorno["msg"] = response;
-           retorno["code"] = response.code;
-         });
+    let retorno = await axios.post(url, payload).then((response) => {
+                                                        return {"code": 200,
+                                                                "msg": "Criado com sucesso!"}
+                                                      })
+                                                .catch((response) => {
+                                                        return {"code": response.response.status,
+                                                                "msg": response.response.statusText}
+                                                      });
 
     return retorno;
   }
 
-  put(url, payload){
-    //Mensagem de retorno
-    var retorno = {"code": 200, "msg": "Atualizado com sucesso!"};
+  async put(url, payload){
     //Obtém um token para validar o request
     const token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
@@ -39,21 +35,19 @@ class MyRequests{
     axios.defaults.headers.common["X-CSRF-TOKEN"] = token;
     axios.defaults.headers.common["Content-type"] = "application/json";
 
-    axios.put(url, payload)
-         .then(response => {
-           retorno["msg"] = response;
-         })
-         .catch(response => {
-           retorno["msg"] = response;
-           retorno["code"] = response.code;
-         });
+    let retorno = await axios.put(url, payload).then((response) => {
+                                                      return {"code": 200,
+                                                              "msg": "Editado com sucesso!"}
+                                                    })
+                                               .catch((response) => {
+                                                      return {"code": response.response.status,
+                                                              "msg": response.response.statusText}
+                                                    });
 
     return retorno;
   }
 
-  delete(url){
-    //Mensagem de retorno
-    var retorno = {"code": 200, "msg": "Excluído com sucesso!"};
+  async delete(url){
     //Obtém um token para validar o request
     const token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
@@ -62,14 +56,14 @@ class MyRequests{
     axios.defaults.headers.common["X-CSRF-TOKEN"] = token;
     axios.defaults.headers.common["Content-type"] = "application/json";
 
-    axios.delete(url)
-         .then(response => {
-           retorno["msg"] = response;
-         })
-         .catch(response => {
-           retorno["msg"] = response;
-           retorno["code"] = response.code;
-         });
+    let retorno = await axios.delete(url).then((response) => {
+                                                return {"code": 200,
+                                                        "msg": "Excluido com sucesso!"}
+                                               })
+                                         .catch((response) => {
+                                                 return {"code": response.response.status,
+                                                         "msg": response.response.statusText}
+                                               });
 
     return retorno;
   }

@@ -32,7 +32,7 @@ export default class FormCadastroEpi extends React.Component {
     this.setState({nome: e.target.value});
   }
 
-  handleSubmit(e){
+  async handleSubmit(e){
     //Evita que a página recarregue após o envio do formulário
     e.preventDefault();
 
@@ -50,7 +50,7 @@ export default class FormCadastroEpi extends React.Component {
     else{
       let url = "/create_epi";
       let payload = {"name": this.state.nome};
-      let response = MyRequests.post(url, payload);
+      let response = await MyRequests.post(url, payload);
       let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
       notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);

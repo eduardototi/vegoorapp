@@ -72,13 +72,13 @@ export default class Visualizacao extends React.Component {
     this.state.paresDados = paresDados;
   }
 
-  exclui(){
+  async exclui(){
     let confirmacao = window.confirm("Deseja mesmo excluir?");
 
     if(confirmacao){
       let notificacoesNovas = [];
       let url = "/" + this.props.linkAcoes + "/" + this.state.id;
-      let response = MyRequests.delete(url);
+      let response = await MyRequests.delete(url);
       let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
       notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);

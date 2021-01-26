@@ -20,8 +20,8 @@ export default class FormCadastroMaquina extends React.Component {
     super(props);
 
     this.state = {
-      nome: "Máquina teste",
-      serie: "123456",
+      nome: "",
+      serie: "",
       ativo: false,
       notificacoes: []
     };
@@ -45,7 +45,7 @@ export default class FormCadastroMaquina extends React.Component {
     this.setState({ativo: e.target.value});
   }
 
-  handleSubmit(e){
+  async handleSubmit(e){
     //Evita que a página recarregue após o envio do formulário
     e.preventDefault();
 
@@ -65,7 +65,7 @@ export default class FormCadastroMaquina extends React.Component {
       let payload = {"name": this.state.nome,
                      "description": this.state.serie,
                      "status": this.state.ativo};
-      let response = MyRequests.post(url, payload);
+      let response = await MyRequests.post(url, payload);
       let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
       notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);

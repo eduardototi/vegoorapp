@@ -3,7 +3,15 @@ class Sf6OrdersController < ApplicationController
   before_action :set_sf6_order, only: [:show, :edit, :destroy, :update]
 
   def index
-    @sf6_orders = Sf6Order.all
+    @sf6Orders = Sf6Order.all
+    @sf6OrdersEditado = []
+    max = (@sf6Orders.length() - 1)
+
+    for i in 0..max do
+      order = {"id": @sf6Orders[i].id,
+               "razao_social": @sf6Orders[i].client.razao_social,
+               "status": @sf6Orders[i].status}
+      @sf6OrdersEditado.push(order)
   end
 
   def show
@@ -12,21 +20,24 @@ class Sf6OrdersController < ApplicationController
   end
 
   def new
-    @sf6_order = Sf6Order.new
-    @sf6_orderservice = Sf6Orderservice.new
-    @sf6orderutensil = Sf6Orderutensil.new
-    @epi_sf6order = EpiSf6order.new
+    @servicos = Service.all.map { |servico| [servico.title, servico.id ] };
+    @maquinas = Machine.all.map { |maquina| [maquina.name, maquina.id ] };
+    @equipamentos = Utensil.all.map { |equipamento| [equipamento.name, equipamento.id ] };
+    @epis = Epi.all.map { |epi| [epi.name, epi.id ] };
+
+    @responsaveisTecnicos = User.where(role: "Técnico").map {|user| [ "#{user.first_name} #{user.last_name}", user.id]}
+    @clientes = Client.all.map { |client| [client.razao_social, client.id ] };
+    @contatoDosClientes = User.where(role: "Cliente").map { |user| ["#{user.first_name} #{user.last_name}", user.id ]}
   end
 
   def create
-    @sf6_order = Sf6Order.new(sf6_order_params)
-    @sf6_order.status = false
+    @sf6Order = Order.new(sf6_order_params)
+    @sf6Order.status = false
 
-    if @sf6_order.save
-      redirect_to sf6_order_path(@sf6_order)
+    if @sf6Order.save
+      redirect_to sf6_orders_path
     else
       render :new
-      raise
     end
   end
 

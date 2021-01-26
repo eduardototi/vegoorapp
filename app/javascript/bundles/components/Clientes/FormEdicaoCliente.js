@@ -121,7 +121,7 @@ export default class FormCadastroCliente extends React.Component {
     this.setState({pais: e.target.value});
   }
 
-  handleSubmit(e){
+  async handleSubmit(e){
     //Evita que a página recarregue após o envio do formulário
     e.preventDefault();
     let notificacoesNovas = [];
@@ -155,7 +155,7 @@ export default class FormCadastroCliente extends React.Component {
                      "city": this.state.cidade,
                      "user_id": parseInt(this.state.idUsuario),
                      "cep": this.state.cep};
-      let response = MyRequests.put(url, payload);
+      let response = await MyRequests.put(url, payload);
       let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
       notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);

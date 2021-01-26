@@ -96,7 +96,7 @@ export default class FormCadastroUsuario extends React.Component {
     this.setState({notificacoes: e.target.value});
   }
 
-  handleSubmit(e){
+  async handleSubmit(e){
     //Evita que a página recarregue após o envio do formulário
     e.preventDefault();
     let notificacoesNovas = [];
@@ -123,13 +123,13 @@ export default class FormCadastroUsuario extends React.Component {
                        "role": this.state.funcao,
                        "password": this.state.senha,
                        "password_confirmation": this.state.senhaConf};
-        let response = MyRequests.post(url, payload);
+        let response = await MyRequests.post(url, payload);
         let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
-        console.log(payload);
+        console.log(response);
 
         notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
-      }    
+      }
       else{
         notificacoesNovas.push(<Notificacao tipo = "erro" msg = "As senhas não conferem"/>);
       }

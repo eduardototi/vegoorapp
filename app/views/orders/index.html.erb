@@ -1,9 +1,9 @@
 <div class = "container mt-4">
   <%= react_component("Lista",
                       props: {"cabecalho": ["Número", "Cliente", "Situação"],
-                              "colunas": ["id", "client.razao_social", "status"],
+                              "colunas": ["id", "razao_social", "status"],
                               "linkAcoes": "orders",
-                              "data": @orders.as_json},
+                              "data": @ordersEditado.as_json},
                       prerender: false) %>
 </div>
 

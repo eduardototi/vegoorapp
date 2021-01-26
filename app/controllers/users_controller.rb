@@ -18,8 +18,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    puts "eae"
-
     if @user.save
       redirect_to user_path(@user)
     else
