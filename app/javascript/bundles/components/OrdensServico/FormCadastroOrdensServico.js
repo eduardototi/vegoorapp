@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import MyUtil from "../../util/MyUtil";
 import Modal from "../Comum/Modal/Modal";
 import ItemAdicao from "../Comum/Modal/ItemAdicao";
 import CampoTexto from "../Comum/Forms/CampoTexto";
@@ -9,11 +8,22 @@ import CampoNumerico from "../Comum/Forms/CampoNumerico";
 import CampoDropdown from "../Comum/Forms/CampoDropdown";
 import CampoAreaTexto from "../Comum/Forms/CampoAreaTexto";
 import CampoMultiplaEscolha from "../Comum/Forms/CampoMultiplaEscolha";
+import Notificacao from "../Comum/Notificacao/Notificacao";
+import ExibidorNotificacao from "../Comum/Notificacao/ExibidorNotificacao";
+import MyUtil from "../../util/MyUtil";
+import MyRequests from "../../util/MyRequests";
 import "../../styles/Geral.css";
+import logoVegoor from "../../img/vegoorFull.png";
+import logoSf6 from "../../img/sf6SemFundo.png";
 
 export default class FormCadastroOrdensServico extends React.Component {
   static propTypes = {
-    //name: PropTypes.string.isRequired,
+    usuarioAtual: PropTypes.object.isRequired,
+    responsaveisTecnicos: PropTypes.array.isRequired,
+    clientes: PropTypes.array.isRequired,
+    contatoDosClientes: PropTypes.array.isRequired,
+    vegoor: PropTypes.object.isRequired,
+    sf6: PropTypes.object.isRequired
   };
 
   /**
@@ -25,26 +35,54 @@ export default class FormCadastroOrdensServico extends React.Component {
 
     this.state = {
       prestadora: "",
-      servicoCampo: false,
-      servicoLaboratorio: false,
-      descricao: "",
-      responsavel: "",
-      cliente: "",
-      local: "",
-      contatoCliente: "",
-      servicos: [],
-      observacoes: "",
-      epis: [],
+      servicoCampo: "",
+      servicoLaboratorio: "",
+      descricao: "teste vegoor",
+      responsavel: "Matheus Siqueira",
+      cliente: "Teste",
+      local: "Local de teste vegoor",
+      contatoCliente: "Contato de teste vegoor",
+      observacoes: "Observações teste vegoor",
       servicoPanelServico: "",
       servicoPanelFinalizado: "",
       servicoPanelMaquina: "",
       servicoPanelNumeroSerie: "",
-      listaServicos: [],
+      listaServicos: [<ItemAdicao id = "servico1"
+                                  key = "keyservico1"
+                                  deleta = {() => this.deletaItem("servico1", "listaServicos")}
+                                  data = {[["Serviço", 1],
+                                           ["Finalizado", true],
+                                           ["Máquina", 1],
+                                           ["Número de Série", "123456"]]}/>,
+                      <ItemAdicao id = "servico2"
+                                  key = "keyservico2"
+                                  deleta = {() => this.deletaItem("servico2", "listaServicos")}
+                                  data = {[["Serviço", 1],
+                                           ["Finalizado", false],
+                                           ["Máquina", 1],
+                                           ["Número de Série", "654321"]]}/>],
       equipamentoPanelEquipamento: "",
-      listaEquipamentos: [],
+      listaEquipamentos: [<ItemAdicao id = "equipamento1"
+                                      key = "keyequipamento1"
+                                      deleta = {() => this.deletaItem("equipamento1", "listaEquipamentos")}
+                                      data = {[["Equipamento", 2]]}/>,
+                         <ItemAdicao id = "equipamento2"
+                                     key = "keyequipamento2"
+                                     deleta = {() => this.deletaItem("equipamento2", "listaEquipamentos")}
+                                     data = {[["Equipamento", 4]]}/>],
       epiPanelEpi: "",
       epiPanelQuantia: "",
-      listaEpis: []
+      listaEpis: [<ItemAdicao id = "epi1"
+                              key = "keyepi1"
+                              deleta = {() => this.deletaItem("epi1", "listaEpis")}
+                              data = {[["Epi", 1],
+                                       ["Quantia", 2]]}/>,
+                 <ItemAdicao id = "epi2"
+                             key = "keyepi2"
+                             deleta = {() => this.deletaItem("epi2", "listaEpis")}
+                             data = {[["Epi", 1],
+                                      ["Quantia", 10]]}/>],
+      notificacoes: []
     };
 
     this.setPrestadora = this.setPrestadora.bind(this);
@@ -55,9 +93,7 @@ export default class FormCadastroOrdensServico extends React.Component {
     this.setCliente = this.setCliente.bind(this);
     this.setLocal = this.setLocal.bind(this);
     this.setContatoCliente = this.setContatoCliente.bind(this);
-    this.setServicos = this.setServicos.bind(this);
     this.setObservacoes = this.setObservacoes.bind(this);
-    this.setEpis = this.setEpis.bind(this);
 
     this.setServicoPanelServico = this.setServicoPanelServico.bind(this);
     this.setServicoPanelFinalizado = this.setServicoPanelFinalizado.bind(this);
@@ -74,6 +110,8 @@ export default class FormCadastroOrdensServico extends React.Component {
     this.novoItemEquipamento = this.novoItemEquipamento.bind(this);
     this.novoItemEpi = this.novoItemEpi.bind(this);
     this.deletaItem = this.deletaItem.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   setPrestadora(e){
@@ -108,16 +146,8 @@ export default class FormCadastroOrdensServico extends React.Component {
     this.setState({contatoCliente: e.target.value});
   }
 
-  setServicos(e){
-    this.setState({servicos: e.target.value});
-  }
-
   setObservacoes(e){
     this.setState({observacoes: e.target.value});
-  }
-
-  setEpis(e){
-    this.setState({epis: e.target.value});
   }
 
   setServicoPanelServico(e){
@@ -150,25 +180,11 @@ export default class FormCadastroOrdensServico extends React.Component {
 
   mudaImagem(e){
     let selecao = e.target.value;
-    let imgVegoor = document.getElementById("imgVegoor");
-    let imgSf6 = document.getElementById("imgSf6");
+    let logoPrestadora = document.getElementById("logoPrestadora");
 
     //Alterna entre a exibição da logo da vegoor ou da sf6 dependendo da
     //seleção do usuário
-    if(selecao === "1"){
-      imgSf6.classList.remove("visible");
-      imgSf6.classList.add("invisible");
-
-      imgVegoor.classList.remove("invisible");
-      imgVegoor.classList.add("visible");
-    }
-    else{
-      imgVegoor.classList.remove("visible");
-      imgVegoor.classList.add("invisible");
-
-      imgSf6.classList.remove("invisible");
-      imgSf6.classList.add("visible");
-    }
+    logoPrestadora.src = selecao === "vegoor" ? logoVegoor : logoSf6;
   }
 
   mostraPanel(id){
@@ -187,9 +203,9 @@ export default class FormCadastroOrdensServico extends React.Component {
                                        key = {key}
                                        deleta = {() => this.deletaItem(id, "listaServicos")}
                                        data = {[["Serviço", this.state.servicoPanelServico],
-                                               ["Finalizado", this.state.servicoPanelFinalizado],
-                                               ["Máquina", this.state.servicoPanelMaquina],
-                                               ["Número de Série", this.state.servicoPanelNumeroSerie]]}/>)
+                                                ["Finalizado", this.state.servicoPanelFinalizado],
+                                                ["Máquina", this.state.servicoPanelMaquina],
+                                                ["Número de Série", this.state.servicoPanelNumeroSerie]]}/>)
 
     //Atualização da lista de serviços com o novo item inserido
     this.setState({listaServicos: novaListaServicos});
@@ -240,10 +256,80 @@ export default class FormCadastroOrdensServico extends React.Component {
     document.getElementById(id).remove();
   }
 
+  handleSubmit(e){
+    //Evita que a página recarregue após o envio do formulário
+    e.preventDefault();
+
+    let notificacoesNovas = [];
+    let camposVazios = MyUtil.verificaCamposVazios(["Prestadora do Serviço", "Descrição", "Responsável Técnico",
+                                                    "Cliente", "Contato do Cliente", "Local de Execução", "Observações"],
+                                                   {"prestadora": this.state.prestadora,
+                                                    "descricao": this.state.descricao,
+                                                    "responsavel": this.state.responsavel,
+                                                    "cliente": this.state.cliente,
+                                                    "contatoCliente": this.state.contatoCliente,
+                                                    "local": this.state.local,
+                                                    "observacoes": this.state.observacoes});
+
+    //Notifica os campos vazios
+    if(camposVazios.length > 0){
+      let notificacoesCamposVazios = MyUtil.criaNotificacoesErro("Campo vazio: ", camposVazios);
+
+      for(let i in notificacoesCamposVazios){
+        notificacoesNovas.push(notificacoesCamposVazios[i]);
+      }
+    }
+    else{
+      //Notifica que pelo menos um serviço precisa ser selecionado
+      if(this.state.servicoCampo == "" && this.state.servicoLaboratorio == ""){
+        notificacoesNovas.push(<Notificacao tipo = "erro" msg = "Selecione pelo menos um tipo de serviço"/>);
+      }
+      else{
+        let url = this.state.prestadora == "vegoor" ? "/create_vegoor_order" : "/create_sf6_order";
+
+        let payload = {"location": this.state.local,
+                       "comments": this.state.observacoes,
+                       "field": this.state.servicoCampo,
+                       "laboratory": this.state.servicoLaboratorio,
+                       "contact_id": parseInt(this.state.contatoCliente),
+                       "description": this.state.descricao,
+                       "user_id": this.props.usuarioAtual.id,
+                       "status": false,
+                       "client_id": parseInt(this.state.cliente),
+                       "orderservices_attributes": {"id": 1}}
+
+        console.log(payload);
+
+        let response = MyRequests.post(url, payload);
+        let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
+
+        notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
+
+        /*
+        orderservices_attributes: [:id, :service_id, :order_id, :status, :machine_id, :machineserie, :_destroy],
+        orderutensils_attributes: [:id, :utensil_id, :order_id, :status, :_destroy],
+        epi_orders_attributes: [ :id, :order_id, :epi_id, :amount, :_destroy]
+
+        let url = "/create_epi";
+        let payload = {"name": this.state.nome};
+        let response = MyRequests.post(url, payload);
+        let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
+
+        notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
+        */
+      }
+    }
+
+    this.setState({notificacoes: notificacoesNovas});
+    MyUtil.scrollToTop();
+  }
+
   render() {
     return (
       <div>
-        <form>
+        <ExibidorNotificacao notificacoes = {this.state.notificacoes}/>
+
+        <form onSubmit = {this.handleSubmit} className = "mt-2">
           <div className = "container">
 
             <div className = "row mt-2">
@@ -255,23 +341,18 @@ export default class FormCadastroOrdensServico extends React.Component {
             <div className = "row mt-2">
               <div className = "col">
                 <CampoMultiplaEscolha id = "prestador"
-                                      label = "Prestadora do serviço:"
-                                      opc = {[["Vegoor", 1], ["SF6", 2]]}
+                                      label = "Prestadora do Serviço:"
+                                      opc = {[["Vegoor", "vegoor"], ["SF6", "sf6"]]}
                                       setState = {this.setPrestadora}
+                                      value = {this.state.prestadora}
                                       onClick = {this.mudaImagem}/>
               </div>
-              <div className = "col text-center">
-                <img id = "imgVegoor"
-                     className = "invisible"
-                     src = "https://pianorayk.files.wordpress.com/2018/04/example.jpeg"
-                     width = "100px"
-                     height = "50px"/>
-
-                <img id = "imgSf6"
-                     className = "invisible"
-                     src = "https://thumbs.dreamstime.com/b/example-stamp-grunge-vintage-isolated-white-background-sign-153942456.jpg"
-                     width = "100px"
-                     height = "50px"/>
+              <div className = "col">
+                <img id = "logoPrestadora"
+                     className = "img-fluid float-right"
+                     width = "125px"
+                     height = "125px"
+                     src = ""/>
               </div>
             </div>
 
@@ -293,6 +374,7 @@ export default class FormCadastroOrdensServico extends React.Component {
                                 label = "Descrição"
                                 placeholder = "true"
                                 rows = "5"
+                                value = {this.state.descricao}
                                 setState = {this.setDescricao}/>
               </div>
             </div>
@@ -301,8 +383,8 @@ export default class FormCadastroOrdensServico extends React.Component {
               <div className = "col">
                 <CampoDropdown id = "responsavel"
                                label = "Responsável Técnico"
-                               selecionado = "Selecione..."
-                               opc = {[["Técnico 1", 1], ["Técnico 2", 2]]}
+                               opc = {this.props.responsaveisTecnicos}
+                               selecionado = {this.state.responsavel}
                                setState = {this.setResponsavel}/>
               </div>
             </div>
@@ -311,15 +393,15 @@ export default class FormCadastroOrdensServico extends React.Component {
               <div className = "col">
                 <CampoDropdown id = "cliente"
                                label = "Cliente"
-                               selecionado = "Selecione..."
-                               opc = {[["Cliente 1", 1], ["Cliente 2", 2]]}
+                               opc = {this.props.clientes}
+                               selecionado = {this.state.cliente}
                                setState = {this.setCliente}/>
               </div>
               <div className = "col">
                 <CampoDropdown id = "contatoCliente"
                                label = "Contato do Cliente"
-                               selecionado = "Selecione..."
-                               opc = {[["Contato do Cliente 1", 1], ["Contato do Cliente 2", 2]]}
+                               opc = {this.props.contatoDosClientes}
+                               selecionado = {this.state.contatoCliente}
                                setState = {this.setContatoCliente}/>
               </div>
             </div>
@@ -329,6 +411,7 @@ export default class FormCadastroOrdensServico extends React.Component {
                 <CampoAreaTexto id = "local"
                                 label = "Local de Execução"
                                 placeholder = "true"
+                                value = {this.state.local}
                                 setState = {this.setLocal}/>
               </div>
             </div>
@@ -360,8 +443,8 @@ export default class FormCadastroOrdensServico extends React.Component {
                                       <CampoDropdown id = "servicoPanel"
                                                      key = "keyServicoPanel"
                                                      label = "Serviço"
-                                                     selecionado = "Selecione..."
-                                                     opc = {[["Serviço 1", 1], ["Serviço 2", 2]]}
+                                                     opc = {this.props[this.state.prestadora].servicos}
+                                                     selecionado = {this.state.servicoPanelServico}
                                                      setState = {this.setServicoPanelServico}/>
                                     </div>
                                     <div className = "col mt-2">
@@ -369,6 +452,7 @@ export default class FormCadastroOrdensServico extends React.Component {
                                                     key = "keyFinalizadoPanel"
                                                     label = " "
                                                     opc = {[["Finalizado", true]]}
+                                                    selecionado = {this.state.servicoPanelFinalizado}
                                                     setState = {this.setServicoPanelFinalizado}/>
                                     </div>
                                    </div>],
@@ -377,8 +461,8 @@ export default class FormCadastroOrdensServico extends React.Component {
                                       <CampoDropdown id = "maquinaPanel"
                                                      key = "keyMaquinaPanel"
                                                      label = "Máquina"
-                                                     selecionado = "Selecione..."
-                                                     opc = {[["Máquina 1", 1], ["Máquina 2", 2]]}
+                                                     opc = {this.props[this.state.prestadora].maquinas}
+                                                     selecionado = {this.state.servicoPanelMaquina}
                                                      setState = {this.setServicoPanelMaquina}/>
                                     </div>
                                     <div className = "col">
@@ -386,6 +470,7 @@ export default class FormCadastroOrdensServico extends React.Component {
                                                   key = "keyNumeroSeriePanel"
                                                   label = "Número de Série"
                                                   placeholder = "true"
+                                                  value = {this.state.servicoPanelNumeroSerie}
                                                   setState = {this.setServicoPanelNumeroSerie}/>
                                     </div>
                                   </div>]]}/>
@@ -435,7 +520,8 @@ export default class FormCadastroOrdensServico extends React.Component {
                                                      key = "keyServicoPanel"
                                                      label = "Equipamento"
                                                      selecionado = "Selecione..."
-                                                     opc = {[["Equipamento 1", 1], ["Equipamento 2", 2]]}
+                                                     opc = {this.props[this.state.prestadora].equipamentos}
+                                                     selecionado = {this.state.equipamentoPanelEquipamento}
                                                      setState = {this.setEquipamentoPanelEquipamento}/>
                                     </div>
                                    </div>]]}/>
@@ -485,7 +571,8 @@ export default class FormCadastroOrdensServico extends React.Component {
                                                      key = "keyEpiPanel"
                                                      label = "EPI"
                                                      selecionado = "Selecione..."
-                                                     opc = {[["EPI 1", 1], ["EPI 2", 2]]}
+                                                     opc = {this.props[this.state.prestadora].epis}
+                                                     selecionado = {this.state.epiPanelEpi}
                                                      setState = {this.setEpiPanelEpi}/>
 
                                     </div>
@@ -496,7 +583,8 @@ export default class FormCadastroOrdensServico extends React.Component {
                                                      min = "0"
                                                      step = "1"
                                                      placeholder = {true}
-                                                     setState = {this.setEquipamentoPanelEquipamento}/>
+                                                     value = {this.state.epiPanelQuantia}
+                                                     setState = {this.setEpiPanelQuantia}/>
                                     </div>
                                    </div>]]}/>
               </div>
@@ -528,7 +616,7 @@ export default class FormCadastroOrdensServico extends React.Component {
 
             <div className = "row mt-5">
               <div className = "col text-center">
-                <button type = "button" className = "btn btn-primary btn">
+                <button type = "submit" className = "btn btn-primary btn">
                   Emitir
                 </button>
               </div>

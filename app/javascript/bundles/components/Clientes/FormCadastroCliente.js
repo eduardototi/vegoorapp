@@ -9,6 +9,7 @@ import CampoNumerico from "../Comum/Forms/CampoNumerico";
 import CampoTelefone from "../Comum/Forms/CampoTelefone";
 import CampoDropdown from "../Comum/Forms/CampoDropdown";
 import Notificacao from "../Comum/Notificacao/Notificacao";
+import ExibidorNotificacao from "../Comum/Notificacao/ExibidorNotificacao";
 import MyUtil from "../../util/MyUtil";
 import MyRequests from "../../util/MyRequests"
 
@@ -156,8 +157,6 @@ export default class FormEdicaoCliente extends React.Component {
       let response = MyRequests.post(url, payload);
       let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
-      console.log(payload);
-
       notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
     }
 
@@ -168,16 +167,9 @@ export default class FormEdicaoCliente extends React.Component {
   render() {
     return (
       <div>
-        <div className = "mb-2">
-          {this.state.notificacoes.map((notificacao) => {
-            return (
-              <div key = {MyUtil.keyAleatoria()} className = "mt-1">
-                {notificacao}
-              </div>
-            )
-          })}
-        </div>
-        <form onSubmit = {this.handleSubmit}>
+        <ExibidorNotificacao notificacoes = {this.state.notificacoes}/>
+
+        <form onSubmit = {this.handleSubmit} className = "mt-2">
           <div className = "container">
             <div className = "row">
               <div className = "col">

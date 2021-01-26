@@ -18,7 +18,7 @@ export default class ItemAdicao extends React.Component {
   render() {
     return (
       <div id = {this.props.id}>
-        <div className = "container border border-dark">
+        <div className = "container border border-secondary">
           {this.props.data.map((item) => {
             let key = this.props.id + MyUtil.keyAleatoria();
 
@@ -30,7 +30,7 @@ export default class ItemAdicao extends React.Component {
               </div>
             )
           })}
-          <div className = "row">
+          <div className = "row mb-1">
             <div className = "col">
               <button type = "button" className = "btn btn-danger btn-sm" onClick = {this.props.deleta}>
                 Remover

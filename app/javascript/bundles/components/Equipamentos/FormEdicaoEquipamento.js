@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import React from "react";
 import CampoTexto from "../Comum/Forms/CampoTexto";
-import CampoAreaTexto from "../Comum/Forms/CampoAreaTexto";
+import CampoMultiplaEscolha from "../Comum/Forms/CampoMultiplaEscolha";
 import Notificacao from "../Comum/Notificacao/Notificacao";
 import ExibidorNotificacao from "../Comum/Notificacao/ExibidorNotificacao";
 import MyUtil from "../../util/MyUtil";
 import MyRequests from "../../util/MyRequests";
 
-export default class FormCadastroServico extends React.Component {
+export default class FormEdicaoEquipamento extends React.Component {
   static propTypes = {
     //name: PropTypes.string.isRequired,
   };
@@ -20,23 +20,24 @@ export default class FormCadastroServico extends React.Component {
     super(props);
 
     this.state = {
-      servico: "",
-      descricao: "",
+      id: this.props.data.id,
+      nome: this.props.data.name,
+      ativo: this.props.data.status,
       notificacoes: []
     };
 
-    this.setServico = this.setServico.bind(this);
-    this.setDescricao = this.setDescricao.bind(this);
+    this.setNome = this.setNome.bind(this);
+    this.setAtivo = this.setAtivo.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  setServico(e){
-    this.setState({servico: e.target.value});
+  setNome(e){
+    this.setState({nome: e.target.value});
   }
 
-  setDescricao(e){
-    this.setState({descricao: e.target.value});
+  setAtivo(e){
+    this.setState({ativo: e.target.value});
   }
 
   handleSubmit(e){
@@ -44,7 +45,7 @@ export default class FormCadastroServico extends React.Component {
     e.preventDefault();
 
     let notificacoesNovas = [];
-    let camposVazios = MyUtil.verificaCamposVazios(["Serviço", "Descrição"],
+    let camposVazios = MyUtil.verificaCamposVazios(["Nome", "Ativo"],
                                                    this.state);
 
     if(camposVazios.length > 0){
@@ -55,10 +56,11 @@ export default class FormCadastroServico extends React.Component {
       }
     }
     else{
-      let url = "/create_service";
-      let payload = {"title": this.state.servico,
-                     "description": this.state.descricao};
-      let response = MyRequests.post(url, payload);
+      let url = "/update_utensil";
+      let payload = {"id": this.state.id,
+                     "name": this.state.nome,
+                     "status": this.state.ativo};
+      let response = MyRequests.put(url, payload);
       let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
       notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
@@ -77,29 +79,25 @@ export default class FormCadastroServico extends React.Component {
           <div className = "container">
             <div className = "row">
               <div className = "col">
-                <CampoTexto id = "servico"
-                            label = "Serviço"
+                <CampoTexto id = "nome"
+                            label = "Nome"
                             placeholder = "true"
-                            value = {this.state.servico}
-                            setState = {this.setServico}/>
+                            value = {this.state.nome}
+                            setState = {this.setNome}/>
               </div>
-            </div>
-
-            <div className = "row mt-2">
               <div className = "col">
-                <CampoAreaTexto id = "descricao"
-                                label = "Descrição"
-                                placeholder = "true"
-                                rows = "8"
-                                value = {this.state.descricao}
-                                setState = {this.setDescricao}/>
+                <CampoMultiplaEscolha id = "ativo"
+                                      label = "Ativo"
+                                      opc = {[["Sim", true], ["Não", false]]}
+                                      selecionado = {this.state.ativo}
+                                      setState = {this.setAtivo}/>
               </div>
             </div>
 
             <div className = "row mt-4 text-center">
               <div className = "col">
                 <button type = "submit" className = "btn btn-primary">
-                  Cadastrar
+                  Salvar Alterações
                 </button>
               </div>
             </div>

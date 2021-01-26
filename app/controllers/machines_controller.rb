@@ -14,6 +14,7 @@ class MachinesController < ApplicationController
 
   def create
     @machine = Machine.new(machine_params)
+
     if @machine.save
       redirect_to machines_path
     else
@@ -22,19 +23,21 @@ class MachinesController < ApplicationController
   end
 
   def destroy
+    @machine = Machine.find(params[:id])
     @machine.destroy
-    redirect_to machines_path
   end
 
   def edit
   end
 
   def update
-    if @machine.update(machine_params)
-      redirect_to machine_path(@machine)
-    else
-      render :edit
-    end
+    @machine.update(machine_params)
+
+    #if @machine.update(machine_params)
+    #  redirect_to machine_path(@machine)
+    #else
+    #  render :edit
+    #end
   end
 
   private

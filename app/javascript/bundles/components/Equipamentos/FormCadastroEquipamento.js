@@ -2,10 +2,12 @@ import PropTypes from "prop-types";
 import React from "react";
 import CampoTexto from "../Comum/Forms/CampoTexto";
 import CampoMultiplaEscolha from "../Comum/Forms/CampoMultiplaEscolha";
+import Notificacao from "../Comum/Notificacao/Notificacao";
+import ExibidorNotificacao from "../Comum/Notificacao/ExibidorNotificacao";
 import MyUtil from "../../util/MyUtil";
 import MyRequests from "../../util/MyRequests";
 
-export default class FormCadastroMaquina extends React.Component {
+export default class FormCadastroEquipamento extends React.Component {
   static propTypes = {
     //name: PropTypes.string.isRequired,
   };
@@ -69,17 +71,9 @@ export default class FormCadastroMaquina extends React.Component {
   render() {
     return (
       <div>
-        <div className = "mb-2">
-          {this.state.notificacoes.map((notificacao) => {
-            return (
-              <div key = {MyUtil.keyAleatoria()} className = "mt-1">
-                {notificacao}
-              </div>
-            )
-          })}
-        </div>
-        
-        <form onSubmit = {this.handleSubmit}>
+        <ExibidorNotificacao notificacoes = {this.state.notificacoes}/>
+
+        <form onSubmit = {this.handleSubmit} className = "mt-2">
           <div className = "container">
             <div className = "row">
               <div className = "col">

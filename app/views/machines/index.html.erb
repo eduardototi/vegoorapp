@@ -4,6 +4,7 @@
       <%= react_component("Lista",
                           props: {"cabecalho": ["Id", "Máquina", "Descrição", "Status"],
                                   "colunas": ["id", "name", "description", "status"],
+                                  "linkAcoes": "machines",
                                   "data": @machines.as_json},
                           prerender: false) %>
     </div>

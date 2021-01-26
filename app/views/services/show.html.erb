@@ -1,3 +1,18 @@
+<div class = "container mt-4">
+  <div class = "mb-3">
+    <%= link_to "Voltar", services_path, class: "h5 text-white" %>
+  </div>
+
+  <%= react_component("Visualizacao",
+                      props: {"cabecalho": ["Serviço", "Descrição"],
+                              "colunas": ["title", "description"],
+                              "linkAcoes": "services",
+                              "acoes": true,
+                              "data": @service.as_json},
+                      prerender: false) %>
+</div>
+
+<!--
 <div class="container mt-4">
   <table class="table table-bordered table-dark">
     <thead>
@@ -10,12 +25,13 @@
     </thead>
     <tbody>
         <tr>
-          <th scope="row"><%= @service.id %></th>
-          <td><%= @service.title %></td>
-          <td><%= @service.description %></td>
-          <td><%= link_to 'Editar', edit_service_path(@service) %></td>
-          <td><%= link_to "Excluir", @service, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-danger' %></td>
+          <th scope="row">< @service.id %></th>
+          <td>< @service.title %></td>
+          <td>< @service.description %></td>
+          <td>< link_to 'Editar', edit_service_path(@service) %></td>
+          <td>< link_to "Excluir", @service, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este cliente?' }, class: 'btn btn-danger' %></td>
         </tr>
     </tbody>
   </table>
 </div>
+-->

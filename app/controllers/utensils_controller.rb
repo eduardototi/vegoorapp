@@ -27,19 +27,21 @@ class UtensilsController < ApplicationController
   end
 
   def destroy
+    @utensil = Utensil.find(params[:id])
     @utensil.destroy
-    redirect_to utensils_path
   end
 
   def edit
   end
 
   def update
-    if @utensil.update(utensil_params)
-      redirect_to utensil_path(@utensil)
-    else
-      render :edit
-    end
+    @utensil.update(utensil_params)
+
+    #if @utensil.update(utensil_params)
+    #  redirect_to utensil_path(@utensil)
+    #else
+    #  render :edit
+    #end
   end
 
   private

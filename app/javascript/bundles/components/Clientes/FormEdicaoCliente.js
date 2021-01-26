@@ -8,6 +8,10 @@ import CampoEmail from "../Comum/Forms/CampoEmail";
 import CampoNumerico from "../Comum/Forms/CampoNumerico";
 import CampoTelefone from "../Comum/Forms/CampoTelefone";
 import CampoDropdown from "../Comum/Forms/CampoDropdown";
+import Notificacao from "../Comum/Notificacao/Notificacao";
+import ExibidorNotificacao from "../Comum/Notificacao/ExibidorNotificacao";
+import MyUtil from "../../util/MyUtil";
+import MyRequests from "../../util/MyRequests"
 
 export default class FormCadastroCliente extends React.Component {
   static propTypes = {
@@ -22,6 +26,7 @@ export default class FormCadastroCliente extends React.Component {
     super(props);
 
     this.state = {
+      id: this.props.data.id,
       razaoSocial: this.props.data.razao_social,
       cnpj: this.props.data.cnpj,
       inscEstadual: this.props.data.ie,
@@ -35,7 +40,8 @@ export default class FormCadastroCliente extends React.Component {
       estado: this.props.data.state,
       cidade: this.props.data.city,
       pais: this.props.data.pais,
-      estados: []
+      estados: [],
+      notificacoes: []
     };
 
     this.setRazaoSocial = this.setRazaoSocial.bind(this);
@@ -52,6 +58,8 @@ export default class FormCadastroCliente extends React.Component {
     this.setCidade = this.setCidade.bind(this);
     this.setPais = this.setPais.bind(this);
 
+    this.handleSubmit = this.handleSubmit.bind(this);
+
     let estados = [];
 
     for(let i in this.props.estados){
@@ -62,7 +70,7 @@ export default class FormCadastroCliente extends React.Component {
   }
 
   setRazaoSocial(e){
-    this.setState({nome: e.target.value});
+    this.setState({razaoSocial: e.target.value});
   }
 
   setCnpj(e){
@@ -113,10 +121,56 @@ export default class FormCadastroCliente extends React.Component {
     this.setState({pais: e.target.value});
   }
 
+  handleSubmit(e){
+    //Evita que a página recarregue após o envio do formulário
+    e.preventDefault();
+    let notificacoesNovas = [];
+    let camposVazios = MyUtil.verificaCamposVazios(["Razão Social", "CNPJ", "Inscrição Estadual", "Unidade",
+                                                    "E-mail", "Telefone", "Endereço", "Número", "Bairro",
+                                                    "CEP", "Cidade", "Estado", "País", "Confirme a Senha"],
+                                                    this.state);
+
+    if(camposVazios.length > 0){
+      let notificacoesCamposVazios = MyUtil.criaNotificacoesErro("Campo vazio: ", camposVazios);
+
+      for(let i in notificacoesCamposVazios){
+        notificacoesNovas.push(notificacoesCamposVazios[i]);
+      }
+    }
+    else{
+      let url = "/update_client";
+      let payload = {"id": this.state.id,
+                     "razao_social": this.state.razaoSocial,
+                     "cnpj": this.state.cnpj,
+                     "ie": this.state.inscEstadual,
+                     "street": this.state.rua,
+                     "email": this.state.email,
+                     "phone": this.state.telefone,
+                     "pais": this.state.pais,
+                     "city": this.state.cidade,
+                     "unity": this.state.unidade,
+                     "number": this.state.numero,
+                     "neighborhood": this.state.bairro,
+                     "state": this.state.estado,
+                     "city": this.state.cidade,
+                     "user_id": parseInt(this.state.idUsuario),
+                     "cep": this.state.cep};
+      let response = MyRequests.put(url, payload);
+      let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
+
+      notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
+    }
+
+    this.setState({notificacoes: notificacoesNovas});
+    MyUtil.scrollToTop();
+  }
+
   render() {
     return (
       <div>
-        <form>
+        <ExibidorNotificacao notificacoes = {this.state.notificacoes}/>
+
+        <form onSubmit = {this.handleSubmit} className = "mt-2">
           <div className = "container">
             <div className = "row">
               <div className = "col">
@@ -229,7 +283,7 @@ export default class FormCadastroCliente extends React.Component {
 
             <div className = "row mt-4 text-center">
               <div className = "col">
-                <button type = "button" className = "btn btn-primary">
+                <button type = "submit" className = "btn btn-primary">
                   Salvar Alterações
                 </button>
               </div>

@@ -2,6 +2,7 @@
   <%= react_component("Lista",
                       props: {"cabecalho": ["Id", "Título", "Descrição"],
                               "colunas": ["id", "title", "description"],
+                              "linkAcoes": "services",
                               "data": @services.as_json},
                       prerender: false) %>
 </div>

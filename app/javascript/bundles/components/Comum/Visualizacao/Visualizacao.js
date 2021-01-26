@@ -2,8 +2,13 @@ import PropTypes from "prop-types";
 import React from "react";
 import MyUtil from "../../../util/MyUtil";
 import MyParser from "../../../util/MyParser";
+import MyRegex from "../../../util/MyRegex";
+import MyRequests from "../../../util/MyRequests";
+import Notificacao from "../../Comum/Notificacao/Notificacao";
+import ExibidorNotificacao from "../../Comum/Notificacao/ExibidorNotificacao";
+import "../../../styles/Geral.css";
 
-export default class Informacoes extends React.Component {
+export default class Visualizacao extends React.Component {
   static propTypes = {
     cabecalho: PropTypes.array.isRequired,
     colunas: PropTypes.array.isRequired,
@@ -18,8 +23,10 @@ export default class Informacoes extends React.Component {
     super(props);
 
     this.state = {
+      id: this.props.data.id,
       dataConv: [],
-      paresDados: []
+      paresDados: [],
+      notificacoes: []
     }
 
     this.convData();
@@ -67,11 +74,26 @@ export default class Informacoes extends React.Component {
 
   exclui(){
     let confirmacao = window.confirm("Deseja mesmo excluir?");
+
+    if(confirmacao){
+      let notificacoesNovas = [];
+      let url = "/" + this.props.linkAcoes + "/" + this.state.id;
+      let response = MyRequests.delete(url);
+      let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
+
+      notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
+      this.setState({notificacoes: notificacoesNovas});
+
+      //Redireciona para a página de listagem
+      //window.location.href = "/" + this.props.linkAcoes;
+    }
   }
 
   render(){
     return (
       <div className = "container bg-white">
+
+      <ExibidorNotificacao notificacoes = {this.state.notificacoes}/>
 
         <div className = "row">
           <div className = "col">
@@ -94,12 +116,12 @@ export default class Informacoes extends React.Component {
                 Editar
               </a>
               &nbsp;
-              <a href = "">
+              <a className = "cursorLink" onClick = {this.exclui}>
                 Excluir
               </a>
             </div>
           :null }
-          
+
         </div>
       </div>
     )

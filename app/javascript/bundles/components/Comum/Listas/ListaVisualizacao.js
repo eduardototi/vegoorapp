@@ -118,7 +118,6 @@ export default class ListaVisualizacao extends React.Component {
                     {coluna}
                   </td>
                 )
-
               })}
             </tr>}
 

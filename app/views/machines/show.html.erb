@@ -1,3 +1,18 @@
+<div class = "container mt-4">
+  <div class = "mb-3">
+    <%= link_to "Voltar", machines_path, class: "h5 text-white" %>
+  </div>
+
+  <%= react_component("Visualizacao",
+                      props: {"cabecalho": ["Máquina", "Descrição", "Status"],
+                              "colunas": ["name", "description", "status"],
+                              "linkAcoes": "machines",
+                              "acoes": true,
+                              "data": @machine.as_json},
+                      prerender: false) %>
+</div>
+
+<!--
 <div class="container mt-4">
   <table class="table table-bordered table-dark">
     <thead>
@@ -11,13 +26,14 @@
     </thead>
     <tbody>
         <tr>
-          <th scope="row"><%= @machine.id %></th>
-          <td><%= @machine.name %></td>
-          <td><%= @machine.description %></td>
-          <td><%= @machine.status ? 'Ativo' : 'Inativo' %></td>
-          <td><%= link_to 'Editar', edit_machine_path(@machine) %></td>
-          <td><%= link_to "Excluir", @machine, method: :delete, data: { confirm: 'Tem certeza que deseja deletar esta maquina?' }, class: 'btn btn-danger' %></td>
+          <th scope="row">< @machine.id %></th>
+          <td>< @machine.name %></td>
+          <td>< @machine.description %></td>
+          <td>< @machine.status ? 'Ativo' : 'Inativo' %></td>
+          <td>< link_to 'Editar', edit_machine_path(@machine) %></td>
+          <td>< link_to "Excluir", @machine, method: :delete, data: { confirm: 'Tem certeza que deseja deletar esta maquina?' }, class: 'btn btn-danger' %></td>
         </tr>
     </tbody>
   </table>
 </div>
+-->

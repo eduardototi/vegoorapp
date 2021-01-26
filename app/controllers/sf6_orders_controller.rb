@@ -21,6 +21,7 @@ class Sf6OrdersController < ApplicationController
   def create
     @sf6_order = Sf6Order.new(sf6_order_params)
     @sf6_order.status = false
+
     if @sf6_order.save
       redirect_to sf6_order_path(@sf6_order)
     else
@@ -30,8 +31,8 @@ class Sf6OrdersController < ApplicationController
   end
 
   def destroy
+    @sf6_order = Sf6Order.find(params[:id])
     @sf6_order.destroy
-    redirect_to sf6_orders_path
   end
 
   def edit

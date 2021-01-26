@@ -7,7 +7,7 @@ import ExibidorNotificacao from "../Comum/Notificacao/ExibidorNotificacao";
 import MyUtil from "../../util/MyUtil";
 import MyRequests from "../../util/MyRequests";
 
-export default class FormCadastroServico extends React.Component {
+export default class FormEdicaoServico extends React.Component {
   static propTypes = {
     //name: PropTypes.string.isRequired,
   };
@@ -20,8 +20,9 @@ export default class FormCadastroServico extends React.Component {
     super(props);
 
     this.state = {
-      servico: "",
-      descricao: "",
+      id: this.props.data.id,
+      servico: this.props.data.title,
+      descricao: this.props.data.description,
       notificacoes: []
     };
 
@@ -55,10 +56,11 @@ export default class FormCadastroServico extends React.Component {
       }
     }
     else{
-      let url = "/create_service";
-      let payload = {"title": this.state.servico,
+      let url = "/update_service";
+      let payload = {"id": this.state.id,
+                     "title": this.state.servico,
                      "description": this.state.descricao};
-      let response = MyRequests.post(url, payload);
+      let response = MyRequests.put(url, payload);
       let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
       notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
@@ -99,7 +101,7 @@ export default class FormCadastroServico extends React.Component {
             <div className = "row mt-4 text-center">
               <div className = "col">
                 <button type = "submit" className = "btn btn-primary">
-                  Cadastrar
+                  Salvar Alterações
                 </button>
               </div>
             </div>

@@ -34,16 +34,12 @@ export default class Lista extends React.Component {
         //Substitui no vetor que possui os nomes das colunas da tabela pelo
         //seu respectivo valor
         novaColuna[i] = novaColuna[i].replace(itensQuery[j], item[itensQuery[j]])
-
-        //this.props.colunas[i] = this.props.colunas[i].replace(itensQuery[j], item[itensQuery[j]])
       }
 
       //Armazena o item sem as chaves e espaços excessivos
-      //this.props.colunas[i] = MyParser.removeChaves(this.props.colunas[i]);
       novaColuna[i] = MyParser.removeChaves(novaColuna[i]);
     }
 
-    //this.setState({dadosTrocados: novaColuna});
     this.state.dadosTrocados = novaColuna;
   }
 

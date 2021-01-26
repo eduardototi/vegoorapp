@@ -20,6 +20,7 @@ export default class FormEdicaoUsuario extends React.Component {
     super(props);
 
     this.state = {
+      id: this.props.data.id,
       nome: this.props.data.first_name,
       sobrenome: this.props.data.last_name,
       matricula: this.props.data.registration,

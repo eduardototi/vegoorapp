@@ -12,15 +12,30 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new
-    @orderservice = Orderservice.new
-    @orderutensil = Orderutensil.new
-    @epi_order = EpiOrder.new
+    #@vegoorOrder = Order.new
+    #@vegoorOrderService = Orderservice.new
+    #@vegoorOrderUtensil = Orderutensil.new
+    #@vegoorOrderEpi = EpiOrder.new
+
+    #@sf6Order = Sf6Order.new
+    #@sf6OrderService = Sf6Orderservice.new
+    #@sf6OrderUtensil = Sf6Orderutensil.new
+    #@sf6OrderEpi = EpiSf6order.new
+
+    @servicos = Service.all.map { |servico| [servico.title, servico.id ] };
+    @maquinas = Machine.all.map { |maquina| [maquina.name, maquina.id ] };
+    @equipamentos = Utensil.all.map { |equipamento| [equipamento.name, equipamento.id ] };
+    @epis = Epi.all.map { |epi| [epi.name, epi.id ] };
+
+    @responsaveisTecnicos = User.where(role: "Técnico").map {|user| [ "#{user.first_name} #{user.last_name}", user.id]}
+    @clientes = Client.all.map { |client| [client.razao_social, client.id ] };
+    @contatoDosClientes = User.where(role: "Cliente").map { |user| ["#{user.first_name} #{user.last_name}", user.id ]}
   end
 
   def create
     @order = Order.new(order_params)
     @order.status = false
+
     if @order.save
       redirect_to order_path(@order)
     else
@@ -29,8 +44,8 @@ class OrdersController < ApplicationController
   end
 
   def destroy
+    @order = Order.find(params[:id])
     @order.destroy
-    redirect_to orders_path
   end
 
   def edit

@@ -13,12 +13,16 @@ import FormCadastroCliente from "../bundles/components/Clientes/FormCadastroClie
 import FormEdicaoCliente from "../bundles/components/Clientes/FormEdicaoCliente";
 //Equipamentos
 import FormCadastroEquipamento from "../bundles/components/Equipamentos/FormCadastroEquipamento";
+import FormEdicaoEquipamento from "../bundles/components/Equipamentos/FormEdicaoEquipamento";
 //Máquinas
 import FormCadastroMaquina from "../bundles/components/Maquinas/FormCadastroMaquina";
+import FormEdicaoMaquina from "../bundles/components/Maquinas/FormEdicaoMaquina";
 //EPIs
 import FormCadastroEpi from "../bundles/components/Epis/FormCadastroEpi";
+import FormEdicaoEpi from "../bundles/components/Epis/FormEdicaoEpi";
 //Serviços
 import FormCadastroServico from "../bundles/components/Servicos/FormCadastroServico";
+import FormEdicaoServico from "../bundles/components/Servicos/FormEdicaoServico";
 //Ordens de Serviço
 import FormCadastroOrdensServico from "../bundles/components/OrdensServico/FormCadastroOrdensServico";
 
@@ -32,8 +36,12 @@ ReactOnRails.register({
   FormCadastroCliente,
   FormEdicaoCliente,
   FormCadastroEquipamento,
+  FormEdicaoEquipamento,
   FormCadastroMaquina,
+  FormEdicaoMaquina,
   FormCadastroEpi,
+  FormEdicaoEpi,
   FormCadastroServico,
+  FormEdicaoServico,
   FormCadastroOrdensServico
 });

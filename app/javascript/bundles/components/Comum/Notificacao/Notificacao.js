@@ -27,7 +27,7 @@ const Notificacao = (props) => {
     <div id = {id} className = {tipoAlerta}>
       <div className = "text-right mr-2">
         <span className = "cursorLink semSelecao" onClick = {esconde}>
-          X
+          x
         </span>
       </div>
 
@@ -39,7 +39,7 @@ const Notificacao = (props) => {
 
       <div className = "text-right mr-1">
         <span className = "semSelecao invisible">
-          X
+          x
         </span>
       </div>
     </div>

@@ -7,6 +7,7 @@ import CampoTelefone from "../Comum/Forms/CampoTelefone";
 import CampoDropdown from "../Comum/Forms/CampoDropdown";
 import CampoMultiplaEscolha from "../Comum/Forms/CampoMultiplaEscolha";
 import Notificacao from "../Comum/Notificacao/Notificacao";
+import ExibidorNotificacao from "../Comum/Notificacao/ExibidorNotificacao";
 import MyUtil from "../../util/MyUtil";
 import MyRequests from "../../util/MyRequests";
 
@@ -103,10 +104,6 @@ export default class FormCadastroUsuario extends React.Component {
                                                     "Função", "Cliente", "E-mail", "Telefone", "Senha", "Confirme a Senha"],
                                                    this.state);
 
-    if(this.state.senha != this.state.senhaConf){
-      notificacoesNovas.push(<Notificacao tipo = "erro" msg = "As senhas não conferem"/>);
-    }
-
     if(camposVazios.length > 0){
       let notificacoesCamposVazios = MyUtil.criaNotificacoesErro("Campo vazio: ", camposVazios);
 
@@ -115,22 +112,27 @@ export default class FormCadastroUsuario extends React.Component {
       }
     }
     else{
-      let url = "/create_user";
-      let payload = {"first_name": this.state.nome,
-                     "last_name": this.state.sobrenome,
-                     "admin": this.state.administrador === "true" ? true : false,
-                     "email": this.state.email,
-                     "phone": this.state.telefone,
-                     "client_id": parseInt(this.state.cliente),
-                     "role": this.state.funcao,
-                     "password": this.state.senha,
-                     "password_confirmation": this.state.senhaConf};
-      let response = MyRequests.post(url, payload);
-      let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
+      if(this.state.senha == this.state.senhaConf){
+        let url = "/create_user";
+        let payload = {"first_name": this.state.nome,
+                       "last_name": this.state.sobrenome,
+                       "admin": this.state.administrador === "true" ? true : false,
+                       "email": this.state.email,
+                       "phone": this.state.telefone,
+                       "client_id": parseInt(this.state.cliente),
+                       "role": this.state.funcao,
+                       "password": this.state.senha,
+                       "password_confirmation": this.state.senhaConf};
+        let response = MyRequests.post(url, payload);
+        let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
-      console.log(payload);
+        console.log(payload);
 
-      notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
+        notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
+      }    
+      else{
+        notificacoesNovas.push(<Notificacao tipo = "erro" msg = "As senhas não conferem"/>);
+      }
     }
 
     this.setState({notificacoes: notificacoesNovas});
@@ -140,17 +142,9 @@ export default class FormCadastroUsuario extends React.Component {
   render() {
     return (
       <div>
-        <div className = "mb-2">
-          {this.state.notificacoes.map((notificacao) => {
-            return (
-              <div key = {MyUtil.keyAleatoria()} className = "mt-1">
-                {notificacao}
-              </div>
-            )
-          })}
-        </div>
+        <ExibidorNotificacao notificacoes = {this.state.notificacoes}/>
 
-        <form onSubmit = {this.handleSubmit}>
+        <form onSubmit = {this.handleSubmit} className = "mt-2">
           <div className = "container">
             <div className = "row">
               <div className = "col">

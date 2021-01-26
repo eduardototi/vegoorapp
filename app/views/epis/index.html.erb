@@ -2,6 +2,7 @@
   <%= react_component("Lista",
                       props: {"cabecalho": ["Id", "EPI"],
                               "colunas": ["id", "name"],
+                              "linkAcoes": "epis",
                               "data": @epis.as_json},
                       prerender: false) %>
 </div>

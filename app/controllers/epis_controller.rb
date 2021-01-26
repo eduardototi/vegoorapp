@@ -14,6 +14,7 @@ class EpisController < ApplicationController
 
   def create
     @epi = Epi.new(epi_params)
+
     if @epi.save
       redirect_to epis_path
     else
@@ -22,19 +23,21 @@ class EpisController < ApplicationController
   end
 
   def destroy
+    @epi = Epi.find(params[:id])
     @epi.destroy
-    redirect_to epis_path
   end
 
   def edit
   end
 
   def update
-    if @epi.update(epi_params)
-      redirect_to epi_path(@epi)
-    else
-      render :edit
-    end
+    @epi.update(epi_params)
+
+    #if @epi.update(epi_params)
+    #  redirect_to epi_path(@epi)
+    #else
+    #  render :edit
+    #end
   end
 
   private
