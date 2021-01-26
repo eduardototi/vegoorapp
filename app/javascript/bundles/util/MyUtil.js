@@ -1,3 +1,6 @@
+import React from "react";
+import Notificacao from "../components/Comum/Notificacao/Notificacao";
+
 class MyUtil {
   constructor(){
 
@@ -62,6 +65,39 @@ class MyUtil {
   //Retorna uma cópia de um objeto
   deepCopy(objeto){
     return JSON.parse(JSON.stringify(objeto));
+  }
+
+  //Verifica se existem campos vazios
+  verificaCamposVazios(titulos, campos){
+    let pos = 0;
+    let vazios = [];
+
+    for(let i in campos){
+      if(campos[i] === null || campos[i] === ""){
+        vazios.push(titulos[pos]);
+      }
+
+      pos ++;
+    }
+
+    return vazios;
+  }
+
+  //Cria notificações de erro com o mesmo erro para todas as notificações
+  criaNotificacoesErro(erro, msgs){
+    let notificacoes = [];
+
+    for(let i in msgs){
+      notificacoes.push(<Notificacao tipo = "erro" msg = {erro + " " + msgs[i]} />);
+    }
+
+    return notificacoes;
+  }
+
+  //Faz com que a scrollbar fique no topo
+  scrollToTop(){
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
   }
 }
 

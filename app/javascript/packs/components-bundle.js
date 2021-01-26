@@ -10,6 +10,7 @@ import FormCadastroUsuario from "../bundles/components/Usuarios/FormCadastroUsua
 import FormEdicaoUsuario from "../bundles/components/Usuarios/FormEdicaoUsuario";
 //Clientes
 import FormCadastroCliente from "../bundles/components/Clientes/FormCadastroCliente";
+import FormEdicaoCliente from "../bundles/components/Clientes/FormEdicaoCliente";
 //Equipamentos
 import FormCadastroEquipamento from "../bundles/components/Equipamentos/FormCadastroEquipamento";
 //Máquinas
@@ -29,6 +30,7 @@ ReactOnRails.register({
   FormCadastroUsuario,
   FormEdicaoUsuario,
   FormCadastroCliente,
+  FormEdicaoCliente,
   FormCadastroEquipamento,
   FormCadastroMaquina,
   FormCadastroEpi,

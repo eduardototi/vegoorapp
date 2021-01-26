@@ -4,6 +4,8 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+
+    #render json: UserSerializer.new(@users).serialized_json
   end
 
   def show
@@ -11,10 +13,15 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @roles = [["Cliente", "Cliente"], ["Técnico", "Técnico"], ["Diretor", "Diretor"], ["Gerente", "Gerente"], ["Pesquisador", "Pesquisador"]]
+    @clients = Client.all.map {|client| [client.razao_social, client.id] }
   end
 
   def create
     @user = User.new(user_params)
+
+    puts "eae"
+
     if @user.save
       redirect_to user_path(@user)
     else

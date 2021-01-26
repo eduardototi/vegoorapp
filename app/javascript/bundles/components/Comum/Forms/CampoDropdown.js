@@ -25,7 +25,7 @@ const CampoDropdown = (props) => {
           </option>
         :
         <option defaultValue>
-          ERRO: DEFAULT NÃO ENCONTRADO
+          Selecione...
         </option>}
 
         {props.opc.map((item) => {

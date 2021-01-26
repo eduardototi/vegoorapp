@@ -2,7 +2,10 @@
   <div class="container-form bg-light">
     <h3 class="text-center">Cadastro de Usuário</h3>
 
-    <%= react_component("FormCadastroUsuario", prerender: false) %>
+    <%= react_component("FormCadastroUsuario",
+                        props: {"funcoes": @roles.as_json,
+                                "clientes": @clients.as_json},
+                        prerender: false) %>
 
     <!--
      simple_form_for(@user, url: create_user_path) do |f|

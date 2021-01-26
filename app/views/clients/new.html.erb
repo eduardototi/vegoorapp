@@ -1,6 +1,6 @@
 <div class="container">
   <div class="container-form bg-light">
     <h3 class="text-center">Cadastro de Cliente</h3>
-    <%= react_component("FormCadastroCliente", props: {"estados": STATES}, prerender: false) %>
+    <%= react_component("FormCadastroCliente", props: {"estados": STATES, "idUsuario": current_user.id}, prerender: false) %>
   </div>
 </div>

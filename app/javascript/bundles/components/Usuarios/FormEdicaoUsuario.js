@@ -176,7 +176,7 @@ export default class FormEdicaoUsuario extends React.Component {
             <div className = "row mt-4 text-center">
               <div className = "col">
                 <button type = "button" className = "btn btn-primary">
-                  Cadastrar
+                  Salvar Alterações
                 </button>
               </div>
             </div>

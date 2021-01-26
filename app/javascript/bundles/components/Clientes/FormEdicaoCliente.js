@@ -8,13 +8,10 @@ import CampoEmail from "../Comum/Forms/CampoEmail";
 import CampoNumerico from "../Comum/Forms/CampoNumerico";
 import CampoTelefone from "../Comum/Forms/CampoTelefone";
 import CampoDropdown from "../Comum/Forms/CampoDropdown";
-import Notificacao from "../Comum/Notificacao/Notificacao";
-import MyUtil from "../../util/MyUtil";
-import MyRequests from "../../util/MyRequests"
 
-export default class FormEdicaoCliente extends React.Component {
+export default class FormCadastroCliente extends React.Component {
   static propTypes = {
-    idUsuario: PropTypes.number.isRequired
+    //name: PropTypes.string.isRequired,
   };
 
   /**
@@ -25,22 +22,20 @@ export default class FormEdicaoCliente extends React.Component {
     super(props);
 
     this.state = {
-      razaoSocial: "",
-      cnpj: "",
-      inscEstadual: "",
-      unidade: "",
-      email: "",
-      telefone: "",
-      rua: "",
-      numero: "",
-      bairro: "",
-      cep: "",
-      estado: "",
-      cidade: "",
-      pais: "",
-      idUsuario: this.props.idUsuario,
-      estados: [],
-      notificacoes: []
+      razaoSocial: this.props.data.razao_social,
+      cnpj: this.props.data.cnpj,
+      inscEstadual: this.props.data.ie,
+      unidade: this.props.data.unity,
+      email: this.props.data.email,
+      telefone: this.props.data.phone,
+      rua: this.props.data.street,
+      numero: this.props.data.number,
+      bairro: this.props.data.neighborhood,
+      cep: this.props.data.cep,
+      estado: this.props.data.state,
+      cidade: this.props.data.city,
+      pais: this.props.data.pais,
+      estados: []
     };
 
     this.setRazaoSocial = this.setRazaoSocial.bind(this);
@@ -56,8 +51,6 @@ export default class FormEdicaoCliente extends React.Component {
     this.setEstado = this.setEstado.bind(this);
     this.setCidade = this.setCidade.bind(this);
     this.setPais = this.setPais.bind(this);
-
-    this.handleSubmit = this.handleSubmit.bind(this);
 
     let estados = [];
 
@@ -120,64 +113,10 @@ export default class FormEdicaoCliente extends React.Component {
     this.setState({pais: e.target.value});
   }
 
-  handleSubmit(e){
-    //Evita que a página recarregue após o envio do formulário
-    e.preventDefault();
-    let notificacoesNovas = [];
-    let camposVazios = MyUtil.verificaCamposVazios(["Razão Social", "CNPJ", "Inscrição Estadual", "Unidade",
-                                                    "E-mail", "Telefone", "Endereço", "Número", "Bairro",
-                                                    "CEP", "Cidade", "Estado", "País", "Confirme a Senha"],
-                                                   this.state);
-
-    if(camposVazios.length > 0){
-      let notificacoesCamposVazios = MyUtil.criaNotificacoesErro("Campo vazio: ", camposVazios);
-
-      for(let i in notificacoesCamposVazios){
-        notificacoesNovas.push(notificacoesCamposVazios[i]);
-      }
-    }
-    else{
-      let url = "/create_client";
-      let payload = {"razao_social": this.state.razaoSocial,
-                     "cnpj": this.state.cnpj,
-                     "ie": this.state.inscEstadual,
-                     "street": this.state.rua,
-                     "email": this.state.email,
-                     "phone": this.state.telefone,
-                     "pais": this.state.pais,
-                     "city": this.state.cidade,
-                     "unity": this.state.unidade,
-                     "number": this.state.numero,
-                     "neighborhood": this.state.bairro,
-                     "state": this.state.estado,
-                     "city": this.state.cidade,
-                     "user_id": parseInt(this.state.idUsuario),
-                     "cep": this.state.cep};
-      let response = MyRequests.post(url, payload);
-      let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
-
-      console.log(payload);
-
-      notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
-    }
-
-    this.setState({notificacoes: notificacoesNovas});
-    MyUtil.scrollToTop();
-  }
-
   render() {
     return (
       <div>
-        <div className = "mb-2">
-          {this.state.notificacoes.map((notificacao) => {
-            return (
-              <div key = {MyUtil.keyAleatoria()} className = "mt-1">
-                {notificacao}
-              </div>
-            )
-          })}
-        </div>
-        <form onSubmit = {this.handleSubmit}>
+        <form>
           <div className = "container">
             <div className = "row">
               <div className = "col">
@@ -188,18 +127,18 @@ export default class FormEdicaoCliente extends React.Component {
                             setState = {this.setRazaoSocial}/>
               </div>
               <div className = "col">
-                <CampoCnpj id = "cnpj"
-                           label = "CNPJ"
-                           placeholder = "true"
-                           value = {this.state.cnpj}
-                           setState = {this.setCnpj}/>
+                <CampoTexto id = "cnpj"
+                            label = "CNPJ"
+                            placeholder = "true"
+                            value = {this.state.cnpj}
+                            setState = {this.setCnpj}/>
               </div>
             </div>
 
             <div className = "row mt-2">
               <div className = "col">
                 <CampoTexto id = "inscEstadual"
-                            label = "Inscrição Estadual"
+                            label = "Insc. Estadual"
                             placeholder = "true"
                             value = {this.state.inscEstadual}
                             setState = {this.setInscEstadual}/>
@@ -235,7 +174,7 @@ export default class FormEdicaoCliente extends React.Component {
                 <CampoTexto id = "endereco"
                             label = "Endereço"
                             placeholder = "true"
-                            value = {this.state.endereco}
+                            value = {this.state.rua}
                             setState = {this.setRua}/>
               </div>
             </div>
@@ -290,8 +229,8 @@ export default class FormEdicaoCliente extends React.Component {
 
             <div className = "row mt-4 text-center">
               <div className = "col">
-                <button type = "submit" className = "btn btn-primary">
-                  Cadastrar
+                <button type = "button" className = "btn btn-primary">
+                  Salvar Alterações
                 </button>
               </div>
             </div>

@@ -1,1 +1,15 @@
-<%= render "form", client: @client %>
+<div class="container">
+
+  <div class="container-form bg-light">
+    <div class = "mb-3">
+      <%= link_to "Voltar", clients_path, class: "h5 text-dark" %>
+    </div>
+
+    <h3 class="text-center">Edição de Cliente</h3>
+
+    <%= react_component("FormEdicaoCliente",
+                        props: {"data": @client.as_json,
+                                "estados": STATES},
+                        prerender: false) %>
+  </div>
+</div>
