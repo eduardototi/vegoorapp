@@ -9,6 +9,7 @@ class OrdersController < ApplicationController
   def show
     @orderservices = Orderservice.where(order_id: params[:id])
     @epi_orders = EpiOrder.where(order_id: params[:id])
+   
   end
 
   def new
