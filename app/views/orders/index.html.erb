@@ -1,9 +1,9 @@
-<div class = "container mt-4">
+<div class = "mt-4 mb-2">
   <%= react_component("Lista",
-                      props: {"cabecalho": ["Número", "Cliente", "Situação"],
-                              "colunas": ["id", "razao_social", "status"],
+                      props: {"cabecalho": ["Número", "Empresa", "Cliente", "Situação"],
+                              "colunas": ["id", "empresa", "razao_social", "status"],
                               "linkAcoes": "orders",
-                              "data": @ordersEditado.as_json},
+                              "data": @orders},
                       prerender: false) %>
 </div>
 

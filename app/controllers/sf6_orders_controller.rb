@@ -12,6 +12,7 @@ class Sf6OrdersController < ApplicationController
                "razao_social": @sf6Orders[i].client.razao_social,
                "status": @sf6Orders[i].status}
       @sf6OrdersEditado.push(order)
+    end
   end
 
   def show
@@ -35,7 +36,7 @@ class Sf6OrdersController < ApplicationController
     @sf6Order.status = false
 
     if @sf6Order.save
-      redirect_to sf6_orders_path
+      redirect_to orders_path
     else
       render :new
     end
@@ -65,7 +66,7 @@ class Sf6OrdersController < ApplicationController
   end
 
   def sf6_order_params
-    params.require(:sf6_order).permit(:service_location, :field, :laboratory, :comments, :contact_id, :description, :user_id, :status, :client_id, sf6_orderservices_attributes: [ :id, :service_id, :order_id, :status, :machine_id, :machineserie, :_destroy ], sf6_orderutensils_attributes: [ :id, :utensil_id, :order_id, :status, :_destroy ], epi_sf6orders_attributes: [ :id, :order_id, :epi_id, :amount, :_destroy ])
+    params.require(:order).permit(:location, :field, :laboratory, :comments, :contact_id, :description, :user_id, :status, :client_id, orderservices_attributes: [ :id, :service_id, :order_id, :status, :machine_id, :machineserie, :_destroy ], orderutensils_attributes: [ :id, :utensil_id, :order_id, :status, :_destroy ], epi_orders_attributes: [ :id, :order_id, :epi_id, :amount, :_destroy ])
   end
 
 end

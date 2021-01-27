@@ -164,55 +164,70 @@ export default class FormCadastroOrdensServico extends React.Component {
   }
 
   novoItemServico(){
-    //Cópia da lista atual de serviços para alteração
-    let novaListaServicos = this.state.listaServicos;
-    let id = "itemListaServico" + MyUtil.numeroAleatorio();
-    let key = "keyItemListaServico" + MyUtil.numeroAleatorio();
+    if(this.state.servicoPanelServico != "" && this.state.servicoPanelMaquina != "" &&
+       this.state.servicoPanelNumeroSerie != ""){
+      //Cópia da lista atual de serviços para alteração
+      let novaListaServicos = this.state.listaServicos;
+      let id = "itemListaServico" + MyUtil.numeroAleatorio();
+      let key = "keyItemListaServico" + MyUtil.numeroAleatorio();
+      let finalizado = this.state.servicoPanelFinalizado !== "true" ? "Não" : "Sim";
+      //Busca na matriz de serviços e máquinas seus respectivos nomes pelo seu id e os armazena
+      let servico = MyUtil.buscaMatriz(this.props[this.state.prestadora].servicos, this.state.servicoPanelServico)[0];
+      let maquina = MyUtil.buscaMatriz(this.props[this.state.prestadora].maquinas, this.state.servicoPanelMaquina)[0];
 
-    //Adiciona um novo serviço a lista de serviços
-    novaListaServicos.push(<ItemAdicao id = {id}
-                                       key = {key}
-                                       deleta = {() => this.deletaItem(id, "listaServicos")}
-                                       data = {[["Serviço", this.state.servicoPanelServico],
-                                                ["Finalizado", this.state.servicoPanelFinalizado],
-                                                ["Máquina", this.state.servicoPanelMaquina],
-                                                ["Número de Série", this.state.servicoPanelNumeroSerie]]}/>)
+      //Adiciona um novo serviço a lista de serviços
+      novaListaServicos.push(<ItemAdicao id = {id}
+                                         key = {key}
+                                         deleta = {() => this.deletaItem(id, "listaServicos")}
+                                         data = {[["Serviço", servico, this.state.servicoPanelServico],
+                                                  ["Finalizado", finalizado, this.state.servicoPanelFinalizado],
+                                                  ["Máquina", maquina, this.state.servicoPanelMaquina],
+                                                  ["Número de Série", this.state.servicoPanelNumeroSerie]]}/>)
 
-    //Atualização da lista de serviços com o novo item inserido
-    this.setState({listaServicos: novaListaServicos});
+      //Atualização da lista de serviços com o novo item inserido
+      this.setState({listaServicos: novaListaServicos});
+    }
   }
 
   novoItemEquipamento(){
-    //Cópia da lista atual de equipamentos para alteração
-    let novaListaEquipamentos = this.state.listaEquipamentos;
-    let id = "itemListaEquipamento" + MyUtil.numeroAleatorio();
-    let key = "keyItemListaEquipamento" + MyUtil.numeroAleatorio();
+    if(this.state.equipamentoPanelEquipamento != ""){
+      //Cópia da lista atual de equipamentos para alteração
+      let novaListaEquipamentos = this.state.listaEquipamentos;
+      let id = "itemListaEquipamento" + MyUtil.numeroAleatorio();
+      let key = "keyItemListaEquipamento" + MyUtil.numeroAleatorio();
+      //Busca na matriz de equipamentos seu respectivo nome pelo seu id e o armazena
+      let equipamento = MyUtil.buscaMatriz(this.props[this.state.prestadora].equipamentos, this.state.equipamentoPanelEquipamento)[0];
 
-    //Adiciona um novo equipamento a lista de equipamentos
-    novaListaEquipamentos.push(<ItemAdicao id = {id}
-                                           key = {key}
-                                           deleta = {() => this.deletaItem(id, "listaEquipamentos")}
-                                           data = {[["Equipamento", this.state.equipamentoPanelEquipamento]]}/>)
+      //Adiciona um novo equipamento a lista de equipamentos
+      novaListaEquipamentos.push(<ItemAdicao id = {id}
+                                             key = {key}
+                                             deleta = {() => this.deletaItem(id, "listaEquipamentos")}
+                                             data = {[["Equipamento", equipamento, this.state.equipamentoPanelEquipamento]]}/>)
 
-    //Atualização da lista de equipamentos com o novo item inserido
-    this.setState({listaEquipamentos: novaListaEquipamentos});
+      //Atualização da lista de equipamentos com o novo item inserido
+      this.setState({listaEquipamentos: novaListaEquipamentos});
+    }
   }
 
   novoItemEpi(){
-    //Cópia da lista atual de epis para alteração
-    let novaListaEpis = this.state.listaEpis;
-    let id = "itemListaEpi" + MyUtil.numeroAleatorio();
-    let key = "keyItemListaEpi" + MyUtil.numeroAleatorio();
+    if(this.state.epiPanelEpi != "" && this.state.epiPanelQuantia != ""){
+      //Cópia da lista atual de epis para alteração
+      let novaListaEpis = this.state.listaEpis;
+      let id = "itemListaEpi" + MyUtil.numeroAleatorio();
+      let key = "keyItemListaEpi" + MyUtil.numeroAleatorio();
+      //Busca na matriz de epis seu respectivo nome pelo seu id e o armazena
+      let epi = MyUtil.buscaMatriz(this.props[this.state.prestadora].epis, this.state.epiPanelEpi)[0];
 
-    //Adiciona uma nova epi a lista de epis
-    novaListaEpis.push(<ItemAdicao id = {id}
-                                   key = {key}
-                                   deleta = {() => this.deletaItem(id, "listaEpis")}
-                                   data = {[["Epi", this.state.epiPanelEpi],
-                                            ["Quantia", this.state.epiPanelQuantia]]}/>)
+      //Adiciona uma nova epi a lista de epis
+      novaListaEpis.push(<ItemAdicao id = {id}
+                                     key = {key}
+                                     deleta = {() => this.deletaItem(id, "listaEpis")}
+                                     data = {[["Epi", epi, this.state.epiPanelEpi],
+                                              ["Quantia", this.state.epiPanelQuantia]]}/>)
 
-    //Atualização da lista de epis com o novo item inserido
-    this.setState({listaEpis: novaListaEpis});
+      //Atualização da lista de epis com o novo item inserido
+      this.setState({listaEpis: novaListaEpis});
+    }
   }
 
   deletaItem(id, state){
@@ -233,14 +248,13 @@ export default class FormCadastroOrdensServico extends React.Component {
 
     let notificacoesNovas = [];
     let camposVazios = MyUtil.verificaCamposVazios(["Prestadora do Serviço", "Descrição", "Responsável Técnico",
-                                                    "Cliente", "Contato do Cliente", "Local de Execução", "Observações"],
+                                                    "Cliente", "Contato do Cliente", "Local de Execução"],
                                                    {"prestadora": this.state.prestadora,
                                                     "descricao": this.state.descricao,
                                                     "responsavel": this.state.responsavel,
                                                     "cliente": this.state.cliente,
                                                     "contatoCliente": this.state.contatoCliente,
-                                                    "local": this.state.local,
-                                                    "observacoes": this.state.observacoes});
+                                                    "local": this.state.local});
 
     //Notifica os campos vazios
     if(camposVazios.length > 0){
@@ -256,29 +270,30 @@ export default class FormCadastroOrdensServico extends React.Component {
         notificacoesNovas.push(<Notificacao tipo = "erro" msg = "Selecione pelo menos um tipo de serviço"/>);
       }
       else{
-        let url = this.state.prestadora == "vegoor" ? "/create_vegoor_order" : "/create_sf6_order";
+        //Cria a url do request
+        let url = "/create_" + this.state.prestadora + "_order";
         let payloadEpis = {};
         let payloadEquipamentos = {};
         let payloadServicos = {};
 
         for(let i in this.state.listaEpis){
           payloadEpis[Date.now()] = {
-            "epi_id": this.state.listaEpis[i].props.data[0][1],
+            "epi_id": this.state.listaEpis[i].props.data[0][2],
             "amount": this.state.listaEpis[i].props.data[1][1],
           }
         }
 
         for(let i in this.state.listaEquipamentos){
           payloadEquipamentos[Date.now()] = {
-            "utensil_id": this.state.listaEquipamentos[i].props.data[0][1]
+            "utensil_id": this.state.listaEquipamentos[i].props.data[0][2]
           }
         }
 
         for(let i in this.state.listaServicos){
           payloadServicos[Date.now()] = {
-            "service_id": this.state.listaServicos[i].props.data[0][1],
-            "status": this.state.listaServicos[i].props.data[1][1] ? 1 : 0,
-            "machine_id": this.state.listaServicos[i].props.data[2][1],
+            "service_id": this.state.listaServicos[i].props.data[0][2],
+            "status": this.state.listaServicos[i].props.data[1][2] ? 1 : 0,
+            "machine_id": this.state.listaServicos[i].props.data[2][2],
             "machineserie": this.state.listaServicos[i].props.data[3][1]
           }
         }
@@ -292,9 +307,9 @@ export default class FormCadastroOrdensServico extends React.Component {
                                  "user_id": this.props.usuarioAtual.id,
                                  "status": false,
                                  "client_id": parseInt(this.state.cliente),
-                                 "Orderservices": payloadServicos,
-                                 "Orderutensils": payloadEquipamentos,
-                                 "epi_orders_attributes": payloadEpis}}
+                                 "orderservices_attributes": payloadServicos,
+                                 "orderutensils_attributes": payloadEquipamentos,
+                                 "epi_orders_attributes": payloadEpis}};
 
         let response = await MyRequests.post(url, payload);
         let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
@@ -309,11 +324,23 @@ export default class FormCadastroOrdensServico extends React.Component {
 
   render() {
     return (
-      <div>
-        <ExibidorNotificacao notificacoes = {this.state.notificacoes}/>
+      <div className = "container bg-light">
+
 
         <form onSubmit = {this.handleSubmit} className = "mt-2">
           <div className = "container">
+
+            <div className = "row">
+              <div className = "col mt-2">
+                <h3 className = "text-center">Emissão de Ordem de Serviço</h3>
+              </div>
+            </div>
+
+            <div className = "row">
+              <div className = "col">
+                <ExibidorNotificacao notificacoes = {this.state.notificacoes}/>
+              </div>
+            </div>
 
             <div className = "row mt-2">
               <div className = "col">
@@ -599,7 +626,7 @@ export default class FormCadastroOrdensServico extends React.Component {
             </div>
 
             <div className = "row mt-5">
-              <div className = "col text-center">
+              <div className = "col text-center mb-2">
                 <button type = "submit" className = "btn btn-primary btn">
                   Emitir
                 </button>

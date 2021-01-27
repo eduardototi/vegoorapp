@@ -25,6 +25,7 @@ import FormCadastroServico from "../bundles/components/Servicos/FormCadastroServ
 import FormEdicaoServico from "../bundles/components/Servicos/FormEdicaoServico";
 //Ordens de Serviço
 import FormCadastroOrdensServico from "../bundles/components/OrdensServico/FormCadastroOrdensServico";
+import ExibicaoOrdemServico from "../bundles/components/OrdensServico/ExibicaoOrdemServico";
 
 ReactOnRails.register({
   Lista,
@@ -43,5 +44,6 @@ ReactOnRails.register({
   FormEdicaoEpi,
   FormCadastroServico,
   FormEdicaoServico,
-  FormCadastroOrdensServico
+  FormCadastroOrdensServico,
+  ExibicaoOrdemServico
 });

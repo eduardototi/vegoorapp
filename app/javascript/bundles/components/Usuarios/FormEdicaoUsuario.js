@@ -6,6 +6,10 @@ import CampoSenha from "../Comum/Forms/CampoSenha";
 import CampoTelefone from "../Comum/Forms/CampoTelefone";
 import CampoDropdown from "../Comum/Forms/CampoDropdown";
 import CampoMultiplaEscolha from "../Comum/Forms/CampoMultiplaEscolha";
+import Notificacao from "../Comum/Notificacao/Notificacao";
+import ExibidorNotificacao from "../Comum/Notificacao/ExibidorNotificacao";
+import MyUtil from "../../util/MyUtil";
+import MyRequests from "../../util/MyRequests";
 
 export default class FormEdicaoUsuario extends React.Component {
   static propTypes = {
@@ -30,7 +34,8 @@ export default class FormEdicaoUsuario extends React.Component {
       email: this.props.data.email,
       telefone: this.props.data.phone,
       senha: "",
-      senhaConf: ""
+      senhaConf: "",
+      notificacoes: []
     };
 
     this.setNome = this.setNome.bind(this);
@@ -43,6 +48,8 @@ export default class FormEdicaoUsuario extends React.Component {
     this.setTelefone = this.setTelefone.bind(this);
     this.setSenha = this.setSenha.bind(this);
     this.setSenhaConf = this.setSenhaConf.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   setNome(e){
@@ -85,11 +92,67 @@ export default class FormEdicaoUsuario extends React.Component {
     this.setState({senhaConf: e.target.value});
   }
 
+  async handleSubmit(e){
+    //Evita que a página recarregue após o envio do formulário
+    e.preventDefault();
+    let notificacoesNovas = [];
+    let camposVazios = MyUtil.verificaCamposVazios(["Nome", "Sobrenome", "Matrícula", "Administrador",
+                                                    "Função", "Cliente", "E-mail", "Telefone", "Senha", "Confirme a Senha"],
+                                                   this.state);
+
+    if(camposVazios.length > 0){
+      let notificacoesCamposVazios = MyUtil.criaNotificacoesErro("Campo vazio: ", camposVazios);
+
+      for(let i in notificacoesCamposVazios){
+        notificacoesNovas.push(notificacoesCamposVazios[i]);
+      }
+    }
+    else{
+      if(this.state.senha == this.state.senhaConf){
+        let url = "/create_user";
+        let payload = {"first_name": this.state.nome,
+                       "last_name": this.state.sobrenome,
+                       "admin": this.state.administrador === "true" ? true : false,
+                       "email": this.state.email,
+                       "phone": this.state.telefone,
+                       "client_id": parseInt(this.state.cliente),
+                       "role": this.state.funcao,
+                       "password": this.state.senha,
+                       "password_confirmation": this.state.senhaConf};
+        let response = await MyRequests.post(url, payload);
+        let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
+
+        console.log(response);
+
+        notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
+      }
+      else{
+        notificacoesNovas.push(<Notificacao tipo = "erro" msg = "As senhas não conferem"/>);
+      }
+    }
+
+    this.setState({notificacoes: notificacoesNovas});
+    MyUtil.scrollToTop();
+  }
+
   render(){
     return (
-      <div>
+      <div className = "container bg-light">
         <form>
           <div className = "container">
+
+            <div className = "row">
+              <div className = "col mt-2">
+                <h3 className = "text-center">Edição de Usuário</h3>
+              </div>
+            </div>
+
+            <div className = "row">
+              <div className = "col">
+                <ExibidorNotificacao notificacoes = {this.state.notificacoes}/>
+              </div>
+            </div>
+
             <div className = "row">
               <div className = "col">
                 <CampoTexto id = "nome"
@@ -175,7 +238,7 @@ export default class FormEdicaoUsuario extends React.Component {
             </div>
 
             <div className = "row mt-4 text-center">
-              <div className = "col">
+              <div className = "col mb-2">
                 <button type = "button" className = "btn btn-primary">
                   Salvar Alterações
                 </button>

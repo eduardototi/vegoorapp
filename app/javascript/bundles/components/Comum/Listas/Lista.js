@@ -20,6 +20,8 @@ export default class Lista extends React.Component {
     this.state = {
       dadosTrocados: []
     }
+
+    console.log(this.props);
   }
 
   substituiValores(item){

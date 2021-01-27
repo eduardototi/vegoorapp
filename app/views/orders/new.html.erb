@@ -1,26 +1,22 @@
-<div class="container">
-  <div class="container-form bg-light">
-    <h3 class="text-center">Emissão de Ordem de Serviço</h3>
-
-    <%= react_component("FormCadastroOrdensServico",
-                        props: {"usuarioAtual": current_user.as_json,
-                                "responsaveisTecnicos": @responsaveisTecnicos.as_json,
-                                "clientes": @clientes.as_json,
-                                "contatoDosClientes": @contatoDosClientes.as_json,
-                                "vegoor": {"servicos": @servicos.as_json,
-                                           "maquinas": @maquinas.as_json,
-                                           "equipamentos": @equipamentos.as_json,
-                                           "epis": @epis.as_json},
-                                "sf6": {"servicos": @servicos.as_json,
-                                        "maquinas": @maquinas.as_json,
-                                        "equipamentos": @equipamentos.as_json,
-                                        "epis": @epis.as_json},
-                                "": {"servicos": [],
-                                     "maquinas": [],
-                                     "equipamentos": [],
-                                     "epis": []}},
-                        prerender: false) %>
-  </div>
+<div class = "mt-4 mb-4">
+  <%= react_component("FormCadastroOrdensServico",
+                      props: {"usuarioAtual": current_user.as_json,
+                              "responsaveisTecnicos": @responsaveisTecnicos.as_json,
+                              "clientes": @clientes.as_json,
+                              "contatoDosClientes": @contatoDosClientes.as_json,
+                              "vegoor": {"servicos": @servicos.as_json,
+                                         "maquinas": @maquinas.as_json,
+                                         "equipamentos": @equipamentos.as_json,
+                                         "epis": @epis.as_json},
+                              "sf6": {"servicos": @servicos.as_json,
+                                      "maquinas": @maquinas.as_json,
+                                      "equipamentos": @equipamentos.as_json,
+                                      "epis": @epis.as_json},
+                              "": {"servicos": [],
+                                   "maquinas": [],
+                                   "equipamentos": [],
+                                   "epis": []}},
+                      prerender: false) %>
 </div>
 <!--
 

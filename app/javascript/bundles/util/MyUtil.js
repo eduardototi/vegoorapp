@@ -99,6 +99,19 @@ class MyUtil {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   }
+
+  //Busca um elemento numa matriz e retorna o vetor em que ele se encontra
+  buscaMatriz(matriz, valor){
+    for(let i in matriz){
+      for(let j in matriz[i]){
+        if(matriz[i][j] == valor){
+          return matriz[i];
+        }
+      }
+    }
+
+    return null;
+  }
 }
 
 export default new MyUtil();
