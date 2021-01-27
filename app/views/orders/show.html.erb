@@ -119,7 +119,14 @@
         <% end %>
     </table>
   <% end %>
-
+  
+  <% @orderservices.each do |orderservice| %>
+    <% orderservice.orderservice_reports.each do |result| %>
+      <% if result.photo.attached? %>
+        <%= image_tag result.photo, height: 300, width: 400, crop: :fill %>
+      <% end %>
+    <% end %>
+  <% end %>
   
 
   <div class="order-description mb-3">

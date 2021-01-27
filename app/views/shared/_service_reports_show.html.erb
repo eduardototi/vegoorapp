@@ -20,9 +20,6 @@
       <td><%= result.fase_b %></td>
       <td><%= result.fase_c %></td>
       <td><%= result.reference %></td>
-      <% if result.photo.attached? %>
-        <%= cl_image_tag result.photo.key, height: 300, width: 400, crop: :fill %>
-      <% end %>
       <%#= raise %>
       <% if orderservice.status %>
         <td></td>
@@ -34,3 +31,5 @@
     </tr>
   </tbody>
 <% end %>
+
+
