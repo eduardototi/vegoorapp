@@ -1,38 +1,35 @@
-<div class="container mt-4">
-  <table class="table table-bordered table-dark">
-    <div class = "container mt-4">
-      <%= react_component("Lista",
-                          props: {"cabecalho": ["Id", "Máquina", "Descrição", "Status"],
-                                  "colunas": ["id", "name", "description", "status"],
-                                  "linkAcoes": "machines",
-                                  "data": @machines.as_json},
-                          prerender: false) %>
-    </div>
-
-    <!--
-    <thead>
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Maquina</th>
-        <th scope="col">Descrição</th>
-        <th scope="col">Status</th>
-        <th scope="col">Visualizar</th>
-        <th scope="col">Editar</th>
-      </tr>
-    </thead>
-    <tbody>
-      # @machines.each do |machine|
-        <tr>
-          <th scope="row">< machine.id %></th>
-          <td>< machine.name %></td>
-          <td>< machine.description %></td>
-          <td>< machine.status ? 'Ativo' : 'Inativo' %></td>
-          <td>< link_to 'Visualizar', machine_path(machine) %></td>
-          <td>< link_to 'Editar', edit_machine_path(machine) %></td>
-        </tr>
-      # end %>
-    </tbody>
-  </table>
-  <= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
-  -->
+<div class = "mt-4 mb-4">
+  <%= react_component("Lista",
+                      props: {"cabecalho": ["Id", "Máquina", "Descrição", "Status"],
+                              "colunas": ["id", "name", "description", "status"],
+                              "linkAcoes": "machines",
+                              "data": @machines.as_json},
+                      prerender: false) %>
 </div>
+
+<!--
+<thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Maquina</th>
+    <th scope="col">Descrição</th>
+    <th scope="col">Status</th>
+    <th scope="col">Visualizar</th>
+    <th scope="col">Editar</th>
+  </tr>
+</thead>
+<tbody>
+  # @machines.each do |machine|
+    <tr>
+      <th scope="row">< machine.id %></th>
+      <td>< machine.name %></td>
+      <td>< machine.description %></td>
+      <td>< machine.status ? 'Ativo' : 'Inativo' %></td>
+      <td>< link_to 'Visualizar', machine_path(machine) %></td>
+      <td>< link_to 'Editar', edit_machine_path(machine) %></td>
+    </tr>
+  # end %>
+</tbody>
+</table>
+<= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
+-->

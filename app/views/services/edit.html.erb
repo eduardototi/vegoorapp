@@ -1,14 +1,9 @@
-<div class="container">
-
-  <div class="container-form bg-light">
-    <div class = "mb-3">
-      <%= link_to "Voltar", services_path, class: "h5 text-dark" %>
-    </div>
-
-    <h3 class="text-center">Edição de Serviço</h3>
-
-    <%= react_component("FormEdicaoServico",
-                        props: {"data": @service.as_json},
-                        prerender: false) %>
+<div class = "mt-4 mb-2">
+  <div class = "mb-3">
+    <%= link_to "Voltar", services_path, class: "h5 text-white" %>
   </div>
+
+  <%= react_component("FormEdicaoServico",
+                      props: {"data": @service.as_json},
+                      prerender: false) %>
 </div>

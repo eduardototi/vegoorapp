@@ -166,11 +166,22 @@ export default class FormEdicaoCliente extends React.Component {
 
   render() {
     return (
-      <div>
-        <ExibidorNotificacao notificacoes = {this.state.notificacoes}/>
-
+      <div className = "bg-light">
         <form onSubmit = {this.handleSubmit} className = "mt-2">
           <div className = "container">
+
+            <div className = "row">
+              <div className = "col mt-2">
+                <h3 class = "text-center">Cadastro de Cliente</h3>
+              </div>
+            </div>
+
+            <div className = "row">
+              <div className = "col">
+                <ExibidorNotificacao notificacoes = {this.state.notificacoes}/>
+              </div>
+            </div>
+
             <div className = "row">
               <div className = "col">
                 <CampoTexto id = "razaoSocial"
@@ -281,7 +292,7 @@ export default class FormEdicaoCliente extends React.Component {
             </div>
 
             <div className = "row mt-4 text-center">
-              <div className = "col">
+              <div className = "col mb-2">
                 <button type = "submit" className = "btn btn-primary">
                   Cadastrar
                 </button>

@@ -141,7 +141,7 @@ export default class FormCadastroUsuario extends React.Component {
 
   render() {
     return (
-      <div className = "container bg-light">
+      <div className = "bg-light">
         <form onSubmit = {this.handleSubmit} className = "mt-2">
           <div className = "container">
 

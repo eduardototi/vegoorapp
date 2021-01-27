@@ -137,8 +137,8 @@ export default class FormEdicaoUsuario extends React.Component {
 
   render(){
     return (
-      <div className = "container bg-light">
-        <form>
+      <div className = "bg-light">
+        <form onSubmit = {this.handleSubmit}>
           <div className = "container">
 
             <div className = "row">
@@ -239,7 +239,7 @@ export default class FormEdicaoUsuario extends React.Component {
 
             <div className = "row mt-4 text-center">
               <div className = "col mb-2">
-                <button type = "button" className = "btn btn-primary">
+                <button type = "submit" className = "btn btn-primary">
                   Salvar Alterações
                 </button>
               </div>
