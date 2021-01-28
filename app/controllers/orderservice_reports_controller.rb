@@ -33,6 +33,12 @@ class OrderserviceReportsController < ApplicationController
         redirect_to order_path(@service_report.orderservice.order)
     end
 
+    def destroy_photo
+        if @service_report.photo.attached?
+            @service_report.photo.destroy
+        end
+    end
+
     private
 
     def set_service_report
@@ -40,7 +46,7 @@ class OrderserviceReportsController < ApplicationController
     end
   
     def service_report_params
-        params.require(:orderservice_report).permit(:parameter, :photo, :unity, :fase_a, :fase_b, :fase_c, :reference, :orderservice_id)
+        params.require(:orderservice_report).permit(:parameter, :unity, :fase_a, :fase_b, :fase_c, :reference, :orderservice_id, photos: [])
     end
 
 end

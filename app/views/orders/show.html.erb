@@ -106,7 +106,7 @@
                 <td></td>
               <% end %>
               <td>
-                <%= link_to 'Add resultado', new_orderservice_report_path(orderservice), class: 'btn btn-primary' %>
+                <%= link_to 'Resultado', new_orderservice_report_path(orderservice), class: 'btn btn-primary' %>
               </td>
               <td></td>
               <td></td>
@@ -119,11 +119,13 @@
         <% end %>
     </table>
   <% end %>
-  
+
   <% @orderservices.each do |orderservice| %>
     <% orderservice.orderservice_reports.each do |result| %>
-      <% if result.photo.attached? %>
-        <%= image_tag result.photo, height: 300, width: 400, crop: :fill %>
+      <% if result.photos.attached? %>
+        <% result.photos.each do |photo| %>
+          <%= image_tag photo, height: 300, width: 400, crop: :fill %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
