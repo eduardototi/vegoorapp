@@ -2,11 +2,12 @@ class VegoorReportsController < ApplicationController
     before_action :set_vegoor_report, only: [:show, :edit, :destroy, :update]
 
     def index
-        @vegoor_reports = VegoorReport.all
+      @vegoor_reports = VegoorReport.all
     end
   
     def show
-        @vegoor_reports = VegoorReport.where(vegoor_report_id: params[:id])  
+      @vegoor_reports = VegoorReport.where(vegoor_report_id: params[:id])
+      @orderservice = Orderservice
     end
   
     def new

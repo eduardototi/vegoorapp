@@ -71,6 +71,16 @@
         <% end %>
     </table>
 
+    <% @vegoor_report.order.orderservices.each do |orderservice| %>
+        <% orderservice.orderservice_reports.each do |result| %>
+            <% if result.photos.attached? %>
+                <% result.photos.each do |photo| %>
+                    <%= image_tag photo, height: 300, width: 400, crop: :fill %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+
     <div class="order-description mb-3 text-justify" >
         <strong>Teste de Recepção:</strong>
         <%= @vegoor_report.reception_test %>

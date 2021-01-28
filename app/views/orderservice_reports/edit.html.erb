@@ -10,6 +10,12 @@
         <%= f.input :fase_c, label: "Fase C" %>
         <%= f.input :reference, label: "Referencia" %>
         <%= f.hidden_field :orderservice_id %>
+        <% if @service_report.photos.attached? %>
+          <% @service_report.photos.each do |photo| %>
+            <%= image_tag photo, height: 300, width: 400, crop: :fill %>
+          <% end %>
+        <% end %>
+        <%= f.input :photos, as: :file, input_html: { multiple: true, id: 'photo-input' } %>
       </div>
       <div class="form-actions text-center">
         <%= f.button :submit, "Enviar", class: 'btn btn-primary' %>
