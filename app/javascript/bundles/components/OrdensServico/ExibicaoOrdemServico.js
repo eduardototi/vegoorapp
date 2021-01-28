@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
 import MyUtil from "../../util/MyUtil";
+import MyRequests from "../../util/MyRequests";
+import Notificacao from "../Comum/Notificacao/Notificacao";
+import ExibidorNotificacao from "../Comum/Notificacao/ExibidorNotificacao";
 import "../../styles/Geral.css";
 import logoVegoor from "../../img/vegoorFull.png";
 import logoSf6 from "../../img/sf6SemFundo.png";
@@ -16,7 +19,12 @@ export default class ExibicaoOrdemServico extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      notificacoes: []
+    }
+
     this.checkOrBox = this.checkOrBox.bind(this);
+    this.exclui = this.exclui.bind(this);
   }
 
   checkOrBox(verificacao){
@@ -27,9 +35,32 @@ export default class ExibicaoOrdemServico extends React.Component {
     return <i className = "far fa-square"></i>
   }
 
+  async exclui(){
+    let confirmacao = window.confirm("Deseja mesmo excluir?");
+
+    if(confirmacao){
+      let notificacoesNovas = [];
+      let url = "/" + this.props.linkAcao + "/" + this.props.data.id;
+      let response = await MyRequests.delete(url);
+      let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
+
+      notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
+      this.setState({notificacoes: notificacoesNovas});
+
+      //Redireciona para a página de listagem
+      //window.location.href = "/" + this.props.linkAcoes;
+    }
+  }
+
   render() {
     return (
       <div className = "container bg-white p-4">
+        <div className =  "row">
+          <div className = "col">
+            <ExibidorNotificacao notificacoes = {this.state.notificacoes}/>
+          </div>
+        </div>
+
         <div className = "row border-bottom border-dark">
           <div className = "col">
 
@@ -79,7 +110,7 @@ export default class ExibicaoOrdemServico extends React.Component {
           <img className = "img-fluid float-right"
                width = "225px"
                height = "225px"
-               src = {logoVegoor}/>
+               src = {this.props.empresa == "vegoor" ? logoVegoor : logoSf6}/>
         </div>
       </div>
 
@@ -336,13 +367,15 @@ export default class ExibicaoOrdemServico extends React.Component {
 
       <div className = "row">
         <div className = "col text-right">
-          <button type = "button" className = "btn btn-sm btn-danger">
+          <button type = "button" className = "btn btn-sm btn-danger" onClick = {this.exclui}>
             Excluir
           </button>
           &nbsp;
-          <button type = "button" className = "btn btn-sm btn-primary">
-            Editar
-          </button>
+          <a className = "linkSemUnderline text-white" href = {"/" + this.props.linkAcao + "/" + this.props.data.id + "/edit"}>
+            <button type = "button" className = "btn btn-sm btn-primary">
+              Editar
+            </button>
+          </a>
         </div>
       </div>
 

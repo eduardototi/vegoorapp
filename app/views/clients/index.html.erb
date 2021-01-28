@@ -3,6 +3,7 @@
                       props: {"cabecalho": ["Id", "Razão Social", "CNPJ", "Unidade", "Endereço", "Telefone", "E-mail"],
                               "colunas": ["id", "razao_social", "cnpj", "unity", "street{, nº: } number", "phone", "email"],
                               "linkAcoes": "clients",
-                              "data": @clients.as_json},
+                              "data": @clients.as_json,
+                              "maxPorPagina": 5},
                       prerender: false) %>
 </div>

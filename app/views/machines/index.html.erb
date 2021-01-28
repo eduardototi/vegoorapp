@@ -3,7 +3,8 @@
                       props: {"cabecalho": ["Id", "Máquina", "Descrição", "Status"],
                               "colunas": ["id", "name", "description", "status"],
                               "linkAcoes": "machines",
-                              "data": @machines.as_json},
+                              "data": @machines.as_json,
+                              "maxPorPagina": 5},
                       prerender: false) %>
 </div>
 

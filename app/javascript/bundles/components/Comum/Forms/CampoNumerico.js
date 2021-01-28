@@ -16,7 +16,7 @@ const CampoNumerico = (props) => {
              className = "form-control"
              placeholder = {props.placeholder ? props.label : ""}
              pattern = {props.pattern}
-             value = {props.value}
+             defaultValue = {props.value}
              onChange = {props.setState}/>
     </div>
   )

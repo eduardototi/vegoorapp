@@ -4,25 +4,14 @@ class OrdersController < ApplicationController
 
   def index
     @ordersVegoor = Order.all
-    @ordersSf6= Order.all
     @orders = []
-    maxVegoor = (@ordersVegoor.length() - 1)
-    maxSf6 = (@ordersSf6.length() - 1)
+    max = (@ordersVegoor.length() - 1)
 
-    for i in 0..maxVegoor do
+    for i in 0..max do
       orderVegoor = {"id": @ordersVegoor[i].id,
-                     "empresa": "Vegoor",
                      "razao_social": @ordersVegoor[i].client.razao_social,
                      "status": @ordersVegoor[i].status}
       @orders.push(orderVegoor)
-    end
-
-    for i in 0..maxSf6 do
-      orderSf6 = {"id": @ordersSf6[i].id,
-                  "empresa": "SF6",
-                  "razao_social": @ordersSf6[i].client.razao_social,
-                  "status": @ordersSf6[i].status}
-      @orders.push(orderSf6)
     end
   end
 
@@ -49,7 +38,6 @@ class OrdersController < ApplicationController
              "quantia": @epi_orders[i].amount}
       @epis.push(epi)
     end
-
   end
 
   def new
@@ -80,16 +68,43 @@ class OrdersController < ApplicationController
   end
 
   def edit
+    @servicos = Service.all.map { |servico| [servico.title, servico.id ] };
+    @maquinas = Machine.all.map { |maquina| [maquina.name, maquina.id ] };
+    @equipamentos = Utensil.all.map { |equipamento| [equipamento.name, equipamento.id ] };
+    @epis = Epi.all.map { |epi| [epi.name, epi.id ] };
+
+    @responsaveisTecnicos = User.where(role: "Técnico").map {|user| [ "#{user.first_name} #{user.last_name}", user.id]}
+    @clientes = Client.all.map { |client| [client.razao_social, client.id ] };
+    @contatoDosClientes = User.where(role: "Cliente").map { |user| ["#{user.first_name} #{user.last_name}", user.id ]}
+
     @orderservices = Orderservice.where(order_id: params[:id])
-    @epi_order = EpiOrder.where(order_id: params[:id])
+    @epi_orders = EpiOrder.where(order_id: params[:id])
+    @servicosOrder = []
+    @episOrder = []
+
+    maxServicos = (@orderservices.length() - 1)
+    maxEpis = (@epi_orders.length() - 1)
+
+    for i in 0..maxServicos do
+      servico = {"id": @orderservices[i].service.id,
+                 "nome": @orderservices[i].service.title,
+                 "idMaquina": @orderservices[i].machine.id,
+                 "maquina": @orderservices[i].machine.name,
+                 "serie": @orderservices[i].machineserie,
+                 "status": @orderservices[i].status}
+      @servicosOrder.push(servico)
+    end
+
+    for i in 0..maxEpis do
+      epi = {"id": @epi_orders[i].epi.id,
+             "nome": @epi_orders[i].epi.name,
+             "quantia": @epi_orders[i].amount}
+      @episOrder.push(epi)
+    end
   end
 
   def update
-    if @order.update(order_params)
-      redirect_to order_path(@order)
-    else
-      render :edit
-    end
+    @order.update(order_params)
   end
 
   private

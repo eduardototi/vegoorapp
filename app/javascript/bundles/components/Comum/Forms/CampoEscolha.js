@@ -20,10 +20,14 @@ const CampoEscolha = (props) => {
 
           return(
             <div key = {idOpc} className = "float-left">
-              <input id = {idOpc} name = {id} type = "checkbox" value = {item[1]} onChange = {props.setState}/>
               <label htmlFor = {idOpc}>
                 &nbsp;{item[0]}
               </label>&nbsp;
+              {item[1] === props.selecionado ?
+                <input id = {idOpc} name = {id} type = "checkbox" value = {item[1]} onChange = {props.setState} checked/>
+                :
+                <input id = {idOpc} name = {id} type = "checkbox" value = {item[1]} onChange = {props.setState}/>
+              }
             </div>
           )
         })}

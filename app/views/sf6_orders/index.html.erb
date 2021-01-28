@@ -1,23 +1,9 @@
-<div class="container mt-4">
-  <table class="table table-bordered table-dark">
-    <thead>
-      <tr>
-        <th scope="col">Número OS</th>
-        <th scope="col">Cliente</th>
-        <th scope="col">Situação</th>
-        <th scope="col">Visualizar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @sf6_orders.each do |order| %>
-        <tr>
-          <th scope="row"><%= order.id %></th>
-          <td><%= order.client.razao_social %></td>
-          <td><%= order.status ? 'Encerrada' : 'Aberta' %></td>
-          <td><%= link_to 'Visualizar', sf6_order_path(order) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%#= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
+<div class = "mt-4 mb-2">
+  <%= react_component("Lista",
+                      props: {"cabecalho": ["Número", "Cliente", "Situação"],
+                              "colunas": ["id", "razao_social", "status"],
+                              "linkAcoes": "sf6_orders",
+                              "data": @orders,
+                              "maxPorPagina": 5},
+                      prerender: false) %>
 </div>

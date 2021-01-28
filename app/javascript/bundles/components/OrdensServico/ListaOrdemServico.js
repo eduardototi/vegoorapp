@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-import MyUtil from "../../../util/MyUtil";
-import MyParser from "../../../util/MyParser";
-import "../../../styles/Geral.css";
+import MyUtil from "../../util/MyUtil";
+import MyParser from "../../util/MyParser";
+import "../../styles/Geral.css";
 import "./Style.css";
 
-export default class Lista extends React.Component {
+export default class ListaOrdemServico extends React.Component {
   static propTypes = {
     cabecalho: PropTypes.array.isRequired,
     colunas: PropTypes.array.isRequired,
@@ -72,9 +72,11 @@ export default class Lista extends React.Component {
                        </td>);
           }
 
+          console.log(this.state.dadosTrocados[index]);
+
           linha.push(
           <td key = {"visualizar" + MyUtil.keyAleatoria()} scope = "col">
-            <a href = {"/" + this.props.linkAcoes + "/" + id}>
+            <a href = {"/" + this.props.linkAcoes[this.state.dadosTrocados[index][1]] + "/" + id}>
               Visualizar
             </a>
           </td>);
@@ -169,7 +171,6 @@ export default class Lista extends React.Component {
   }
 
   render(){
-
     return (
       <div className = "table-responsive">
         <table className = "table text-center">
@@ -191,15 +192,13 @@ export default class Lista extends React.Component {
 
           <tbody className = "bg-light">
 
-            {
-              this.state.dadosPaginados[this.state.numeroPaginaAtual].map((linha) => {
-                return (
-                  <tr key = {"linha" + MyUtil.keyAleatoria()} scope = "row">
-                    {linha}
-                  </tr>
-                )
-              })
-            }
+            {this.state.dadosPaginados[this.state.numeroPaginaAtual].map((linha) => {
+              return (
+                <tr key = {"linha" + MyUtil.keyAleatoria()} scope = "row">
+                  {linha}
+                </tr>
+              )
+            })}
 
             <tr scope = "row">
               <td scope = "col" colSpan = {this.props.cabecalho.length + 2}>

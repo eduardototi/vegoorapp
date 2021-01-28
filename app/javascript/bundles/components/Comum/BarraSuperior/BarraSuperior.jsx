@@ -63,7 +63,8 @@ export default class BarraSuperior extends React.Component {
                             subitems = {[["Novo", "/services/new"], ["Listar", "/services"]]}/>
 
                 <ItemNavBar titulo = "Ordens de Serviço"
-                            subitems = {[["Nova", "/orders/new"], ["Listar", "/orders"]]}/>
+                            subitems = {[["Nova Vegoor", "/orders/new"], ["Listar vegoor", "/orders"],
+                                         ["Nova SF6", "/sf6_orders/new"], ["Listar SF6", "/sf6_orders"]]}/>
               </ul>
 
                 <span className = "text-white mr-2">
