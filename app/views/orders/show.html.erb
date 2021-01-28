@@ -91,34 +91,42 @@
           <th>Link</th>
         </tr>
       </thead>
-      <% @orderservices.each do |orderservice| %>
-        <tbody>
-          <tr>
-            <th scope="row"><%= orderservice.service.title %></th>
-            <td scope="row"><%= orderservice.machine.name %></td>
-            <td scope="row"><%= orderservice.machineserie %></td>
-            <% if orderservice.status %>
-              <td><i class="fas fa-check"></i> Finalizada</td>
-              <td><%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
-                <%= orderservice.updated_at.strftime("%k:%M") %>h</td>
-            <% else %>
-              <td><i class="far fa-square"></i> Aberta</td>
+        <% @orderservices.each do |orderservice| %>
+          <tbody>
+            <tr>
+              <th scope="row"><%= orderservice.service.title %></th>
+              <td scope="row"><%= orderservice.machine.name %></td>
+              <td scope="row"><%= orderservice.machineserie %></td>
+              <% if orderservice.status %>
+                <td><i class="fas fa-check"></i> Finalizada</td>
+                <td><%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
+                  <%= orderservice.updated_at.strftime("%k:%M") %>h</td>
+              <% else %>
+                <td><i class="far fa-square"></i> Aberta</td>
+                <td></td>
+              <% end %>
+              <td>
+                <%= link_to 'Add resultado', new_orderservice_report_path(orderservice), class: 'btn btn-primary' %>
+              </td>
               <td></td>
-            <% end %>
-            <td>
-              <%= link_to 'Add resultado', new_orderservice_report_path(orderservice), class: 'btn btn-primary' %>
-            </td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
+              <td></td>
+            </tr>
+          </tbody>
           <% if orderservice.orderservice_reports.count > 0 %>
             <%= render 'shared/service_reports_show', orderservice: orderservice %>
           <% end %>
-      <% end %>
+          
+        <% end %>
     </table>
   <% end %>
-
+  
+  <% @orderservices.each do |orderservice| %>
+    <% orderservice.orderservice_reports.each do |result| %>
+      <% if result.photo.attached? %>
+        <%= image_tag result.photo, height: 300, width: 400, crop: :fill %>
+      <% end %>
+    <% end %>
+  <% end %>
   
 
   <div class="order-description mb-3">

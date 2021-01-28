@@ -40,7 +40,7 @@ class OrderserviceReportsController < ApplicationController
     end
   
     def service_report_params
-        params.require(:orderservice_report).permit(:parameter, :unity, :fase_a, :fase_b, :fase_c, :reference, :orderservice_id)
+        params.require(:orderservice_report).permit(:parameter, :photo, :unity, :fase_a, :fase_b, :fase_c, :reference, :orderservice_id)
     end
 
 end
