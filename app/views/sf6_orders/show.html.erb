@@ -4,12 +4,12 @@
   </div>
 
   <%= react_component("ExibicaoOrdemServico",
-                      props: {"data": @order.as_json,
-                              "cliente": @order.client.as_json,
-                              "responsavel": @order.user.as_json,
-                              "contato": @order.contact.as_json,
+                      props: {"data": @order,
+                              "cliente": @clienteOrder,
+                              "responsavel": @responsavelOrder,
+                              "contato": @contatoOrder,
                               "servicos": @servicos.as_json,
-                              "equipamentos": @order.utensils.as_json,
+                              "equipamentos": @equipamentosOrder,
                               "epis": @epis.as_json,
                               "empresa": "sf6",
                               "linkAcao": "sf6_orders"},
