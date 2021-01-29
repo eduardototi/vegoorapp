@@ -2,9 +2,9 @@ class Sf6OrderserviceReportsController < ApplicationController
     before_action :set_service_report, only: [ :edit, :destroy, :update]
 
     def new
-        @service_report = SfeOrderserviceReport.new
+        @service_report = Sf6OrderserviceReport.new
         @orderservice = Sf6Orderservice.find(params[:format])
-        @service_report.sf6_orderservice_id = @orderservice.id 
+        @service_report.sf6_orderservice_id = @orderservice.id
     end
   
     def create
@@ -21,7 +21,7 @@ class Sf6OrderserviceReportsController < ApplicationController
 
     def update
         if @service_report.update(service_report_params)
-            redirect_to order_path(@service_report.sf6_orderservice.sf6_order)
+            redirect_to sf6_order_path(@service_report.sf6_orderservice.sf6_order)
         else
             render :edit
         end
@@ -45,6 +45,6 @@ class Sf6OrderserviceReportsController < ApplicationController
     end
   
     def service_report_params
-        params.require(:sf6_orderservice_report).permit(:parameter, :unity, :fase_a, :fase_b, :fase_c, :reference, :orderservice_id, photos: [])
+        params.require(:sf6_orderservice_report).permit(:parameter, :unity, :fase_a, :fase_b, :fase_c, :reference, :sf6_orderservice_id, photos: [])
     end
 end

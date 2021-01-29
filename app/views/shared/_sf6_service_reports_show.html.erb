@@ -1,0 +1,35 @@
+<thead class="table table-bordered table-dark mt-3">
+  <tr>
+    <th scope="col">Parametro</th>
+    <th scope="col">Unidade</th>
+    <th scope="col">Fase A</th>
+    <th scope="col">Fase B</th>
+    <th scope="col">Fase C</th>
+    <th scope="col">Referência</th>
+    <th scope="col">Editar</th>
+    <th scope="col">Excluir</th>
+
+  </tr>
+</thead>
+<% orderservice.sf6_orderservice_reports.each do |result| %>
+  <tbody class="table table-bordered table-dark">
+    <tr>
+      <td><%= result.parameter %></td>
+      <td><%= result.unity %></td>
+      <td><%= result.fase_a %></td>
+      <td><%= result.fase_b %></td>
+      <td><%= result.fase_c %></td>
+      <td><%= result.reference %></td>
+      <%#= raise %>
+      <% if orderservice.status %>
+        <td></td>
+        <td></td>
+      <% else %>
+        <td><%= link_to 'Editar', edit_sf6_orderservice_report_path(result), class: 'btn btn-primary' %></td>
+        <td><%= link_to "Excluir", result, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este resultado?' }, class: 'btn btn-danger' %></td>
+      <% end %>
+    </tr>
+  </tbody>
+<% end %>
+
+

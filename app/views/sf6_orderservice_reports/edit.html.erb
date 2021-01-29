@@ -9,7 +9,7 @@
         <%= f.input :fase_b, label: "Fase B" %>
         <%= f.input :fase_c, label: "Fase C" %>
         <%= f.input :reference, label: "Referencia" %>
-        <%= f.hidden_field :orderservice_id %>
+        <%= f.hidden_field :sf6_orderservice_id %>
         <% if @service_report.photos.attached? %>
           <% @service_report.photos.each do |photo| %>
             <%= image_tag photo, height: 300, width: 400, crop: :fill %>

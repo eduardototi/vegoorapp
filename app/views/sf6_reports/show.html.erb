@@ -77,8 +77,23 @@
                     <% end %>
                 </tr>
             </tbody>
+            <% if orderservice.sf6_orderservice_reports.count > 0 %>
+                <%= render 'shared/sf6_service_reports_show', orderservice: orderservice %>
+            <% end %>
         <% end %>
     </table>
+
+    <div class="order-description mb-3">
+        <% @sf6_report.sf6_order.sf6_orderservices.each do |orderservice| %>
+            <% orderservice.sf6_orderservice_reports.each do |result| %>
+                <% if result.photos.attached? %>
+                    <% result.photos.each do |photo| %>
+                        <%= image_tag photo, height: 300, width: 400, crop: :fill %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
 
     <div class="order-description mb-3 text-justify" >
         <strong>Teste de Recepção:</strong>
