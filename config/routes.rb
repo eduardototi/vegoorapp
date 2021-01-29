@@ -31,4 +31,6 @@ Rails.application.routes.draw do
 
   resources :orderservice_reports
 
+  resources :sf6_orderservice_reports
+
 end
