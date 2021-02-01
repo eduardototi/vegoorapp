@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="container-form">
+    <%= simple_form_for(company) do |f| %>
+      <h3 class="text-center">Cadastro de Empresa</h3>
+      <div class="form-inputs">
+        <%= f.input :name, label: "Nome" %>
+        <%= f.input :addrees, label: "Endereço" %>
+        <%= f.input :phone, label: "Telefone" %>
+        <%= f.input :email, label: "E-mail" %>
+      </div>
+      <div class="form-actions text-center">
+        <%= f.button :submit, "Enviar", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

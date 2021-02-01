@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2021_01_27_193151) do
-=======
-ActiveRecord::Schema.define(version: 2021_01_25_140211) do
->>>>>>> master
+ActiveRecord::Schema.define(version: 2021_02_01_182704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +36,12 @@ ActiveRecord::Schema.define(version: 2021_01_25_140211) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "branches", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "clients", force: :cascade do |t|
     t.string "razao_social"
     t.string "cnpj"
@@ -56,6 +58,15 @@ ActiveRecord::Schema.define(version: 2021_01_25_140211) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "unity"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "addrees"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "epi_orders", force: :cascade do |t|
@@ -128,6 +139,10 @@ ActiveRecord::Schema.define(version: 2021_01_25_140211) do
     t.boolean "field", default: false
     t.boolean "laboratory", default: false
     t.boolean "factory", default: false
+    t.boolean "vegoor", default: false
+    t.boolean "sf6", default: false
+    t.integer "vegoor_order"
+    t.integer "sf6_order"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["contact_id"], name: "index_orders_on_contact_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -191,6 +206,19 @@ ActiveRecord::Schema.define(version: 2021_01_25_140211) do
     t.index ["client_id"], name: "index_sf6_orders_on_client_id"
     t.index ["contact_id"], name: "index_sf6_orders_on_contact_id"
     t.index ["user_id"], name: "index_sf6_orders_on_user_id"
+  end
+
+  create_table "sf6_orderservice_reports", force: :cascade do |t|
+    t.string "parameter"
+    t.string "unity"
+    t.string "fase_a"
+    t.string "fase_b"
+    t.string "fase_c"
+    t.string "reference"
+    t.bigint "sf6_orderservice_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sf6_orderservice_id"], name: "index_sf6_orderservice_reports_on_sf6_orderservice_id"
   end
 
   create_table "sf6_orderservices", force: :cascade do |t|
@@ -297,6 +325,7 @@ ActiveRecord::Schema.define(version: 2021_01_25_140211) do
   add_foreign_key "sf6_orders", "clients"
   add_foreign_key "sf6_orders", "users"
   add_foreign_key "sf6_orders", "users", column: "contact_id"
+  add_foreign_key "sf6_orderservice_reports", "sf6_orderservices"
   add_foreign_key "sf6_orderservices", "machines"
   add_foreign_key "sf6_orderservices", "services"
   add_foreign_key "sf6_orderservices", "sf6_orders"

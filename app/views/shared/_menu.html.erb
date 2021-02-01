@@ -19,11 +19,13 @@
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-          Clientes
+          Cadastros
         </a>
         <div class="dropdown-menu bg-dark">
-          <%= link_to 'Novo', new_client_path, class: "dropdown-item text-light" %>
-          <%= link_to 'Listar', clients_path, class: "dropdown-item text-light" %>
+          <%= link_to 'Novo Cliente', new_client_path, class: "dropdown-item text-light" %>
+          <%= link_to 'Listar Clientes', clients_path, class: "dropdown-item text-light" %>
+          <%= link_to 'Nova Empresa', new_company_path, class: "dropdown-item text-light" %>
+          <%= link_to 'Listar Empresas', companies_path, class: "dropdown-item text-light" %>
         </div>
       </li>
 
