@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:location, :comments, :field, :laboratory, :factory, :contact_id, :description, :user_id, :status, :client_id,
+    params.require(:order).permit(:location, :comments, :field, :laboratory, :factory, :company_id, :vegoor_order, :sf6_order, :contact_id, :description, :user_id, :status, :client_id,
                                   orderservices_attributes: [:id, :service_id, :order_id, :status, :machine_id, :machineserie, :_destroy],
                                   orderutensils_attributes: [:id, :utensil_id, :order_id, :status, :_destroy],
                                   epi_orders_attributes: [ :id, :order_id, :epi_id, :amount, :_destroy])

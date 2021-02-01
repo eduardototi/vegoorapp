@@ -1,9 +1,5 @@
 <div class="container">
   <div class="container-form">
-    <div class="order-number">
-      <%= image_tag 'logo.jpg', width: '100px' %>
-      Ordem de Serviço Vegoor: <%#= Order.last.id + 1 %>
-    </div>
     <div class="order-date">
       Data: <%= Date.today.strftime("%d/%m/%Y") %>
     </div>
@@ -11,6 +7,7 @@
       <div class="text-center">
         <h6>Nova Ordem de Serviço:</h6>
       </div>
+      <%= f.input :company_id, collection: Company.all.map { |company| [company.name, company.id] }, label: 'Empresa' %>
       <div class="form-inputs">
         <div class="new">
           <p>
