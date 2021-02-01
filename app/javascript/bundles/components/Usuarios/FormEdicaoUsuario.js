@@ -22,7 +22,7 @@ export default class FormEdicaoUsuario extends React.Component {
 
   constructor(props) {
     super(props);
-
+    
     this.state = {
       id: this.props.data.id,
       nome: this.props.data.first_name,
@@ -97,8 +97,15 @@ export default class FormEdicaoUsuario extends React.Component {
     e.preventDefault();
     let notificacoesNovas = [];
     let camposVazios = MyUtil.verificaCamposVazios(["Nome", "Sobrenome", "Matrícula", "Administrador",
-                                                    "Função", "Cliente", "E-mail", "Telefone", "Senha", "Confirme a Senha"],
-                                                   this.state);
+                                                    "Função", "Cliente", "E-mail", "Telefone"],
+                                                    {"nome": this.state.nome,
+                                                     "sobrenome": this.state.sobrenome,
+                                                     "matricula": this.state.matricula,
+                                                     "administrador": this.state.administrador,
+                                                     "funcao": this.state.role,
+                                                     "cliente": this.state.client_id,
+                                                     "email": this.state.email,
+                                                     "telefone": this.state.telefone});
 
     if(camposVazios.length > 0){
       let notificacoesCamposVazios = MyUtil.criaNotificacoesErro("Campo vazio: ", camposVazios);
@@ -109,20 +116,18 @@ export default class FormEdicaoUsuario extends React.Component {
     }
     else{
       if(this.state.senha == this.state.senhaConf){
-        let url = "/create_user";
-        let payload = {"first_name": this.state.nome,
-                       "last_name": this.state.sobrenome,
-                       "admin": this.state.administrador === "true" ? true : false,
-                       "email": this.state.email,
-                       "phone": this.state.telefone,
-                       "client_id": parseInt(this.state.cliente),
-                       "role": this.state.funcao,
-                       "password": this.state.senha,
-                       "password_confirmation": this.state.senhaConf};
-        let response = await MyRequests.post(url, payload);
+        let url = "/users/" + this.state.id;
+        let payload = {"user": {"first_name": this.state.nome,
+                                "last_name": this.state.sobrenome,
+                                "admin": this.state.administrador === "true" ? true : false,
+                                "role": this.state.funcao,
+                                "client_id": parseInt(this.state.cliente),
+                                "email": this.state.email,
+                                "phone": this.state.telefone,
+                                "password": this.state.senha,
+                                "password_confirmation": this.state.senhaConf}};
+        let response = await MyRequests.put(url, payload);
         let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
-
-        console.log(response);
 
         notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
       }

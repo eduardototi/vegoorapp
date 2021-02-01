@@ -24,16 +24,16 @@ export default class FormCadastroUsuario extends React.Component {
     super(props);
 
     this.state = {
-      nome: "Teste",
-      sobrenome: "Teste",
-      matricula: "123456",
+      nome: "",
+      sobrenome: "",
+      matricula: "",
       administrador: false,
-      funcao: "Cliente",
-      cliente: "1",
-      email: "teste@teste.com",
-      telefone: "(41)1234-5678",
-      senha: "123456",
-      senhaConf: "123456",
+      funcao: "",
+      cliente: "",
+      email: "",
+      telefone: "",
+      senha: "",
+      senhaConf: "",
       notificacoes: []
     };
 
@@ -114,19 +114,18 @@ export default class FormCadastroUsuario extends React.Component {
     else{
       if(this.state.senha == this.state.senhaConf){
         let url = "/create_user";
-        let payload = {"first_name": this.state.nome,
-                       "last_name": this.state.sobrenome,
-                       "admin": this.state.administrador === "true" ? true : false,
-                       "email": this.state.email,
-                       "phone": this.state.telefone,
-                       "client_id": parseInt(this.state.cliente),
-                       "role": this.state.funcao,
-                       "password": this.state.senha,
-                       "password_confirmation": this.state.senhaConf};
+        let payload = {"user": {"first_name": this.state.nome,
+                                "last_name": this.state.sobrenome,
+                                "registration": this.state.matricula,
+                                "admin": this.state.administrador === "true" ? true : false,
+                                "role": this.state.funcao,
+                                "client_id": parseInt(this.state.cliente),
+                                "email": this.state.email,
+                                "phone": this.state.telefone,
+                                "password": this.state.senha,
+                                "password_confirmation": this.state.senhaConf}};
         let response = await MyRequests.post(url, payload);
         let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
-
-        console.log(response);
 
         notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
       }

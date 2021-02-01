@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @userDisplay = @user.as_json
+    @userDisplay.merge!({"razao_social": @user.client.razao_social})
   end
 
   def new
@@ -31,11 +33,12 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
-      redirect_to user_path(@user)
-    else
-      render :edit
-    end
+    @user.update(user_params)
+    #if @user.update(user_params)
+    #  redirect_to user_path(@user)
+    #else
+    #  render :edit
+    #end
   end
 
   def destroy
