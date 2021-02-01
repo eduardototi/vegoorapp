@@ -1,10 +1,14 @@
 import ReactOnRails from "react-on-rails";
 
+//Login
+import Login from "../bundles/components/Login/Login";
 //Comum
 import Lista from "../bundles/components/Comum/Listas/Lista";
 import ListaVisualizacao from "../bundles/components/Comum/Listas/ListaVisualizacao";
 import Visualizacao from "../bundles/components/Comum/Visualizacao/Visualizacao";
 import BarraSuperior from "../bundles/components/Comum/BarraSuperior/BarraSuperior";
+import Rodape from "../bundles/components/Comum/Rodape/Rodape";
+import RodapeLogin from "../bundles/components/Comum/Rodape/RodapeLogin";
 //Usuários
 import FormCadastroUsuario from "../bundles/components/Usuarios/FormCadastroUsuario";
 import FormEdicaoUsuario from "../bundles/components/Usuarios/FormEdicaoUsuario";
@@ -30,10 +34,13 @@ import FormEdicaoOrdemServico from "../bundles/components/OrdensServico/FormEdic
 import ExibicaoOrdemServico from "../bundles/components/OrdensServico/ExibicaoOrdemServico";
 
 ReactOnRails.register({
+  Login,
   Lista,
   ListaVisualizacao,
   Visualizacao,
   BarraSuperior,
+  Rodape,
+  RodapeLogin,
   FormCadastroUsuario,
   FormEdicaoUsuario,
   FormCadastroCliente,

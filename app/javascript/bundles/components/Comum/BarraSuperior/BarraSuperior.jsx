@@ -2,7 +2,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import {Link} from "react-router-dom";
 import ItemNavBar from "./ItemNavBar";
-import "../../../styles/BarraSuperior.css";
+import "./Style.css";
+import MyRequests from "../../../util/MyRequests";
 
 export default class BarraSuperior extends React.Component {
   static propTypes = {
@@ -21,6 +22,7 @@ export default class BarraSuperior extends React.Component {
     };
 
     this.collapse = this.collapse.bind(this);
+    this.desloga = this.desloga.bind(this);
   }
 
   collapse(){
@@ -30,9 +32,17 @@ export default class BarraSuperior extends React.Component {
     document.querySelector(".offcanvas-collapse").classList.toggle("open");
   }
 
+  async desloga(){
+    let url = "/users/sign_out";
+    await MyRequests.delete(url);
+
+    //Redireciona o usuário para recarregar a página e mostrar a tela de login
+    window.location.href = "/";
+  }
+
   render() {
     return (
-      <div>
+      <div className = "disabledTextSelection">
         <nav className = "navbar navbar-expand-md fixed-top navbar-dark bg-dark" aria-label = "Main navigation">
           <div className = "container-fluid">
             <a className = "navbar-brand" href = "/">
@@ -71,8 +81,8 @@ export default class BarraSuperior extends React.Component {
                   Bem-vindo, {this.props.usuarioAtual}
                 </span>
 
-                <button className = "btn btn-outline-danger">
-                    Sair
+                <button type = "button" className = "btn btn-outline-danger" onClick = {this.desloga}>
+                  Sair
                 </button>
 
             </div>

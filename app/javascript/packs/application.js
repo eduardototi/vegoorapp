@@ -25,7 +25,8 @@ require("@nathanvda/cocoon")
 
 // External imports
 import "bootstrap";
-import 'select2/dist/css/select2.css';
+import "select2/dist/css/select2.css";
+
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -34,5 +35,4 @@ import 'select2/dist/css/select2.css';
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   //initSelect2();
-
 });

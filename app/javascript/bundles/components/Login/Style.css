@@ -1,0 +1,36 @@
+.login {
+  width: auto;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.input-com-icone {
+  display: flex;
+}
+
+.icone {
+  padding: 10px;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input {
+  width: 100%;
+  outline: none;
+}
+
+@media only screen and (max-width: 600px){
+  .login-mobile {
+    width: 95vw;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}

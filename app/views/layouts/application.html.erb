@@ -11,27 +11,18 @@
     <%= favicon_link_tag asset_path('logo.jpg') %>
 
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
-
-
     <%= javascript_pack_tag 'components-bundle' %>
-
   </head>
 
   <body class = "bg-secondary">
      <% if user_signed_in? %>
-      <%= react_component("BarraSuperior", props: {"usuarioAtual": current_user.first_name}, prerender: false) %>
+      <%= react_component("BarraSuperior",
+                          props: {"idUsuarioAtual": current_user.id,
+                                  "usuarioAtual": current_user.first_name},
+                          prerender: false) %>
+                          
+      <%= react_component("Rodape", prerender: false) %>
      <% end %>
-
-    <!--
-    = #render 'shared/flashes' %>
-     render 'shared/menu'
-    -->
-
-    <%= render "shared/footer" %>
-
-
-    <% if user_signed_in? %>
-    <% end %>
 
     <main class = "container">
       <%= yield %>

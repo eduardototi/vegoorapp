@@ -1,0 +1,26 @@
+.rodape {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  position: absolute;
+}
+
+.rodapeLogin {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+}
+
+.iconeRodape {
+  font-size: 25px;
+}
+
+.iconeSocial {
+  float: right;
+}
+
+.iconeAjuda {
+  position: relative;
+  float: left;
+}

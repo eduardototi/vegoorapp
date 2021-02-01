@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import MyUtil from "../../../util/MyUtil";
-import "../../../styles/BarraSuperior.css";
+import "./Style.css"
 
 export default class ItemNavBar extends React.Component {
   static propTypes = {
