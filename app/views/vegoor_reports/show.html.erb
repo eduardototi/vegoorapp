@@ -1,8 +1,7 @@
 <div class="container order">
     
     <div class="logo">
-        <%= image_tag 'logo.jpg', width: '100px' %>
-        <%= render 'shared/result_header', report: @vegoor_report %>
+        <%= render 'shared/report_header', order: @vegoor_report.order %>
     </div>
 
     <table class="table table-bordered mt-2">
