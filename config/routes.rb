@@ -17,18 +17,14 @@ Rails.application.routes.draw do
     resources :vegoor_reports, only: [ :new ]
   end
 
-  resources :sf6_orders do
-    resources :sf6_reports, only: [ :new ]
-  end
-
   resources :vegoor_reports
-
-  resources :sf6_reports
 
   resources :machines
 
   resources :epis
 
   resources :orderservice_reports
+
+  resources :companies
 
 end

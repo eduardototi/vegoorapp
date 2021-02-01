@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2021_01_27_193151) do
-=======
-ActiveRecord::Schema.define(version: 2021_01_25_140211) do
->>>>>>> master
+ActiveRecord::Schema.define(version: 2021_02_01_193500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +54,15 @@ ActiveRecord::Schema.define(version: 2021_01_25_140211) do
     t.string "unity"
   end
 
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "addrees"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "epi_orders", force: :cascade do |t|
     t.bigint "epi_id", null: false
     t.bigint "order_id", null: false
@@ -84,35 +89,12 @@ ActiveRecord::Schema.define(version: 2021_01_25_140211) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "field_results", force: :cascade do |t|
-    t.string "parameter"
-    t.string "unity"
-    t.string "fase_a"
-    t.string "fase_b"
-    t.string "fase_c"
-    t.string "reference"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "machines", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "status", default: true
-  end
-
-  create_table "operations_numbers", force: :cascade do |t|
-    t.string "unity"
-    t.string "fase_a"
-    t.string "fase_b"
-    t.string "fase_c"
-    t.string "reference"
-    t.bigint "orderservice_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["orderservice_id"], name: "index_operations_numbers_on_orderservice_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -128,7 +110,11 @@ ActiveRecord::Schema.define(version: 2021_01_25_140211) do
     t.boolean "field", default: false
     t.boolean "laboratory", default: false
     t.boolean "factory", default: false
+    t.bigint "company_id", null: false
+    t.integer "vegoor_order", default: 0
+    t.integer "sf6_order", default: 0
     t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["company_id"], name: "index_orders_on_company_id"
     t.index ["contact_id"], name: "index_orders_on_contact_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -269,7 +255,7 @@ ActiveRecord::Schema.define(version: 2021_01_25_140211) do
   create_table "vegoor_reports", force: :cascade do |t|
     t.text "goal"
     t.text "reception_test"
-    t.boolean "warrant"
+    t.boolean "warrant", default: false
     t.text "conclusion"
     t.text "observations"
     t.datetime "created_at", precision: 6, null: false
@@ -284,8 +270,8 @@ ActiveRecord::Schema.define(version: 2021_01_25_140211) do
   add_foreign_key "epi_orders", "orders"
   add_foreign_key "epi_sf6orders", "epis"
   add_foreign_key "epi_sf6orders", "sf6_orders"
-  add_foreign_key "operations_numbers", "orderservices"
   add_foreign_key "orders", "clients"
+  add_foreign_key "orders", "companies"
   add_foreign_key "orders", "users"
   add_foreign_key "orders", "users", column: "contact_id"
   add_foreign_key "orderservice_reports", "orderservices"

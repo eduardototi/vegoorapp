@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EpiSf6orderTest < ActiveSupport::TestCase
+class CompanyTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
