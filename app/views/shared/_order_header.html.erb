@@ -1,11 +1,13 @@
 <div class="order-information">
     <% if order.company_id == 1 %>
         <%= image_tag 'logo.jpg', width: '100px' %>
-        Order de Serviço: <%= order.vegoor_order %>
+        <strong>Order de Serviço: <%= order.vegoor_order %></strong>
     <% else %>
         <%= image_tag 'sf6.jpg', width: '100px' %>
-        Ordem de Serviço: <%= order.sf6_order %>
+        <strong>Ordem de Serviço: <%= order.sf6_order %></strong>
     <% end %>
+    <h4><%= order.company.name %></h4>
+    <h4><%= order.company.addrees %></h4>
     <h4>Data Ordem: <%= order.created_at.strftime("%d/%m/%Y") %></h4>
     <h4>Situação: <%= order.status ? 'Encerrada' : 'Aberta' %></h4>
 </div>

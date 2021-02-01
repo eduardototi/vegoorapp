@@ -14,17 +14,17 @@ class Order < ApplicationRecord
   has_many :epis, through: :epi_orders
   accepts_nested_attributes_for :epi_orders, reject_if: :all_blank, allow_destroy: true
 
-  before_save :order_number
+  before_save :increase_order_number
 
   private
 
-  def order_number
+  def increase_order_number
     if self.company_id == 1
       self.vegoor_order = Order.last.vegoor_order + 1
-      self.sf6_order = Order.last.sf6_order + 0   
-    else
+      self.sf6_order = Order.last.sf6_order
+    elsif self.company_id == 2
       self.sf6_order = Order.last.sf6_order + 1
-      self.sf6_order += Order.last.vegoor_order + 0
+      self.vegoor_order = Order.last.vegoor_order
     end
   end
   
