@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :orders do
     resources :vegoor_reports, only: [ :new ]
+    get 'close_order', to: 'orders#close_order' 
   end
 
   resources :vegoor_reports do 

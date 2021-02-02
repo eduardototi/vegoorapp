@@ -48,13 +48,13 @@ class VegoorReportsController < ApplicationController
         @vegoor_report.status = false
         @vegoor_report.save
         if @vegoor_report.save
-          render :show
+          redirect_to vegoor_report_path(@vegoor_report)
         end
       else
         @vegoor_report.status = true
         @vegoor_report.save
         if @vegoor_report.save
-          render :show
+          redirect_to vegoor_report_path(@vegoor_report
         end
       end
     end
