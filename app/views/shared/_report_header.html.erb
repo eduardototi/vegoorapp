@@ -1,16 +1,20 @@
 <% if order.company_id == 1 %>
     <%= image_tag 'logo.jpg', width: '100px' %>
-    <% if order.vegoor_report.status %>
-        Relatório Final: <%= order.vegoor_order %>
-    <% else %>
-        Relatório Preliminar: <%= order.vegoor_order %>
+    <% if order.vegoor_report %>
+        <% if order.vegoor_report.status %>
+            Relatório Final: <%= order.vegoor_order %>
+        <% else %>
+            Relatório Preliminar: <%= order.vegoor_order %>
+        <% end %>
     <% end %>
 <% else %>
     <%= image_tag 'sf6.jpg', width: '100px' %>
-    <% if order.vegoor_report.status %>
-        Relatório Final: <%= order.sf6_order %>
-    <% else %>
-        Relatório Preliminar: <%= order.sf6_order %>
+      <% if order.vegoor_report %>
+        <% if order.vegoor_report.status %>
+            Relatório Final: <%= order.sf6_order %>
+        <% else %>
+            Relatório Preliminar: <%= order.sf6_order %>
+        <% end %>
     <% end %>
 <% end %>
 <div>

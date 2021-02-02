@@ -14,7 +14,7 @@ class Order < ApplicationRecord
   has_many :epis, through: :epi_orders
   accepts_nested_attributes_for :epi_orders, reject_if: :all_blank, allow_destroy: true
 
-  before_save :increase_order_number
+  before_create :increase_order_number
 
   private
 

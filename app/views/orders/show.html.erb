@@ -183,7 +183,7 @@
       <% if @order.vegoor_report %>
         <%= link_to 'Visualizar Laudo', vegoor_report_path(@order.vegoor_report), class: "btn btn-primary" %>
       <% else %>
-        <%= link_to 'Gerar Laudo', new_order_vegoor_report_path(@order), class: 'btn btn-primary' %>
+        <%= link_to 'Gerar Laudo', new_order_vegoor_report_path(@order.id), class: 'btn btn-primary' %>
       <% end %>
     <% end %>
   </div>

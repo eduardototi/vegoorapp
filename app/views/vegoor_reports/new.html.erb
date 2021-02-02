@@ -16,7 +16,7 @@
         </thead>
         <tbody>
         <tr>
-            <th scope="row" class="text-center"><%= @order.id %></th>
+            <th scope="row" class="text-center"><%= set_company(@order)[0] %></th>
             <td class="text-center"><%= @order.created_at.strftime("%d/%m/%Y") %></td>
             <td class="text-center"><%= @order.status ? 'Encerrada' : 'Aberta' %></td>
             <% if @order.field %>
