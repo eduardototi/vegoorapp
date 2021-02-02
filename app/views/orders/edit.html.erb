@@ -1,7 +1,8 @@
 <div class="container">
   <div class="container-form">
     <div class="order-number">
-      Ordem de Serviço número: <%= @order.id %>
+      Ordem de Serviço número: <%= set_company(@order)[0] %> 
+      Empresa: <%= set_company(@order)[1] %>
     </div>
     <div class="order-date">
       Data: <%= Date.today.strftime("%d/%m/%Y") %>

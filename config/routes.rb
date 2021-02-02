@@ -17,8 +17,10 @@ Rails.application.routes.draw do
     resources :vegoor_reports, only: [ :new ]
   end
 
-  resources :vegoor_reports
-
+  resources :vegoor_reports do 
+    get 'close_report', to: 'vegoor_reports#close_report' 
+  end
+  
   resources :machines
 
   resources :epis
@@ -26,5 +28,6 @@ Rails.application.routes.draw do
   resources :orderservice_reports
 
   resources :companies
+
 
 end

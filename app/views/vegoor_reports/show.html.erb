@@ -70,16 +70,6 @@
         <% end %>
     </table>
 
-    <% @vegoor_report.order.orderservices.each do |orderservice| %>
-        <% orderservice.orderservice_reports.each do |result| %>
-            <% if result.photos.attached? %>
-                <% result.photos.each do |photo| %>
-                    <%= image_tag photo, height: 300, width: 400, crop: :fill %>
-                <% end %>
-            <% end %>
-        <% end %>
-    <% end %>
-
     <div class="order-description mb-3 text-justify" >
         <strong>Teste de Recepção:</strong>
         <%= @vegoor_report.reception_test %>
@@ -103,11 +93,22 @@
     <div class="order-description mb-3 text-justify" >
         <%= Date.today.strftime("%d/%m/%Y") %>
     </div>
+
+    <% if @vegoor_report.photos.attached? %>
+        <% @vegoor_report.photos.each do |photo| %>       
+            <%= image_tag photo, height: 300, width: 400, crop: :fill %>
+        <% end %>
+    <% end %>
     
     <div class="links mt-3 text-center">
         <%= link_to 'Editar', edit_vegoor_report_path(@vegoor_report), class: 'btn btn-primary' %>
         <%= link_to "Excluir", @vegoor_report, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este Laudo?' }, class: 'btn btn-danger' %>
         <%= link_to 'Visualizar OS', order_path(@vegoor_report.order), class: 'btn btn-primary' %>
+        <% if @vegoor_report.status %>
+            <%= link_to  'Abrir Laudo', vegoor_report_close_report_path(@vegoor_report), class: 'btn btn-primary' %>
+        <% else %>
+            <%= link_to  'Fechar Laudo', vegoor_report_close_report_path(@vegoor_report), class: 'btn btn-primary' %>
+        <% end %>
     </div>
 
 </div>

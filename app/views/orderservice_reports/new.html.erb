@@ -10,8 +10,6 @@
         <%= f.input :fase_c, label: "Fase C" %>
         <%= f.input :reference, label: "Referencia" %>
         <%= f.hidden_field :orderservice_id %>
-        <%= image_tag "", width: 150, class: "hidden", id: "photo-preview" %>
-        <%= f.input :photos, as: :file, input_html: { multiple: true, id: 'photo-input' } %> 
       </div>
       <div class="form-actions text-center">
         <%= f.button :submit, "Enviar", class: 'btn btn-primary' %>
