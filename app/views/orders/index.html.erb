@@ -7,6 +7,7 @@
         <th scope="col">Cliente</th>
         <th scope="col">Situação</th>
         <th scope="col">Visualizar</th>
+        <th scope="col">Visualizar</th>
       </tr>
     </thead>
     <tbody>
@@ -17,9 +18,15 @@
           <td><%= order.client.razao_social %></td>
           <td><%= order.status ? 'Encerrada' : 'Aberta' %></td>
           <td><%= link_to 'Visualizar', order_path(order) %></td>
+          <% if order.vegoor_report %>
+            <td><%= link_to 'Laudo', vegoor_report_path(order.vegoor_report) %></td>
+          <% elsif order.status && order.vegoor_report == false %>
+            <td><%= link_to 'Gerar Laudo', new_vegoor_report_path(order) %></td>
+          <% else %>
+            <td><%= link_to 'Fechar Os', order_path(order) %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
-  <%#= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
 </div>

@@ -47,7 +47,41 @@ class OrdersController < ApplicationController
     end
   end
 
+  def close_order
+    @order = Order.find(params[:order_id])
+    @orderservices = Orderservice.where(order_id: params[:id])
+    @epi_orders = EpiOrder.where(order_id: params[:id])
+    if @order.status
+      @order.status = false
+      open_services(@order)
+      @order.save
+      if @order.save
+        redirect_to order_path(@order)
+      end
+    else
+      @order.status = true
+      close_services(@order)
+      @order.save
+      if @order.save
+        redirect_to order_path(@order)
+      end
+    end
+  end
+
+
   private
+
+  def close_services(order)
+    order.orderservices.each do |service|
+      service.status = true unless service.status
+    end
+  end
+
+  def open_services(order)
+    order.orderservices.each do |service|
+      service.status = false
+    end
+  end
 
   def set_order
     @order = Order.find(params[:id])

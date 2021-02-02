@@ -31,7 +31,7 @@ class VegoorReportsController < ApplicationController
     end
   
     def edit
-      @order = Order.find(params[:id])
+      @order = VegoorReport.find(params[:id]).order
     end
   
     def update
@@ -39,6 +39,23 @@ class VegoorReportsController < ApplicationController
         redirect_to vegoor_report_path(@vegoor_report)
       else
         render :edit
+      end
+    end
+
+    def close_report
+      @vegoor_report = VegoorReport.find(params[:vegoor_report_id])
+      if @vegoor_report.status
+        @vegoor_report.status = false
+        @vegoor_report.save
+        if @vegoor_report.save
+          redirect_to vegoor_report_path(@vegoor_report)
+        end
+      else
+        @vegoor_report.status = true
+        @vegoor_report.save
+        if @vegoor_report.save
+          redirect_to vegoor_report_path(@vegoor_report)
+        end
       end
     end
   
@@ -49,7 +66,7 @@ class VegoorReportsController < ApplicationController
     end
   
     def vegoor_report_params
-      params.require(:vegoor_report).permit(:goal, :reception_test, :warrant, :conclusion, :observations, :order_id)
+      params.require(:vegoor_report).permit(:goal, :reception_test, :warrant, :conclusion, :observations, :order_id, photos: [])
     end
 end
 

@@ -14,5 +14,5 @@ module ApplicationHelper
             [report.order.sf6_order, report.order.company.name]
         end
     end
-    
+
 end
