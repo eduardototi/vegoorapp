@@ -54,7 +54,7 @@ class VegoorReportsController < ApplicationController
         @vegoor_report.status = true
         @vegoor_report.save
         if @vegoor_report.save
-          redirect_to vegoor_report_path(@vegoor_report
+          redirect_to vegoor_report_path(@vegoor_report)
         end
       end
     end
