@@ -22,7 +22,7 @@
           <td><%= link_to 'Visualizar', order_path(order) %></td>
           <% if order.vegoor_report %>
             <td><%= link_to 'Laudo', vegoor_report_path(order.vegoor_report) %></td>
-          <% elsif order.status && order.vegoor_report == false %>
+          <% elsif order.status && order.vegoor_report == nil %>
             <td><%= link_to 'Gerar Laudo', new_vegoor_report_path(order) %></td>
           <% else %>
             <td><%= link_to 'Fechar Os', order_path(order) %></td>

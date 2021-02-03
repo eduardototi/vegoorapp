@@ -12,7 +12,7 @@ class User < ApplicationRecord
                             }
 
   validates :email, presence: true
-  validates :email, uniqueness: { case_sensitive: false, message: 'somente letras minusculas' }
+  validates :email, uniqueness: { case_sensitive: true, message: 'somente letras minusculas' }
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :role, presence: true

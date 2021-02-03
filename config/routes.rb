@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   
   get 'canceled_orders', to: 'orders#canceled'
   get 'sf6_orders', to: 'orders#sf6_orders' 
- 
+  get 'sf6_reports', to: 'vegoor_reports#sf6_reports'
+
 
   resources :vegoor_reports do 
     get 'close_report', to: 'vegoor_reports#close_report' 
