@@ -5,7 +5,6 @@
         <th scope="col">Número OS</th>
         <th scope="col">Empresa</th>
         <th scope="col">Cliente</th>
-        <th scope="col">Visualizar</th>
         <th scope="col">Situação</th>
       </tr>
     </thead>
@@ -15,7 +14,6 @@
           <th scope="row"><%= set_company(order)[0] %></th>
           <th scope="row"><%= set_company(order)[1] %></th>
           <td><%= order.client.razao_social %></td>
-          <td><%= link_to 'Visualizar', order_path(order) %></td>
           <td><%= order.canceled ? 'Cancelada' : 'Ativa' %></td>
         </tr>
       <% end %>

@@ -75,7 +75,7 @@ class OrdersController < ApplicationController
     @epi_orders = EpiOrder.where(order_id: params[:id])
     @order.canceled = true
     if @order.save
-      redirect_to orders_path
+      redirect_to canceled_orders_path
     end
   end
 

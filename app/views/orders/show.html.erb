@@ -120,12 +120,12 @@
         <%= link_to 'Cancelar OS', order_cancel_order_path(@order), class: 'btn btn-primary' %>
       <% else %>
         <%# Ações a serem mostradas se a ordem estiver fechada %>
-        <%= link_to "Abrir OS", order_close_order_path(@order), class: 'btn btn-primary' %>  
         <%# Link caso a ordem já tiver um laudo vinculado %>
         <% if @order.vegoor_report %>
           <%= link_to 'Visualizar Laudo', vegoor_report_path(@order.vegoor_report), class: "btn btn-primary" %>
         <% else %>
           <%# Link caso a ordem não tiver um laudo vinculado %>
+          <%= link_to "Abrir OS", order_close_order_path(@order), class: 'btn btn-primary' %>  
           <%= link_to 'Gerar Laudo', new_order_vegoor_report_path(@order.id), class: 'btn btn-primary' %>
         <% end %>
       <% end %>
