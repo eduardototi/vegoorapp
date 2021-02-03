@@ -6,9 +6,7 @@
         <th scope="col">Empresa</th>
         <th scope="col">Cliente</th>
         <th scope="col">Situação</th>
-        <th scope="col">Visualizar</th>
-        <th scope="col">Visualizar</th>
-        <th scope="col">Visualizar</th>
+        <th scope="col">Laudo</th>
         <th scope="col">Visualizar</th>
       </tr>
     </thead>
@@ -19,7 +17,6 @@
           <th scope="row"><%= set_company(order)[1] %></th>
           <td><%= order.client.razao_social %></td>
           <td><%= order.status ? 'Encerrada' : 'Aberta' %></td>
-          <td><%= link_to 'Visualizar', order_path(order) %></td>
           <% if order.vegoor_report %>
             <td><%= link_to 'Laudo', vegoor_report_path(order.vegoor_report) %></td>
           <% elsif order.status && order.vegoor_report == nil %>
@@ -27,8 +24,7 @@
           <% else %>
             <td><%= link_to 'Fechar Os', order_path(order) %></td>
           <% end %>
-          <td><%= order.canceled %></td>
-          <td><%= order.id %></td>
+          <td><%= link_to 'Visualizar', order_path(order) %></td>
         </tr>
       <% end %>
     </tbody>
