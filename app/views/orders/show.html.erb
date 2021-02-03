@@ -174,17 +174,26 @@
   <% end %>
 
   <div class="links mt-3 text-center">
-    <%  if @order.status == false %>
-      <%= link_to 'Editar', edit_order_path(@order), class: 'btn btn-primary' %>
-      <%= link_to "Fechar OS", order_close_order_path(@order), class: 'btn btn-primary' %>
-      <%= link_to "Excluir", @order, method: :delete, data: { confirm: 'Tem certeza que deseja deletar esta ordem de serviço?' }, class: 'btn btn-danger' %>
+    <% if @order.canceled %>
+      <%= link_to 'Voltar', :back, class: 'btn btn-primary mt-3' %>
     <% else %>
-      <%= link_to "Abrir OS", order_close_order_path(@order), class: 'btn btn-primary' %>  
-      <% if @order.vegoor_report %>
-        <%= link_to 'Visualizar Laudo', vegoor_report_path(@order.vegoor_report), class: "btn btn-primary" %>
+      <%# Ações a serem mostgradas se a ordem estiver aberta %>
+      <%  if @order.status == false %>
+        <%= link_to 'Editar', edit_order_path(@order), class: 'btn btn-primary' %>
+        <%= link_to "Fechar OS", order_close_order_path(@order), class: 'btn btn-primary' %>
+        <%= link_to 'Cancelar OS', order_cancel_order_path(@order), class: 'btn btn-primary' %>
       <% else %>
-        <%= link_to 'Gerar Laudo', new_order_vegoor_report_path(@order.id), class: 'btn btn-primary' %>
+        <%# Ações a serem mostradas se a ordem estiver fechada %>
+        <%= link_to "Abrir OS", order_close_order_path(@order), class: 'btn btn-primary' %>  
+        <%# Link caso a ordem já tiver um laudo vinculado %>
+        <% if @order.vegoor_report %>
+          <%= link_to 'Visualizar Laudo', vegoor_report_path(@order.vegoor_report), class: "btn btn-primary" %>
+        <% else %>
+          <%# Link caso a ordem não tiver um laudo vinculado %>
+          <%= link_to 'Gerar Laudo', new_order_vegoor_report_path(@order.id), class: 'btn btn-primary' %>
+        <% end %>
       <% end %>
     <% end %>
+
   </div>
 </div>

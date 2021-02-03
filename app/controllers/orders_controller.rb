@@ -3,13 +3,16 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :destroy, :update]
 
   def index
-    @orders = Order.all
+    @orders = Order.where(canceled: false, company_id: 1)
+  end
+
+  def sf6_orders
+    @orders = Order.where(canceled: false, company_id: 2)
   end
 
   def show
     @orderservices = Orderservice.where(order_id: params[:id])
     @epi_orders = EpiOrder.where(order_id: params[:id])
-   
   end
 
   def new
@@ -68,6 +71,19 @@ class OrdersController < ApplicationController
     end
   end
 
+  def cancel_order
+    @order = Order.find(params[:order_id])
+    @orderservices = Orderservice.where(order_id: params[:id])
+    @epi_orders = EpiOrder.where(order_id: params[:id])
+    @order.canceled = true
+    if @order.save
+      redirect_to orders_path
+    end
+  end
+
+  def canceled
+    @orders = Order.where(canceled: true)
+  end
 
   private
 
@@ -88,7 +104,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:location, :comments, :field, :laboratory, :factory, :company_id, :vegoor_order, :sf6_order, :contact_id, :description, :user_id, :status, :client_id,
+    params.require(:order).permit(:location, :comments, :field, :laboratory, :canceled, :factory, :company_id, :vegoor_order, :sf6_order, :contact_id, :description, :user_id, :status, :client_id,
                                   orderservices_attributes: [:id, :service_id, :order_id, :status, :machine_id, :machineserie, :_destroy],
                                   orderutensils_attributes: [:id, :utensil_id, :order_id, :status, :_destroy],
                                   epi_orders_attributes: [ :id, :order_id, :epi_id, :amount, :_destroy])
