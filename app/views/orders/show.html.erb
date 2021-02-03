@@ -3,28 +3,7 @@
     <%= render 'shared/order_header', order: @order %>
   </div>
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">Cliente</th>
-        <th scope="col">CNPJ</th>
-        <th scope="col">Telefone</th>
-        <th scope="col">Email</th>
-        <th scope="col">Endereço</th>
-        <th scope="col">Cidade</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row"><%= @order.client.razao_social %></th>
-        <td><%= @order.client.cnpj %></td>
-        <td><%= @order.client.phone %></td>
-        <td><%= @order.client.email %></td>
-        <td><%= @order.client.street %> Nº: <%= @order.client.number %></td>
-        <td><%= @order.client.city %>/<%= @order.client.state %></td>
-      </tr>
-    </tbody>
-  </table>
+  <%= render 'shared/client', order: @order %>
 
   <div class="order-description mb-3">
     Descrição:
@@ -32,7 +11,7 @@
   </div>
 
   <div class="order-description mb-3 text-justify" >
-    Pela presente Ordem de serviço, objetivamos informar os trabalhadores que executam suas atividades laborais nesse setor, conforme estabelece a NR-1 , item 1.7, sobre as condições de segurança e saúde às quais estão expostos, como medida preventiva e ,tendo como parâmetro os agentes físicos, químicos, e biológicos citados na NR-9 - Programa de Prevenção de Riscos Ambientais(Lei nº 6514 de 22/12/1977,Portaria nº 3214 de 08/06/1978), bem como os procedimentos de aplicação da NR-6  - Equipamento de Proteção Individual – EPI , NR-17 – Ergonomia , de forma a padronizar comportamentos para prevenir acidentes e/ou doenças ocupacionais e NR-10 Segurança Em Instalações e Serviços em Eletricidade.
+    <%= show_message_order %>
   </div>
 
   <table class="table table-bordered">
@@ -76,56 +55,13 @@
     <%= @order.location %>
   </div>
 
-  <% if @orderservices.count > 0 %>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">Descrição dos Serviços</th>
-          <th scope="col">Equipamento</th>
-          <th scope="col">Série</th>
-          <th scope="col">Status</th>
-          <th scope="col">Finalizado</th>
-          <th>Link</th>
-          <th>Link</th>
-          <th>Link</th>
-        </tr>
-      </thead>
-        <% @orderservices.each do |orderservice| %>
-          <tbody>
-            <tr>
-              <th scope="row"><%= orderservice.service.title %></th>
-              <td scope="row"><%= orderservice.machine.name %></td>
-              <td scope="row"><%= orderservice.machineserie %></td>
-              <% if orderservice.status %>
-                <td><i class="fas fa-check"></i> Finalizada</td>
-                <td><%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
-                  <%= orderservice.updated_at.strftime("%k:%M") %>h</td>
-              <% else %>
-                <td><i class="far fa-square"></i> Aberta</td>
-                <td></td>
-              <% end %>
-              <td>
-                <% if orderservice.status == false %>
-                  <%= link_to 'Resultado', new_orderservice_report_path(orderservice), class: 'btn btn-primary' %>
-                <% end %>
-              </td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-          <% if orderservice.orderservice_reports.count > 0 %>
-            <%= render 'shared/service_reports_show', orderservice: orderservice %>
-          <% end %>
-          
-        <% end %>
-    </table>
-  <% end %>
+  <%= render 'shared/services', orderservices: @orderservices %>
 
   <% @orderservices.each do |orderservice| %>
     <% orderservice.orderservice_reports.each do |result| %>
       <% if result.photos.attached? %>
         <% result.photos.each do |photo| %>
-          <%= image_tag photo, height: 300, width: 400, crop: :fill %>
+          <%= cl_image_tag photo, height: 300, width: 400, crop: :fill %>
         <% end %>
       <% end %>
     <% end %>
@@ -184,12 +120,12 @@
         <%= link_to 'Cancelar OS', order_cancel_order_path(@order), class: 'btn btn-primary' %>
       <% else %>
         <%# Ações a serem mostradas se a ordem estiver fechada %>
-        <%= link_to "Abrir OS", order_close_order_path(@order), class: 'btn btn-primary' %>  
         <%# Link caso a ordem já tiver um laudo vinculado %>
         <% if @order.vegoor_report %>
           <%= link_to 'Visualizar Laudo', vegoor_report_path(@order.vegoor_report), class: "btn btn-primary" %>
         <% else %>
           <%# Link caso a ordem não tiver um laudo vinculado %>
+          <%= link_to "Abrir OS", order_close_order_path(@order), class: 'btn btn-primary' %>  
           <%= link_to 'Gerar Laudo', new_order_vegoor_report_path(@order.id), class: 'btn btn-primary' %>
         <% end %>
       <% end %>

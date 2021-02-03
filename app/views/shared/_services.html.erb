@@ -1,0 +1,45 @@
+<% if orderservices.count > 0 %>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Descrição dos Serviços</th>
+          <th scope="col">Equipamento</th>
+          <th scope="col">Série</th>
+          <th scope="col">Status</th>
+          <th scope="col">Finalizado</th>
+          <th>Link</th>
+          <th>Link</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+        <% orderservices.each do |orderservice| %>
+          <tbody>
+            <tr>
+              <th scope="row"><%= orderservice.service.title %></th>
+              <td scope="row"><%= orderservice.machine.name %></td>
+              <td scope="row"><%= orderservice.machineserie %></td>
+              <% if orderservice.status %>
+                <td><i class="fas fa-check"></i> Finalizada</td>
+                <td><%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
+                  <%= orderservice.updated_at.strftime("%k:%M") %>h</td>
+              <% else %>
+                <td><i class="far fa-square"></i> Aberta</td>
+                <td></td>
+              <% end %>
+              <td>
+                <% if orderservice.status == false && orderservice.order.canceled == false %>
+                <%#= raise %>
+                  <%= link_to 'Resultado', new_orderservice_report_path(orderservice), class: 'btn btn-primary' %>
+                <% end %>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          <% if orderservice.orderservice_reports.count > 0 %>
+            <%= render 'shared/service_reports_show', orderservice: orderservice %>
+          <% end %>
+          
+        <% end %>
+    </table>
+<% end %>

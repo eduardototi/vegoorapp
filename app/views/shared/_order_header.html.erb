@@ -9,7 +9,11 @@
     <h4><%= order.company.name %></h4>
     <h4><%= order.company.addrees %></h4>
     <h4>Data Ordem: <%= order.created_at.strftime("%d/%m/%Y") %></h4>
-    <h4>Situação: <%= order.status ? 'Encerrada' : 'Aberta' %></h4>
+    <% if order.canceled %>
+        <h4>Situação: Cancelada</h4>
+    <% else %>
+        <h4>Situação: <%= order.status ? 'Encerrada' : 'Aberta' %></h4>
+    <% end %>
 </div>
 <div class="service-tipe">
     <div class="field">

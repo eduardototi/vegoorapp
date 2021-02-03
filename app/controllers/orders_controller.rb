@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :set_order, only: [:show, :edit, :destroy, :update]
+  before_action :set_order, only: [:show, :edit, :update]
 
   def index
     @orders = Order.where(canceled: false, company_id: 1)
@@ -32,11 +32,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def destroy
-    @order.destroy
-    redirect_to orders_path
-  end
-
   def edit
     @orderservices = Orderservice.where(order_id: params[:id])
     @epi_order = EpiOrder.where(order_id: params[:id])
@@ -57,14 +52,12 @@ class OrdersController < ApplicationController
     if @order.status
       @order.status = false
       open_services(@order)
-      @order.save
       if @order.save
         redirect_to order_path(@order)
       end
     else
       @order.status = true
       close_services(@order)
-      @order.save
       if @order.save
         redirect_to order_path(@order)
       end
@@ -77,7 +70,7 @@ class OrdersController < ApplicationController
     @epi_orders = EpiOrder.where(order_id: params[:id])
     @order.canceled = true
     if @order.save
-      redirect_to orders_path
+      redirect_to canceled_orders_path
     end
   end
 

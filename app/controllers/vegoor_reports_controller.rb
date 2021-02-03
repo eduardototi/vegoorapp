@@ -72,6 +72,3 @@ class VegoorReportsController < ApplicationController
       params.require(:vegoor_report).permit(:goal, :reception_test, :warrant, :conclusion, :observations, :order_id, photos: [])
     end
 end
-
-
-
