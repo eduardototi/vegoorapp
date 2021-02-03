@@ -20,11 +20,21 @@ class Order < ApplicationRecord
 
   def increase_order_number
     if self.company_id == 1
-      self.vegoor_order = Order.last.vegoor_order + 1
-      self.sf6_order = Order.last.sf6_order
+      if Order.last == nil 
+        self.vegoor_order = 1
+        self.sf6_order = 0
+      else
+        self.vegoor_order = Order.last.vegoor_order + 1
+        self.sf6_order = Order.last.sf6_order  
+      end  
     elsif self.company_id == 2
-      self.sf6_order = Order.last.sf6_order + 1
-      self.vegoor_order = Order.last.vegoor_order
+      if Order.last == nil 
+        self.sf6_order = 1
+        self.vegoor_order = 0
+      else
+        self.sf6_order = Order.last.sf6_order + 1
+        self.vegoor_order = Order.last.vegoor_order
+      end
     end
   end
   

@@ -73,16 +73,6 @@ ActiveRecord::Schema.define(version: 2021_02_03_125334) do
     t.index ["order_id"], name: "index_epi_orders_on_order_id"
   end
 
-  create_table "epi_sf6orders", force: :cascade do |t|
-    t.bigint "epi_id", null: false
-    t.bigint "sf6_order_id", null: false
-    t.integer "amount"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["epi_id"], name: "index_epi_sf6orders_on_epi_id"
-    t.index ["sf6_order_id"], name: "index_epi_sf6orders_on_sf6_order_id"
-  end
-
   create_table "epis", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -99,7 +89,7 @@ ActiveRecord::Schema.define(version: 2021_02_03_125334) do
 
   create_table "orders", force: :cascade do |t|
     t.text "description"
-    t.boolean "status"
+    t.boolean "status", default: false
     t.string "location"
     t.bigint "user_id", null: false
     t.bigint "client_id", null: false
@@ -111,8 +101,8 @@ ActiveRecord::Schema.define(version: 2021_02_03_125334) do
     t.boolean "laboratory", default: false
     t.boolean "factory", default: false
     t.bigint "company_id", null: false
-    t.integer "vegoor_order", default: 0
-    t.integer "sf6_order", default: 0
+    t.integer "vegoor_order", default: 1
+    t.integer "sf6_order", default: 1
     t.boolean "canceled", default: false
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["company_id"], name: "index_orders_on_company_id"
@@ -160,59 +150,6 @@ ActiveRecord::Schema.define(version: 2021_02_03_125334) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "sf6_orders", force: :cascade do |t|
-    t.string "service_location"
-    t.boolean "status"
-    t.string "description"
-    t.bigint "client_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.text "comments"
-    t.bigint "contact_id", null: false
-    t.boolean "field", default: false
-    t.boolean "laboratory", default: false
-    t.boolean "factory", default: false
-    t.index ["client_id"], name: "index_sf6_orders_on_client_id"
-    t.index ["contact_id"], name: "index_sf6_orders_on_contact_id"
-    t.index ["user_id"], name: "index_sf6_orders_on_user_id"
-  end
-
-  create_table "sf6_orderservices", force: :cascade do |t|
-    t.bigint "sf6_order_id", null: false
-    t.bigint "service_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.boolean "status", default: false
-    t.bigint "machine_id", null: false
-    t.string "machineserie"
-    t.index ["machine_id"], name: "index_sf6_orderservices_on_machine_id"
-    t.index ["service_id"], name: "index_sf6_orderservices_on_service_id"
-    t.index ["sf6_order_id"], name: "index_sf6_orderservices_on_sf6_order_id"
-  end
-
-  create_table "sf6_orderutensils", force: :cascade do |t|
-    t.bigint "sf6_order_id", null: false
-    t.bigint "utensil_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["sf6_order_id"], name: "index_sf6_orderutensils_on_sf6_order_id"
-    t.index ["utensil_id"], name: "index_sf6_orderutensils_on_utensil_id"
-  end
-
-  create_table "sf6_reports", force: :cascade do |t|
-    t.text "goal"
-    t.text "reception_test"
-    t.boolean "warrant", default: false
-    t.text "conclusion"
-    t.text "observations"
-    t.boolean "status", default: false
-    t.bigint "sf6_order_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["sf6_order_id"], name: "index_sf6_reports_on_sf6_order_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -269,8 +206,6 @@ ActiveRecord::Schema.define(version: 2021_02_03_125334) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "epi_orders", "epis"
   add_foreign_key "epi_orders", "orders"
-  add_foreign_key "epi_sf6orders", "epis"
-  add_foreign_key "epi_sf6orders", "sf6_orders"
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "companies"
   add_foreign_key "orders", "users"
@@ -281,15 +216,6 @@ ActiveRecord::Schema.define(version: 2021_02_03_125334) do
   add_foreign_key "orderservices", "services"
   add_foreign_key "orderutensils", "orders"
   add_foreign_key "orderutensils", "utensils"
-  add_foreign_key "sf6_orders", "clients"
-  add_foreign_key "sf6_orders", "users"
-  add_foreign_key "sf6_orders", "users", column: "contact_id"
-  add_foreign_key "sf6_orderservices", "machines"
-  add_foreign_key "sf6_orderservices", "services"
-  add_foreign_key "sf6_orderservices", "sf6_orders"
-  add_foreign_key "sf6_orderutensils", "sf6_orders"
-  add_foreign_key "sf6_orderutensils", "utensils"
-  add_foreign_key "sf6_reports", "sf6_orders"
   add_foreign_key "users", "clients"
   add_foreign_key "vegoor_reports", "orders"
 end
