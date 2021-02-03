@@ -15,8 +15,14 @@ Rails.application.routes.draw do
 
   resources :orders do
     resources :vegoor_reports, only: [ :new ]
-    get 'close_order', to: 'orders#close_order' 
+    get 'close_order', to: 'orders#close_order'
+    get 'cancel_order', to: 'orders#cancel_order' 
   end
+  
+  get 'canceled_orders', to: 'orders#canceled'
+  get 'sf6_orders', to: 'orders#sf6_orders' 
+  get 'sf6_reports', to: 'vegoor_reports#sf6_reports'
+
 
   resources :vegoor_reports do 
     get 'close_report', to: 'vegoor_reports#close_report' 

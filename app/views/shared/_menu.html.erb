@@ -59,7 +59,9 @@
         </a>
         <div class="dropdown-menu bg-dark">
           <%= link_to 'Nova OS', new_order_path, class: "dropdown-item text-light" %>
-          <%= link_to 'Listar OSs ', orders_path, class: "dropdown-item text-light" %>
+          <%= link_to 'Listar OSs Vegoor', orders_path, class: "dropdown-item text-light" %>
+          <%= link_to 'Listar OSs SF6', sf6_orders_path, class: "dropdown-item text-light" %>
+          <%= link_to 'OSs Canceladas', canceled_orders_path, class: "dropdown-item text-light" %>
         </div>
       </li>
 
@@ -69,6 +71,7 @@
         </a>
         <div class="dropdown-menu bg-dark">
           <%= link_to 'Laudos', vegoor_reports_path, class: "dropdown-item text-light" %>
+          <%= link_to 'Laudos', sf6_reports_path, class: "dropdown-item text-light" %>
         </div>
       </li>
 

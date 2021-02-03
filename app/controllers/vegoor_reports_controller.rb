@@ -4,10 +4,13 @@ class VegoorReportsController < ApplicationController
     def index
       @vegoor_reports = VegoorReport.all
     end
+    
+    def sf6_reports
+      @vegoor_reports = VegoorReport.all
+    end
   
     def show
       @vegoor_reports = VegoorReport.where(vegoor_report_id: params[:id])
-      @orderservice = Orderservice
     end
   
     def new

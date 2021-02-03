@@ -43,5 +43,4 @@ end
   user.save!
 end
 
-
 puts 'Seed finalizado com sucesso'
