@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Empresa</th>
+        <th scope="col">Endereço</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">E-mail</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <th scope="row"><%= @company.id %></th>
+          <td><%= @company.name %></td>
+          <td><%= @company.addrees %></td>
+          <td><%= @company.phone %></td>
+          <td><%= @company.email %></td>
+          <td><%= link_to 'Editar', edit_company_path(@company) %></td>
+          <td><%= link_to "Excluir", @company, method: :delete, data: { confirm: 'Tem certeza que deseja deletar este empresa?' }, class: 'btn btn-danger' %></td>
+        </tr>
+    </tbody>
+  </table>
+</div>

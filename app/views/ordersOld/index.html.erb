@@ -2,7 +2,7 @@
   <%= react_component("Lista",
                       props: {"cabecalho": ["Número", "Cliente", "Situação"],
                               "colunas": ["id", "razao_social", "status"],
-                              "linkAcoes": "sf6_orders",
+                              "linkAcoes": "orders",
                               "data": @orders,
                               "maxPorPagina": 5},
                       prerender: false) %>

@@ -15,6 +15,9 @@ import FormEdicaoUsuario from "../bundles/components/Usuarios/FormEdicaoUsuario"
 //Clientes
 import FormCadastroCliente from "../bundles/components/Clientes/FormCadastroCliente";
 import FormEdicaoCliente from "../bundles/components/Clientes/FormEdicaoCliente";
+//Empresas
+import FormCadastroEmpresa from "../bundles/components/Empresas/FormCadastroEmpresa";
+import FormEdicaoEmpresa from "../bundles/components/Empresas/FormEdicaoEmpresa";
 //Equipamentos
 import FormCadastroEquipamento from "../bundles/components/Equipamentos/FormCadastroEquipamento";
 import FormEdicaoEquipamento from "../bundles/components/Equipamentos/FormEdicaoEquipamento";
@@ -45,6 +48,8 @@ ReactOnRails.register({
   FormEdicaoUsuario,
   FormCadastroCliente,
   FormEdicaoCliente,
+  FormCadastroEmpresa,
+  FormEdicaoEmpresa,
   FormCadastroEquipamento,
   FormEdicaoEquipamento,
   FormCadastroMaquina,

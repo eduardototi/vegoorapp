@@ -1,0 +1,9 @@
+<div class = "mt-4 mb-4">
+  <%= react_component("Lista",
+                      props: {"cabecalho": ["Id", "Nome", "Endereço", "Telefone", "E-mail"],
+                              "colunas": ["id", "name", "addrees", "phone", "email"],
+                              "linkAcoes": "companies",
+                              "data": @companies.as_json,
+                              "maxPorPagina": 5},
+                      prerender: false) %>
+</div>

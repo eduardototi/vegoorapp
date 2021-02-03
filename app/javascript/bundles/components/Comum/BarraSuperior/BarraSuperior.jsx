@@ -58,8 +58,9 @@ export default class BarraSuperior extends React.Component {
                 <ItemNavBar titulo = "Usuários"
                             subitems = {[["Novo", "/users/new"], ["Listar", "/users"]]}/>
 
-                <ItemNavBar titulo = "Clientes"
-                            subitems = {[["Novo", "/clients/new"], ["Listar", "/clients"]]}/>
+                <ItemNavBar titulo = "Atores"
+                            subitems = {[["Novo Cliente", "/clients/new"], ["Listar Clientes", "/clients"],
+                                         ["Nova Empresa", "/companies/new"], ["Listar Empresas", "/companies"]]}/>
 
                 <ItemNavBar titulo = "Equipamentos"
                             subitems = {[["Novo Equipamento", "/utensils/new"],
@@ -73,8 +74,10 @@ export default class BarraSuperior extends React.Component {
                             subitems = {[["Novo", "/services/new"], ["Listar", "/services"]]}/>
 
                 <ItemNavBar titulo = "Ordens de Serviço"
-                            subitems = {[["Nova Vegoor", "/orders/new"], ["Listar vegoor", "/orders"],
-                                         ["Nova SF6", "/sf6_orders/new"], ["Listar SF6", "/sf6_orders"]]}/>
+                            subitems = {[["Nova", "/orders/new"], ["Listar", "/orders"], ["Canceladas", "/canceled_orders"]]}/>
+
+                <ItemNavBar titulo = "Laudos"
+                            subitems = {[["Listar", "/reports"]]}/>
               </ul>
 
                 <span className = "text-white mr-2">
@@ -92,8 +95,3 @@ export default class BarraSuperior extends React.Component {
     );
   }
 }
-
-/*
-<%= link_to 'Novo', new_user_path, class: "dropdown-item text-light" %>
-<%= link_to 'Listar', users_path, class: "dropdown-item text-light" %
-*/

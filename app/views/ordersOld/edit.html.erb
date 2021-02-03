@@ -1,6 +1,6 @@
 <div class = "mt-4 mb-4">
   <div class = "mb-3">
-    <%= link_to "Voltar", sf6_orders_path, class: "h5 text-white" %>
+    <%= link_to "Voltar", orders_path, class: "h5 text-white" %>
   </div>
 
   <%= react_component("FormEdicaoOrdemServico",
@@ -12,14 +12,14 @@
                               "maquinas": @maquinas.as_json,
                               "equipamentos": @equipamentos.as_json,
                               "epis": @epis.as_json,
-                              "data": {"prestadora": "sf6",
-                                       "order": @order,
-                                       "cliente": @clienteOrder,
-                                       "responsavel": @responsavelOrder,
-                                       "contato": @contatoOrder,
+                              "data": {"prestadora": "vegoor",
+                                       "order": @order.as_json,
+                                       "cliente": @order.client.as_json,
+                                       "responsavel": @order.user.as_json,
+                                       "contato": @order.contact.as_json,
                                        "servicos": @servicosOrder.as_json,
-                                       "equipamentos": @equipamentosOrder,
+                                       "equipamentos": @order.utensils.as_json,
                                        "epis": @episOrder.as_json},
-                              "linkAcao": "sf6_orders"},
+                              "linkAcao": "orders"},
                       prerender: false) %>
 </div>

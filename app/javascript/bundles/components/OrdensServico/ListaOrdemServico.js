@@ -9,7 +9,7 @@ export default class ListaOrdemServico extends React.Component {
   static propTypes = {
     cabecalho: PropTypes.array.isRequired,
     colunas: PropTypes.array.isRequired,
-    data: PropTypes.array.isRequired,
+    data: PropTypes.object.isRequired,
     maxPorPagina: PropTypes.number.isRequired
   };
 
@@ -21,22 +21,29 @@ export default class ListaOrdemServico extends React.Component {
     super(props);
 
     this.state = {
+      prestadora: "",
       dadosTrocados: [],
       dadosPaginados: [],
       barraPaginacao: [],
-      nPaginas: Math.ceil(this.props.data.length / this.props.maxPorPagina),
+      nPaginas: 1,
       numeroPaginaAtual: 0
     }
   }
 
+  async defineNPaginas(){
+    let nPaginas =  this.props.data[this.state.prestadora].length == 0 ? 1 : Math.ceil(this.props.data[this.state.prestadora].length / this.props.maxPorPagina);
+
+    await this.setState({nPaginas: nPaginas});
+  }
+
   async substituiValores(item){
     //Armazena uma cópia para alterar os dados a serem substituidos no prop "colunas"
-    var novaColuna = MyUtil.deepCopy(this.props.colunas);
-    var novosDados = MyUtil.deepCopy(this.state.dadosTrocados);
+    let novaColuna = MyUtil.deepCopy(this.props.colunas);
+    let novosDados = MyUtil.deepCopy(this.state.dadosTrocados);
 
     for(let i in novaColuna){
       //Armazena os itens da query que serão utilizados
-      var itensQuery = MyParser.separaItensSelecao(novaColuna[i]);
+      let itensQuery = MyParser.separaItensSelecao(novaColuna[i]);
 
       for(let j in itensQuery){
         //Substitui no vetor que possui os nomes das colunas da tabela pelo
@@ -55,8 +62,8 @@ export default class ListaOrdemServico extends React.Component {
   }
 
   async montaPaginacao(){
-    var dadosPaginados = [];
-    var index = 0;
+    let dadosPaginados = [];
+    let index = 0;
 
     for(let i = 0; i < this.state.nPaginas; i ++){
       dadosPaginados.push([]);
@@ -94,12 +101,18 @@ export default class ListaOrdemServico extends React.Component {
       }
     }
 
+    if(dadosPaginados.length == 0)
+      for(let i in this.props.cabecalho)
+        dadosPaginados.push(<tr><td></td></tr>);
+
     await this.setState({dadosPaginados: dadosPaginados});
   }
 
   async montaBarraPaginacao(){
-    var barraPaginacao = [this.criaSpanNumeroPaginacao("<", () => this.paginaAnterior(), false)];
-    var maxPaginas = Math.ceil(this.state.dadosTrocados.length / this.props.maxPorPagina);
+    let barraPaginacao = [this.criaSpanNumeroPaginacao("<", () => this.paginaAnterior(), false)];
+    let maxPaginas = Math.ceil(this.state.dadosTrocados.length / this.props.maxPorPagina);
+    //Caso o resultado de maxPaginas seja igual a zero ou diferente de um número, maxPaginas recebe zero
+    maxPaginas = maxPaginas == 0 || !Number.isInteger(maxPaginas) ? 1 : maxPaginas;
 
     //Adiciona números das páginas para navegar entre elas
     for(let i = 1; i <= maxPaginas; i ++){
@@ -161,9 +174,13 @@ export default class ListaOrdemServico extends React.Component {
   }
 
   async componentDidMount(){
-    for(let i in this.props.data){
+    this.defineNPaginas();
+
+    for(let i in this.props.data[this.state.prestadora]){
       await this.substituiValores(this.props.data[i]);
     }
+
+    console.log(this.state);
 
     //É necessário aguardar a montagem da paginação para montar a barra da paginação
     await this.montaPaginacao();

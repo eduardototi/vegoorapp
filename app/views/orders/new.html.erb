@@ -1,14 +1,13 @@
 <div class = "mt-4 mb-4">
   <%= react_component("FormCadastroOrdemServico",
                       props: {"usuarioAtual": current_user.as_json,
+                              "empresas": @empresas.as_json,
                               "responsaveisTecnicos": @responsaveisTecnicos.as_json,
                               "clientes": @clientes.as_json,
                               "contatoDosClientes": @contatoDosClientes.as_json,
                               "servicos": @servicos.as_json,
                               "maquinas": @maquinas.as_json,
                               "equipamentos": @equipamentos.as_json,
-                              "epis": @epis.as_json,
-                              "prestadora": "vegoor",
-                              "linkAcao": "create_vegoor_order"},
-                      prerender: false) %>
+                              "epis": @epis.as_json},
+                       prerender: false) %>
 </div>

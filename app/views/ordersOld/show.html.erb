@@ -1,0 +1,17 @@
+<div class = "mt-4 mb-4">
+  <div class = "mb-3">
+    <%= link_to "Voltar", orders_path, class: "h5 text-white" %>
+  </div>
+
+  <%= react_component("ExibicaoOrdemServico",
+                      props: {"data": @order.as_json,
+                              "cliente": @order.client.as_json,
+                              "responsavel": @order.user.as_json,
+                              "contato": @order.contact.as_json,
+                              "servicos": @servicos.as_json,
+                              "equipamentos": @order.utensils.as_json,
+                              "epis": @epis.as_json,
+                              "empresa": "vegoor",
+                              "linkAcao": "orders"},
+                      prerender: false) %>
+</div>

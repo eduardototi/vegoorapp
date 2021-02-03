@@ -10,31 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_03_125334) do
+ActiveRecord::Schema.define(version: 2021_01_09_220404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "active_storage_attachments", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
-    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
-  end
-
-  create_table "active_storage_blobs", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
-    t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
-    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
 
   create_table "clients", force: :cascade do |t|
     t.string "razao_social"
@@ -52,15 +31,6 @@ ActiveRecord::Schema.define(version: 2021_02_03_125334) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "unity"
-  end
-
-  create_table "companies", force: :cascade do |t|
-    t.string "name"
-    t.string "addrees"
-    t.string "phone"
-    t.string "email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "epi_orders", force: :cascade do |t|
@@ -99,7 +69,7 @@ ActiveRecord::Schema.define(version: 2021_02_03_125334) do
 
   create_table "orders", force: :cascade do |t|
     t.text "description"
-    t.boolean "status", default: false
+    t.boolean "status"
     t.string "location"
     t.bigint "user_id", null: false
     t.bigint "client_id", null: false
@@ -109,28 +79,9 @@ ActiveRecord::Schema.define(version: 2021_02_03_125334) do
     t.bigint "contact_id", null: false
     t.boolean "field", default: false
     t.boolean "laboratory", default: false
-    t.boolean "factory", default: false
-    t.bigint "company_id", null: false
-    t.integer "vegoor_order", default: 1
-    t.integer "sf6_order", default: 1
-    t.boolean "canceled", default: false
     t.index ["client_id"], name: "index_orders_on_client_id"
-    t.index ["company_id"], name: "index_orders_on_company_id"
     t.index ["contact_id"], name: "index_orders_on_contact_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
-  end
-
-  create_table "orderservice_reports", force: :cascade do |t|
-    t.string "parameter"
-    t.string "unity"
-    t.string "fase_a"
-    t.string "fase_b"
-    t.string "fase_c"
-    t.string "reference"
-    t.bigint "orderservice_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["orderservice_id"], name: "index_orderservice_reports_on_orderservice_id"
   end
 
   create_table "orderservices", force: :cascade do |t|
@@ -221,7 +172,7 @@ ActiveRecord::Schema.define(version: 2021_02_03_125334) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.bigint "client_id", null: false
+    t.bigint "client_id"
     t.string "phone"
     t.string "registration", default: "000000"
     t.index ["client_id"], name: "index_users_on_client_id"
@@ -239,29 +190,13 @@ ActiveRecord::Schema.define(version: 2021_02_03_125334) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "vegoor_reports", force: :cascade do |t|
-    t.text "goal"
-    t.text "reception_test"
-    t.boolean "warrant", default: false
-    t.text "conclusion"
-    t.text "observations"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "order_id", null: false
-    t.boolean "status", default: false
-    t.index ["order_id"], name: "index_vegoor_reports_on_order_id"
-  end
-
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "epi_orders", "epis"
   add_foreign_key "epi_orders", "orders"
   add_foreign_key "epi_sf6orders", "epis"
   add_foreign_key "epi_sf6orders", "sf6_orders"
   add_foreign_key "orders", "clients"
-  add_foreign_key "orders", "companies"
   add_foreign_key "orders", "users"
   add_foreign_key "orders", "users", column: "contact_id"
-  add_foreign_key "orderservice_reports", "orderservices"
   add_foreign_key "orderservices", "machines"
   add_foreign_key "orderservices", "orders"
   add_foreign_key "orderservices", "services"
@@ -276,5 +211,4 @@ ActiveRecord::Schema.define(version: 2021_02_03_125334) do
   add_foreign_key "sf6_orderutensils", "sf6_orders"
   add_foreign_key "sf6_orderutensils", "utensils"
   add_foreign_key "users", "clients"
-  add_foreign_key "vegoor_reports", "orders"
 end

@@ -70,7 +70,7 @@ export default class FormEdicaoCliente extends React.Component {
   }
 
   setRazaoSocial(e){
-    this.setState({nome: e.target.value});
+    this.setState({razaoSocial: e.target.value});
   }
 
   setCnpj(e){
@@ -172,7 +172,7 @@ export default class FormEdicaoCliente extends React.Component {
 
             <div className = "row">
               <div className = "col mt-2">
-                <h3 class = "text-center">Cadastro de Cliente</h3>
+                <h3 className = "text-center">Cadastro de Cliente</h3>
               </div>
             </div>
 

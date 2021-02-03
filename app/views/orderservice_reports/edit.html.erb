@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="container-form">
+    <%= simple_form_for(@service_report) do |f| %>
+      <h3 class="text-center">Resultado de Serviço</h3>
+      <div class="form-inputs">
+        <%= f.input :parameter, label: "Parametro" %>
+        <%= f.input :unity, label: "Unidade" %>
+        <%= f.input :fase_a, label: "Fase A" %>
+        <%= f.input :fase_b, label: "Fase B" %>
+        <%= f.input :fase_c, label: "Fase C" %>
+        <%= f.input :reference, label: "Referencia" %>
+        <%= f.hidden_field :orderservice_id %>
+      </div>
+      <div class="form-actions text-center">
+        <%= f.button :submit, "Enviar", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>
