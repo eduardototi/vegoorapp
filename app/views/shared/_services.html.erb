@@ -27,7 +27,8 @@
                 <td></td>
               <% end %>
               <td>
-                <% if orderservice.status == false %>
+                <% if orderservice.status == false && orderservice.order.canceled == false %>
+                <%#= raise %>
                   <%= link_to 'Resultado', new_orderservice_report_path(orderservice), class: 'btn btn-primary' %>
                 <% end %>
               </td>

@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :set_order, only: [:show, :edit, :destroy, :update]
+  before_action :set_order, only: [:show, :edit, :update]
 
   def index
     @orders = Order.where(canceled: false, company_id: 1)
@@ -30,11 +30,6 @@ class OrdersController < ApplicationController
     else
       render :new
     end
-  end
-
-  def destroy
-    @order.destroy
-    redirect_to orders_path
   end
 
   def edit
