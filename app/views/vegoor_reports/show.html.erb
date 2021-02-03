@@ -4,28 +4,7 @@
         <%= render 'shared/report_header', order: @vegoor_report.order %>
     </div>
 
-    <table class="table table-bordered mt-2">
-        <thead>
-            <tr>
-                <th scope="col">Cliente</th>
-                <th scope="col">CNPJ</th>
-                <th scope="col">Telefone</th>
-                <th scope="col">Email</th>
-                <th scope="col">Endereço</th>
-                <th scope="col">Cidade</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row"><%= @vegoor_report.order.client.razao_social %></th>
-                <td><%= @vegoor_report.order.client.cnpj %></td>
-                <td><%= @vegoor_report.order.client.phone %></td>
-                <td><%= @vegoor_report.order.client.email %></td>
-                <td><%= @vegoor_report.order.client.street %> Nº: <%= @vegoor_report.order.client.number %></td>
-                <td><%= @vegoor_report.order.client.city %>/<%= @vegoor_report.order.client.state %></td>
-            </tr>
-        </tbody>
-    </table>
+    <%= render 'shared/client', order: @vegoor_report.order %>
 
     <div class="order-description mb-3 text-justify" >
         <strong>Introdução:</strong>
@@ -36,7 +15,7 @@
         <strong>Objetivos:</strong>
         <%= @vegoor_report.goal %>
     </div>
-
+    
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -96,7 +75,7 @@
 
     <% if @vegoor_report.photos.attached? %>
         <% @vegoor_report.photos.each do |photo| %>       
-            <%= image_tag photo, height: 300, width: 400, crop: :fill %>
+            <%= cl_image_tag photo, height: 300, width: 400, crop: :fill %>
         <% end %>
     <% end %>
     

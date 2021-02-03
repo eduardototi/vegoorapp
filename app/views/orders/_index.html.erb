@@ -20,7 +20,7 @@
           <% if order.vegoor_report %>
             <td><%= link_to 'Laudo', vegoor_report_path(order.vegoor_report) %></td>
           <% elsif order.status && order.vegoor_report == nil %>
-            <td><%= link_to 'Gerar Laudo', new_vegoor_report_path(order) %></td>
+            <td><%= link_to 'Gerar Laudo', new_order_vegoor_report_path(order.id) %></td>
           <% else %>
             <td><%= link_to 'Fechar Os', order_path(order) %></td>
           <% end %>

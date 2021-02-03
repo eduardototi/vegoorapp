@@ -136,7 +136,7 @@
         <%= f.input :observations, label: "Observações" %>
         <%= f.check_box :warrant %>
         <%= f.label "Garantia" %>
-        <%= image_tag "", width: 150, class: "hidden", id: "photo-preview" %>
+        <%= cl_image_tag "", width: 150, class: "hidden", id: "photo-preview" %>
 
         <div class="text-center">
             <%= f.input :photos, as: :file, input_html: { multiple: true, id: 'photo-input' } %> 
