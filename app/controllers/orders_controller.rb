@@ -57,14 +57,12 @@ class OrdersController < ApplicationController
     if @order.status
       @order.status = false
       open_services(@order)
-      @order.save
       if @order.save
         redirect_to order_path(@order)
       end
     else
       @order.status = true
       close_services(@order)
-      @order.save
       if @order.save
         redirect_to order_path(@order)
       end
