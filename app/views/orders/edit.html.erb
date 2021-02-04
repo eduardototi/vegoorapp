@@ -5,6 +5,8 @@
 
   <%= react_component("FormEdicaoOrdemServico",
                       props: {"usuarioAtual": current_user.as_json,
+                              "contagem": @contagem,
+                              "prestadora": @prestadora,
                               "responsaveisTecnicos": @responsaveisTecnicos.as_json,
                               "clientes": @clientes.as_json,
                               "contatoDosClientes": @contatoDosClientes.as_json,
@@ -12,6 +14,7 @@
                               "maquinas": @maquinas.as_json,
                               "equipamentos": @equipamentos.as_json,
                               "epis": @epis.as_json,
+                              "empresas": @empresas.as_json,
                               "data": {"prestadora": "vegoor",
                                        "order": @order.as_json,
                                        "cliente": @order.client.as_json,

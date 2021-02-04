@@ -1,9 +1,11 @@
 <div class = "mt-4 mb-2">
   <%= react_component("ListaOrdemServico",
-                      props: {"cabecalho": ["Número", "Prestadora", "Cliente", "Situação"],
-                              "colunas": ["id", "prestadora", "razao_social", "status"],
+                      props: {"cabecalho": ["Número", "Cliente", "Situação"],
+                              "colunas": ["contagem", "razao_social", "status"],
                               "linkAcoes": "orders",
-                              "data": @orders,
-                              "maxPorPagina": 5},
+                              "data": @orders.as_json,
+                              "empresas": @empresas,
+                              "maxPorPagina": 5,
+                              "linkAcoes": "orders"},
                       prerender: false) %>
 </div>

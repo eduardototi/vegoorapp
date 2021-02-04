@@ -19,6 +19,7 @@ import logoSf6 from "../../img/sf6SemFundo.png";
 export default class FormEdicaoOrdemServico extends React.Component {
   static propTypes = {
     usuarioAtual: PropTypes.object.isRequired,
+    empresas: PropTypes.array.isRequired,
     responsaveisTecnicos: PropTypes.array.isRequired,
     clientes: PropTypes.array.isRequired,
     contatoDosClientes: PropTypes.array.isRequired,
@@ -36,8 +37,10 @@ export default class FormEdicaoOrdemServico extends React.Component {
     super(props);
 
     this.state = {
+      prestadora: this.props.prestadora,
       servicoCampo: this.props.data.order.field,
       servicoLaboratorio: this.props.data.order.laboratory,
+      servicoFabrica: this.props.data.order.factory,
       descricao: this.props.data.order.description,
       responsavel: this.props.data.responsavel.id,
       cliente: this.props.data.cliente.id,
@@ -57,8 +60,10 @@ export default class FormEdicaoOrdemServico extends React.Component {
       notificacoes: []
     };
 
+    this.setPrestadora = this.setPrestadora.bind(this);
     this.setServicoCampo = this.setServicoCampo.bind(this);
     this.setServicoLaboratorio = this.setServicoLaboratorio.bind(this);
+    this.setServicoFabrica = this.setServicoFabrica.bind(this);
     this.setDescricao = this.setDescricao.bind(this);
     this.setResponsavel = this.setResponsavel.bind(this);
     this.setCliente = this.setCliente.bind(this);
@@ -84,12 +89,20 @@ export default class FormEdicaoOrdemServico extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  setPrestadora(e){
+    this.setState({prestadora: e.target.value});
+  }
+
   setServicoCampo(){
     this.setState({servicoCampo: !this.state.servicoCampo});
   }
 
   setServicoLaboratorio(){
     this.setState({servicoLaboratorio: !this.state.servicoLaboratorio});
+  }
+
+  setServicoFabrica(){
+    this.setState({servicoFabrica: !this.state.servicoFabrica});
   }
 
   setDescricao(e){
@@ -361,6 +374,11 @@ export default class FormEdicaoOrdemServico extends React.Component {
                                  "comments": this.state.observacoes,
                                  "field": this.state.servicoCampo != "" ? true : false,
                                  "laboratory": this.state.servicoLaboratorio != "" ? true : false,
+                                 "canceled": false,
+                                 "factory": this.state.servicoFabrica != "" ? true : false,
+                                 "company_id": parseInt(this.state.prestadora),
+                                 "vegoor_order": false,
+                                 "sf6_order": false,
                                  "contact_id": parseInt(this.state.contatoCliente),
                                  "description": this.state.descricao,
                                  "user_id": this.props.usuarioAtual.id,
@@ -368,7 +386,7 @@ export default class FormEdicaoOrdemServico extends React.Component {
                                  "client_id": parseInt(this.state.cliente),
                                  "orderservices_attributes": payloadServicos,
                                  "orderutensils_attributes": payloadEquipamentos,
-                                 "epi_orders_attributes": payloadEpis}};
+                                 "epi_orders_attributes": payloadEpis}}
 
         let response = await MyRequests.put(url, payload);
         let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
@@ -396,7 +414,7 @@ export default class FormEdicaoOrdemServico extends React.Component {
 
             <div className = "row">
               <div className = "col mt-2">
-                <h3 className = "text-center">Edição de Ordem de Serviço #{this.props.data.order.id}</h3>
+                <h3 className = "text-center">Edição de Ordem de Serviço #{this.props.contagem}</h3>
               </div>
             </div>
 
@@ -413,6 +431,25 @@ export default class FormEdicaoOrdemServico extends React.Component {
             </div>
 
             <div className = "row mt-2">
+              <div className = "col-auto">
+                <CampoDropdown id = "prestadora"
+                               label = "Empresa Prestadora do Serviço"
+                               opc = {this.props.empresas}
+                               selecionado = {this.state.prestadora}
+                               setState = {this.setPrestadora}/>
+              </div>
+              <div className = "col">
+                <img id = "logoPrestadora"
+                     className = "img-fluid float-right"
+                     width = "225px"
+                     height = "225px"
+                     src = {this.state.prestadora ?
+                            this.state.prestadora == 1 ? logoVegoor : logoSf6
+                            : ""}/>
+              </div>
+            </div>
+
+            <div className = "row mt-2">
               <div className = "col">
                 <CampoEscolha id = "servicoCampo"
                               opc = {[["Serviço de Campo", true]]}
@@ -423,13 +460,11 @@ export default class FormEdicaoOrdemServico extends React.Component {
                               opc = {[["Serviço de Laboratório", true]]}
                               selecionado = {this.state.servicoLaboratorio}
                               setState = {this.setServicoLaboratorio}/>
-              </div>
-              <div className = "col">
-                <img id = "logoPrestadora"
-                     className = "img-fluid float-right"
-                     width = "225px"
-                     height = "225px"
-                     src = {this.props.data.prestadora == "vegoor" ? logoVegoor : logoSf6}/>
+
+                <CampoEscolha id = "servicoFabrica"
+                              opc = {[["Serviço de Fábrica", true]]}
+                              selecionado = {this.state.servicoFabrica}
+                              setState = {this.setServicoFabrica}/>
               </div>
             </div>
 

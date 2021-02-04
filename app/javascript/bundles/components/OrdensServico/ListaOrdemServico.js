@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import CampoDropdown from "../Comum/Forms/CampoDropdown";
 import MyUtil from "../../util/MyUtil";
 import MyParser from "../../util/MyParser";
 import "../../styles/Geral.css";
@@ -10,7 +11,9 @@ export default class ListaOrdemServico extends React.Component {
     cabecalho: PropTypes.array.isRequired,
     colunas: PropTypes.array.isRequired,
     data: PropTypes.object.isRequired,
-    maxPorPagina: PropTypes.number.isRequired
+    empresas: PropTypes.array.isRequired,
+    maxPorPagina: PropTypes.number.isRequired,
+    linkAcoes: PropTypes.string.isRequired
   };
 
   /**
@@ -28,10 +31,18 @@ export default class ListaOrdemServico extends React.Component {
       nPaginas: 1,
       numeroPaginaAtual: 0
     }
+
+    this.setPrestadora = this.setPrestadora.bind(this);
+  }
+
+  async setPrestadora(e){
+    await this.setState({prestadora: e.target.value});
+
+    await this.montaTabela();
   }
 
   async defineNPaginas(){
-    let nPaginas =  this.props.data[this.state.prestadora].length == 0 ? 1 : Math.ceil(this.props.data[this.state.prestadora].length / this.props.maxPorPagina);
+    let nPaginas =  this.props.data[this.state.prestadora].length == 0 ? 1 : Math.ceil(this.props.data.[this.state.prestadora].length / this.props.maxPorPagina);
 
     await this.setState({nPaginas: nPaginas});
   }
@@ -71,7 +82,7 @@ export default class ListaOrdemServico extends React.Component {
       for(let j = 0; j < this.props.maxPorPagina; j ++){
         if(index < this.state.dadosTrocados.length){
           let linha = [];
-          let id = this.props.data[index].id;
+          let id = this.props.data[this.state.prestadora][index].idAbsoluto;
 
           for(let k in this.state.dadosTrocados[index]){
             linha.push(<td key = {"coluna" + MyUtil.keyAleatoria()} scope = "col">
@@ -79,11 +90,9 @@ export default class ListaOrdemServico extends React.Component {
                        </td>);
           }
 
-          console.log(this.state.dadosTrocados[index]);
-
           linha.push(
           <td key = {"visualizar" + MyUtil.keyAleatoria()} scope = "col">
-            <a href = {"/" + this.props.linkAcoes[this.state.dadosTrocados[index][1]] + "/" + id}>
+            <a href = {"/" + this.props.linkAcoes + "/" + id}>
               Visualizar
             </a>
           </td>);
@@ -173,18 +182,24 @@ export default class ListaOrdemServico extends React.Component {
     this.adicionaSublinhadoPaginacao();
   }
 
-  async componentDidMount(){
-    this.defineNPaginas();
+  async montaTabela(){
+    if(this.state.prestadora != ""){
+      //Reseta os dados trocados
+      await this.setState({dadosTrocados: []});
+      await this.defineNPaginas();
 
-    for(let i in this.props.data[this.state.prestadora]){
-      await this.substituiValores(this.props.data[i]);
+      for(let i in this.props.data[this.state.prestadora]){
+        await this.substituiValores(this.props.data[this.state.prestadora][i]);
+      }
+
+      //É necessário aguardar a montagem da paginação para montar a barra da paginação
+      await this.montaPaginacao();
+      await this.montaBarraPaginacao();
     }
+  }
 
-    console.log(this.state);
-
-    //É necessário aguardar a montagem da paginação para montar a barra da paginação
-    await this.montaPaginacao();
-    await this.montaBarraPaginacao();
+  async componentDidMount(){
+    await this.montaTabela();
   }
 
   render(){
@@ -192,6 +207,21 @@ export default class ListaOrdemServico extends React.Component {
       <div className = "table-responsive">
         <table className = "table text-center">
           <thead className = "table-dark table-bordered">
+            <tr>
+              <td className = "text-left" colSpan = {this.props.cabecalho.length + 2}>
+                <div className = "container">
+                  <div className = "row">
+                    <div className =  "col-auto">
+                      <CampoDropdown id = "empresa"
+                                     label = "Empresa"
+                                     opc = {this.props.empresas}
+                                     selecionado = {this.state.prestadora}
+                                     setState = {this.setPrestadora}/>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
             <tr>
 
               {this.props.cabecalho.map((item) => {
@@ -205,7 +235,7 @@ export default class ListaOrdemServico extends React.Component {
               <th scope = "col" colSpan = "2">Ações</th>
             </tr>
           </thead>
-          {this.props.data.length > 0 && this.state.dadosPaginados.length > 0 ?
+          {this.props.data[this.state.prestadora].length > 0 && this.state.dadosPaginados.length > 0 ?
 
           <tbody className = "bg-light">
 
