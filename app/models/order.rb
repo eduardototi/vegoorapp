@@ -15,6 +15,7 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :epi_orders, reject_if: :all_blank, allow_destroy: true
 
   before_create :increase_order_number
+  after_create :send_confirmation
 
   private
 
@@ -36,6 +37,10 @@ class Order < ApplicationRecord
         self.vegoor_order = Order.last.vegoor_order
       end
     end
+  end
+
+  def send_confirmation
+    OrderMailer.with(order: self).confirmation.deliver_now!
   end
   
 end
