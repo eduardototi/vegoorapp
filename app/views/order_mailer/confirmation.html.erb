@@ -1,0 +1,13 @@
+<h1>Confirmação de Ordem de Serviço</h1>
+
+<h4>Ola, <%= @order.client.razao_social %>,</h4>
+<% if @order.company == 1 %>
+  <p>A ordem de serviço N: <%= @order.vegoor_order %> esta disponível em nosso sistema.</p>  
+<% else %>
+  <p>A ordem de serviço N: <%= @order.sf6_order %> esta disponível em nosso sistema.</p>  
+<% end %>
+
+
+<p>Atenciosamente;</p>
+<p><%= @order.company.name %></p>
+<p>Acesse https://vegoorapp.herokuapp.com/</p>

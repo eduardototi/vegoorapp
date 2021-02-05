@@ -1,0 +1,12 @@
+Confirmação de Ordem de Serviço
+
+Ola, <%= @order.client.razao_social %>,
+<% if @order.company == 1 %>
+  A ordem de serviço N: <%= @order.vegoor_order %> esta disponível em nosso sistema.  
+<% else %>
+  A ordem de serviço N: <%= @order.sf6_order %> esta disponível em nosso sistema.
+<% end %>
+
+
+Atenciosamente;
+<%= @order.company.name %>
