@@ -41,6 +41,9 @@ class OrdersController < ApplicationController
   end
 
   def show
+    prestadora = Company.where(id: @order.company_id).map {|prestadora| [prestadora.id, prestadora.name]}[0]
+    @nomePrestadora = prestadora[1]
+    @contagem = defineContagemOrdem(@order.id, prestadora[0])
     @orderservices = getOrderServices(params[:id])
     @epi_orders = getEpiOrders(params[:id])
     @servicos = []
@@ -50,11 +53,15 @@ class OrdersController < ApplicationController
     maxEpis = (@epi_orders.length() - 1)
 
     for i in 0..maxServicos do
-      servico = {"descricao": @orderservices[i].service.title,
+      relatorios = OrderserviceReport.where(orderservice_id: @orderservices[i].id)
+
+      servico = {"id": @orderservices[i].id,
+                 "nome": @orderservices[i].service.title,
                  "equipamento": @orderservices[i].machine.name,
                  "serie": @orderservices[i].machineserie,
                  "status": @orderservices[i].status,
-                 "dataAtualizacao": @orderservices[i].updated_at.strftime("%d/%m/%Y %k:%M")}
+                 "dataAtualizacao": @orderservices[i].updated_at.strftime("%d/%m/%Y %k:%M"),
+                 "relatorios": relatorios}
       @servicos.push(servico)
     end
 
@@ -93,8 +100,9 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    @prestadora = Company.where(id: @order.company_id).map {|prestadora| [prestadora.id]}[0]
-    @contagem = defineContagemOrdem(@order.id, @prestadora[1])
+    prestadora = Company.where(id: @order.company_id).map {|prestadora| [prestadora.id, prestadora.name]}[0]
+    @nomePrestadora = prestadora[0]
+    @contagem = defineContagemOrdem(@order.id, prestadora[0])
     @servicos = getServicos()
     @maquinas = getMaquinas()
     @equipamentos = getEquipamentos()

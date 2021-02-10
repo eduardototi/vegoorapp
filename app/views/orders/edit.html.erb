@@ -6,7 +6,7 @@
   <%= react_component("FormEdicaoOrdemServico",
                       props: {"usuarioAtual": current_user.as_json,
                               "contagem": @contagem,
-                              "prestadora": @prestadora,
+                              "prestadora": @nomePrestadora,
                               "responsaveisTecnicos": @responsaveisTecnicos.as_json,
                               "clientes": @clientes.as_json,
                               "contatoDosClientes": @contatoDosClientes.as_json,

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post "create_epi" => "epis#create", as: :create_epi
   post "create_service" => "services#create", as: :create_service
   post "create_order" => "orders#create", as: :create_order
+  post "create_order_report" => "orderservice_reports#create", as: :create_order_report
 
   put "update_client" => "clients#update", as: :update_client
   put "update_company" => "companies#update", as: :update_company
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
   put "update_machine" => "machines#update", as: :update_machine
   put "update_epi" => "epis#update", as: :update_epi
   put "update_service" => "services#update", as: :update_service
+  put "update_order_service" => "orderservice_reports#update", as: :update_order_service
 
   resources :clients
   resources :utensils
@@ -33,14 +35,4 @@ Rails.application.routes.draw do
   resources :machines
   resources :orderservice_reports
   resources :companies
-
-  resources :orders do
-    resources :vegoor_reports, only: [ :new ]
-    get "close_order", to: "orders#close_order"
-    get "cancel_order", to: "orders#cancel_order"
-  end
-
-  resources :vegoor_reports do
-    get 'close_report', to: 'vegoor_reports#close_report'
-  end
 end

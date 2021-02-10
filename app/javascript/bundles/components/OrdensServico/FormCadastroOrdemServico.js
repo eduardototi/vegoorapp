@@ -265,7 +265,7 @@ export default class FormCadastroOrdemServico extends React.Component {
     }
     else{
       //Notifica que pelo menos um serviço precisa ser selecionado
-      if(this.state.servicoCampo == "" && this.state.servicoLaboratorio == ""){
+      if(this.state.servicoCampo == "" && this.state.servicoLaboratorio == "" && this.state.servicoFabrica == ""){
         notificacoesNovas.push(<Notificacao tipo = "erro" msg = "Selecione pelo menos um tipo de serviço"/>);
       }
       else{

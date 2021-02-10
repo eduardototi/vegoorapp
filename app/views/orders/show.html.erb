@@ -11,7 +11,8 @@
                               "servicos": @servicos.as_json,
                               "equipamentos": @order.utensils.as_json,
                               "epis": @epis.as_json,
-                              "empresa": "vegoor",
+                              "empresa": @nomePrestadora,
+                              "contagem": @contagem,
                               "linkAcao": "orders"},
                       prerender: false) %>
 </div>

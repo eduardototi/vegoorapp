@@ -35,6 +35,9 @@ import ListaOrdemServico from "../bundles/components/OrdensServico/ListaOrdemSer
 import FormCadastroOrdemServico from "../bundles/components/OrdensServico/FormCadastroOrdemServico";
 import FormEdicaoOrdemServico from "../bundles/components/OrdensServico/FormEdicaoOrdemServico";
 import ExibicaoOrdemServico from "../bundles/components/OrdensServico/ExibicaoOrdemServico";
+//Relatórios Ordem de Serviço
+import FormCadastroRelatorioOrdemServico from "../bundles/components/RelatoriosOrdemServico/FormCadastroRelatorioOrdemServico";
+import FormEdicaoRelatorioOrdemServico from "../bundles/components/RelatoriosOrdemServico/FormEdicaoRelatorioOrdemServico";
 
 ReactOnRails.register({
   Login,
@@ -61,5 +64,7 @@ ReactOnRails.register({
   ListaOrdemServico,
   FormCadastroOrdemServico,
   FormEdicaoOrdemServico,
-  ExibicaoOrdemServico
+  ExibicaoOrdemServico,
+  FormCadastroRelatorioOrdemServico,
+  FormEdicaoRelatorioOrdemServico
 });

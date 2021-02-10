@@ -5,6 +5,27 @@ class MyRequests{
 
   }
 
+  async get(url){
+    //Obtém um token para validar o request
+    const token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+
+    //Adiciona ao header alguns parâmetros importantes, como o token para autenticação do request
+    //e o tipo do conteúdo a ser enviado
+    axios.defaults.headers.common["X-CSRF-TOKEN"] = token;
+    axios.defaults.headers.common["Content-type"] = "application/json";
+
+    let retorno = await axios.get(url).then((response) => {
+                                             return {"code": 200,
+                                                     "msg": "Criado com sucesso!"}
+                                             })
+                                       .catch((response) => {
+                                             return {"code": response.response.status,
+                                                     "msg": response.response.statusText}
+                                             });
+
+    return retorno;
+  }
+
   async post(url, payload){
     //Obtém um token para validar o request
     const token = document.querySelector("meta[name='csrf-token']").getAttribute("content");

@@ -25,6 +25,8 @@ export default class ExibicaoOrdemServico extends React.Component {
 
     this.checkOrBox = this.checkOrBox.bind(this);
     this.exclui = this.exclui.bind(this);
+    this.excluiResultado = this.excluiResultado.bind(this);
+    this.cancela =  this.cancela.bind(this);
   }
 
   checkOrBox(verificacao){
@@ -52,6 +54,34 @@ export default class ExibicaoOrdemServico extends React.Component {
     }
   }
 
+  async excluiResultado(id){
+    let confirmacao = window.confirm("Deseja mesmo excluir o resultado?");
+
+    if(confirmacao){
+      let notificacoesNovas = [];
+      let url = "/orderservice_reports/" + id;
+      let response = await MyRequests.delete(url);
+      let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
+
+      notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
+      this.setState({notificacoes: notificacoesNovas});
+    }
+  }
+
+  async cancela(){
+    let confirmacao = window.confirm("Deseja mesmo Cancelar?");
+
+    if(confirmacao){
+      let notificacoesNovas = [];
+      let url = "/orders/" + this.props.data.id + "/cancel_order";
+      let response = await MyRequests.get(url);
+      let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
+
+      notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
+      this.setState({notificacoes: notificacoesNovas});
+    }
+  }
+
   render() {
     return (
       <div className = "container bg-white p-4">
@@ -67,7 +97,7 @@ export default class ExibicaoOrdemServico extends React.Component {
             <div className = "row">
               <div className = "col">
                 <h4 className = "h4">
-                  Ordem de Serviço #{this.props.data.id}
+                  Ordem de Serviço #{this.props.contagem}
                 </h4>
               </div>
             </div>
@@ -96,10 +126,18 @@ export default class ExibicaoOrdemServico extends React.Component {
               </div>
             </div>
 
-            <div className = "row mb-2">
+            <div className = "row">
               <div className = "col">
                 <span>
                 {this.checkOrBox(this.props.data.field)} Serviço de Campo
+                </span>
+              </div>
+            </div>
+
+            <div className = "row mb-2">
+              <div className = "col">
+                <span>
+                {this.checkOrBox(this.props.data.factory)} Serviço de Fábrica
                 </span>
               </div>
             </div>
@@ -110,7 +148,7 @@ export default class ExibicaoOrdemServico extends React.Component {
           <img className = "img-fluid float-right"
                width = "225px"
                height = "225px"
-               src = {this.props.empresa == "vegoor" ? logoVegoor : logoSf6}/>
+               src = {this.props.empresa == "Vegoor" ? logoVegoor : logoSf6}/>
         </div>
       </div>
 
@@ -269,37 +307,112 @@ export default class ExibicaoOrdemServico extends React.Component {
           <table className = "table table-sm table-responsive">
             <thead>
               <tr className = "thead-light">
-                <th scope = "col" colSpan = "4">
+                <th scope = "col">
                   Serviços
                 </th>
               </tr>
-              <tr>
-                <td scope = "col">Descrição</td>
-                <td scope = "col">Equipamento</td>
-                <td scope = "col">Série</td>
-                <td scope = "col">Status</td>
-              </tr>
             </thead>
-            <tbody>
               {this.props.servicos.map((servico) => {
                 return (
-                  <tr key = {"servico" + MyUtil.keyAleatoria()}>
-                    <td scope = "col">
-                      {servico.descricao}
-                    </td>
-                    <td scope = "col">
-                      {servico.equipamento}
-                    </td>
-                    <td scope = "col">
-                      {servico.serie}
-                    </td>
-                    <td scope = "col">
-                      {servico.status ? "Finalizado em " + servico.dataAtualizacao : "Em Aberto"}
-                    </td>
-                  </tr>
+                  <tbody key = {"servico" + MyUtil.keyAleatoria()}>
+                    <tr>
+                      <td>
+                        <table className = "table table-sm table-responsive">
+                          <thead>
+                            <tr className = "thead-dark">
+                              <th scope = "col" colSpan = "8" className = "text-center">
+                                Serviço {servico.nome}
+                              </th>
+                            </tr>
+                          </thead>
+
+                          <tbody className = "text-center">
+                            <tr>
+                              <th scope = "col">Nome</th>
+                              <th scope = "col">Equipamento</th>
+                              <th scope = "col">Série</th>
+                              <th scope = "col">Status</th>
+                              <th scope = "col" colSpan = "4" className = "text-center">Ações</th>
+                            </tr>
+                            <tr>
+                              <td scope = "col">
+                                {servico.nome}
+                              </td>
+                              <td scope = "col">
+                                {servico.equipamento}
+                              </td>
+                              <td scope = "col">
+                                {servico.serie}
+                              </td>
+                              <td scope = "col">
+                                {servico.status ? "Finalizado em " + servico.dataAtualizacao : "Em Aberto"}
+                              </td>
+                              <td scope = "col" colSpan = "4" className = "text-center">
+                                {!servico.status ? <a href = {"../orderservice_reports/new." + servico.id}>
+                                                    <button type = "button" className = "btn btn-primary btn-sm">
+                                                      Inserir Resultado
+                                                    </button>
+                                                   </a>
+                                                 : ""}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <th scope = "col">Parâmetro</th>
+                              <th scope = "col">Unidade</th>
+                              <th scope = "col">Fase A</th>
+                              <th scope = "col">Fase B</th>
+                              <th scope = "col">Fase C</th>
+                              <th scope = "col">Referência</th>
+                              <th scope = "col" colSpan = "2" className = "text-center">Ações</th>
+                            </tr>
+
+                            {servico.relatorios.length > 0 ? servico.relatorios.map((relatorio) => {
+                              return (
+                                <tr key = {"relatorio" + MyUtil.keyAleatoria()}>
+                                  <td>
+                                    {relatorio.parameter}
+                                  </td>
+                                  <td>
+                                    {relatorio.unity}
+                                  </td>
+                                  <td>
+                                    {relatorio.fase_a}
+                                  </td>
+                                  <td>
+                                    {relatorio.fase_b}
+                                  </td>
+                                  <td>
+                                    {relatorio.fase_c}
+                                  </td>
+                                  <td>
+                                    {relatorio.reference}
+                                  </td>
+                                  <td>
+                                    <a href = {"/orderservice_reports/" + relatorio.id + "/edit"}>
+                                      <button type = "button"
+                                              className = "btn btn-primary btn-sm">
+                                        Editar
+                                      </button>
+                                    </a>
+                                  </td>
+                                  <td>
+                                    <button type = "button"
+                                            className = "btn btn-danger btn-sm"
+                                            onClick = {() => this.excluiResultado(relatorio.id)}>
+                                      Excluir
+                                    </button>
+                                  </td>
+                                </tr>
+                              )
+                            }) : null}
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
                 )
               })}
-            </tbody>
           </table>
         </div>
       </div>
@@ -370,6 +483,18 @@ export default class ExibicaoOrdemServico extends React.Component {
           <button type = "button" className = "btn btn-sm btn-danger" onClick = {this.exclui}>
             Excluir
           </button>
+          &nbsp;
+          <button type = "button" className = "btn btn-sm btn-danger" onClick = {this.cancela}>
+            Cancelar
+          </button>
+          &nbsp;
+          <a className = "linkSemUnderline" href = {"/orders/" + this.props.data.id + "/close_order"}>
+            <button type = "button" className = "btn btn-sm btn-success">
+              <span className = "text-white">
+                Fechar
+              </span>
+            </button>
+          </a>
           &nbsp;
           <a className = "linkSemUnderline text-white" href = {"/" + this.props.linkAcao + "/" + this.props.data.id + "/edit"}>
             <button type = "button" className = "btn btn-sm btn-primary">
