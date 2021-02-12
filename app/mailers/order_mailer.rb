@@ -8,8 +8,6 @@ class OrderMailer < ApplicationMailer
   def confirmation
     @order = params[:order]
     mail to: @order.client.email, subject: "Ordem de Serviço para #{@order.client.razao_social}"
-    mail to: @order.contact.email, subject: "Ordem de Serviço para #{@order.client.razao_social}"
-    mail to: @order.user.email, subject: "Ordem de Serviço para #{@order.client.razao_social}"
   end
 
   private
