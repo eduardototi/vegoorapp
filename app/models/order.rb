@@ -15,7 +15,7 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :epi_orders, reject_if: :all_blank, allow_destroy: true
 
   before_create :increase_order_number
-  after_create :send_confirmation
+  # after_create :send_confirmation
 
   private
 
