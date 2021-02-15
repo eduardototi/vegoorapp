@@ -1,0 +1,13 @@
+Confirmação de Ordem de Serviço
+
+Ola, <%= @vegoor_report.order.client.razao_social %>,
+<% if @vegoor_report.order.company == 1 %>
+  A ordem de serviço N: <%= @vegoor_report.order.vegoor_order %> esta disponível em nosso sistema.
+<% else %>
+  A ordem de serviço N: <%= @vegoor_report.order.sf6_order %> esta disponível em nosso sistema.
+<% end %>
+
+
+Atenciosamente;
+<%= @vegoor_report.order.company.name %>
+Acesse <a href="https://vegoorapp.herokuapp.com/vegoor_reports/<%= "#{@vegoor_report.order.id}" %>">Abrir Laudo</a>

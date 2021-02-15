@@ -13,6 +13,6 @@ class OrderMailer < ApplicationMailer
   private
  
   def load_order
-    @order = params[:rental]
+    @order = params[:order]
   end
 end
