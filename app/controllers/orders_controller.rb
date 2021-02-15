@@ -13,6 +13,11 @@ class OrdersController < ApplicationController
   def show
     @orderservices = Orderservice.where(order_id: params[:id])
     @epi_orders = EpiOrder.where(order_id: params[:id])
+    respond_to do |format|
+      format.html
+      format.json
+      format.pdf { render pdf: "orders/show", pdf: 'Show' } 
+    end
   end
 
   def new
