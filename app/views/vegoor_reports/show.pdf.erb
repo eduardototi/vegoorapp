@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container order">
+
+      <div class="logo">
+          <%#= render 'shared/report_header', order: @vegoor_report.order %>
+      </div>
+
+      <%#= render 'shared/client', order: @vegoor_report.order %>
+
+      <div class="order-description mb-3 text-justify" >
+          <strong>Introdução:</strong>
+          <%= show_message_report %>
+      </div>
+
+      <div class="order-description mb-3 text-justify" >
+          <strong>Objetivos:</strong>
+          <%= @vegoor_report.goal %>
+      </div>
+
+      <table class="table table-bordered">
+          <thead>
+              <tr>
+                  <th scope="col">Descrição dos Serviços Executados</th>
+                  <th scope="col">Equipamento</th>
+                  <th scope="col">Série</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Finalizado</th>
+              </tr>
+          </thead>
+          <% @vegoor_report.order.orderservices.each do |orderservice| %>
+              <tbody>
+                  <tr>
+                      <th scope="row"><%= orderservice.service.title %></th>
+                      <td scope="row"><%= orderservice.machine.name %></td>
+                      <td scope="row"><%= orderservice.machineserie %></td>
+                      <% if orderservice.status %>
+                          <td><i class="fas fa-check"></i> Finalizada</td>
+                          <td><%= orderservice.updated_at.strftime("%d/%m/%Y") %> -
+                          <%= orderservice.updated_at.strftime("%k:%M") %>h</td>
+                      <% else %>
+                          <td><i class="far fa-square"></i> Aberta</td>
+                          <td></td>
+                      <% end %>
+                  </tr>
+              </tbody>
+
+              <% if orderservice.orderservice_reports.count > 0 %>
+                  <%= render 'shared/service_reports_show', orderservice: orderservice %>
+              <% end %>
+          <% end %>
+      </table>
+
+      <div class="order-description mb-3 text-justify" >
+          <strong>Teste de Recepção:</strong>
+          <%= @vegoor_report.reception_test %>
+      </div>
+
+      <div class="order-description mb-3 text-justify" >
+          <strong>Conclusões:</strong>
+          <%= @vegoor_report.conclusion %>
+      </div>
+
+      <div class="order-description mb-3 text-justify" >
+          <strong>Observações e Recomendações:</strong>
+          <%= @vegoor_report.observations %>
+      </div>
+
+      <div class="order-description mb-3 text-justify" >
+          <strong>Garantia do Fabricante: </strong>
+          <%= @vegoor_report.warrant ? 'Sim' : 'Não' %>
+      </div>
+
+      <div class="order-description mb-3 text-justify" >
+          <%= Date.today.strftime("%d/%m/%Y") %>
+      </div>
+
+      <% if @vegoor_report.photos.attached? %>
+          <% @vegoor_report.photos.each do |photo| %>
+              <%= cl_image_tag photo, height: 300, width: 400, crop: :fill %>
+          <% end %>
+      <% end %>
+
+  </div>
+
+
+</body>
+</html>

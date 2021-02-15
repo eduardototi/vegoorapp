@@ -11,6 +11,11 @@ class VegoorReportsController < ApplicationController
   
     def show
       @vegoor_reports = VegoorReport.where(vegoor_report_id: params[:id])
+      respond_to do |format|
+        format.html
+        format.json
+        format.pdf { render pdf: "vegoor_reports/show", pdf: 'Show' } 
+      end
     end
   
     def new
