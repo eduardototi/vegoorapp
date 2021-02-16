@@ -1,12 +1,31 @@
 <h1>Confirmação de Ordem de Serviço</h1>
 
 <h4>Ola, <%= @vegoor_report.order.client.razao_social %>,</h4>
-<% if @vegoor_report.order.company == 1 %>
-  <p>A ordem de serviço N: <%= @vegoor_report.order.vegoor_order %> esta disponível em nosso sistema.</p>  
-<% else %>
-  <p>A ordem de serviço N: <%= @vegoor_report.order.sf6_order %> esta disponível em nosso sistema.</p>  
-<% end %>
 
+<% if @vegoor_report.order.company_id == 1 %>
+    <%= image_tag 'logo.jpg', width: '100px' %>
+    <% if @vegoor_report.order.vegoor_report %>
+        <% if @vegoor_report.order.vegoor_report.status %>
+            Relatório Final: <%= @vegoor_report.order.vegoor_order %>
+        <% else %>
+            Relatório Preliminar: <%= @vegoor_report.order.vegoor_order %>
+        <% end %>
+    <% end %>
+<% else %>
+    <%= image_tag 'sf6.jpg', width: '100px' %>
+      <% if @vegoor_report.order.vegoor_report %>
+        <% if @vegoor_report.order.vegoor_report.status %>
+            Relatório Final: <%= @vegoor_report.order.sf6_order %>
+        <% else %>
+            Relatório Preliminar: <%= @vegoor_report.order.sf6_order %>
+        <% end %>
+    <% end %>
+<% end %>
+<div>
+    <%= @vegoor_report.order.company.name %>
+    <%= @vegoor_report.order.company.addrees %>
+    <%= @vegoor_report.order.company.phone %>
+</div>
 
 <p>Atenciosamente;</p>
 <p><%= @vegoor_report.order.company.name %></p>

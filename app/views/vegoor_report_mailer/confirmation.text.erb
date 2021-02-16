@@ -1,13 +1,33 @@
 Confirmação de Ordem de Serviço
 
-Ola, <%= @vegoor_report.order.client.razao_social %>,
-<% if @vegoor_report.order.company == 1 %>
-  A ordem de serviço N: <%= @vegoor_report.order.vegoor_order %> esta disponível em nosso sistema.
+
+la, <%= @vegoor_report.order.client.razao_social %>,
+
+<% if @vegoor_report.order.company_id == 1 %>
+    <%= image_tag 'logo.jpg', width: '100px' %>
+    <% if @vegoor_report.order.vegoor_report %>
+        <% if @vegoor_report.order.vegoor_report.status %>
+            Relatório Final: <%= @vegoor_report.order.vegoor_order %>
+        <% else %>
+            Relatório Preliminar: <%= @vegoor_report.order.vegoor_order %>
+        <% end %>
+    <% end %>
 <% else %>
-  A ordem de serviço N: <%= @vegoor_report.order.sf6_order %> esta disponível em nosso sistema.
+    <%= image_tag 'sf6.jpg', width: '100px' %>
+      <% if @vegoor_report.order.vegoor_report %>
+        <% if @vegoor_report.order.vegoor_report.status %>
+            Relatório Final: <%= @vegoor_report.order.sf6_order %>
+        <% else %>
+            Relatório Preliminar: <%= @vegoor_report.order.sf6_order %>
+        <% end %>
+    <% end %>
 <% end %>
 
+<%= @vegoor_report.order.company.name %>
+<%= @vegoor_report.order.company.addrees %>
+<%= @vegoor_report.order.company.phone %>
 
 Atenciosamente;
 <%= @vegoor_report.order.company.name %>
 Acesse <a href="https://vegoorapp.herokuapp.com/vegoor_reports/<%= "#{@vegoor_report.order.id}" %>">Abrir Laudo</a>
+
