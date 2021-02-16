@@ -118,6 +118,7 @@
         <%= link_to 'Editar', edit_order_path(@order), class: 'btn btn-primary' %>
         <%= link_to "Fechar OS", order_close_order_path(@order), class: 'btn btn-primary' %>
         <%= link_to 'Cancelar OS', order_cancel_order_path(@order), class: 'btn btn-primary' %>
+        <%= link_to "Gerar PDF", order_path(format: :pdf), class: 'btn btn-primary', target: '_blank' %>
       <% else %>
         <%# Ações a serem mostradas se a ordem estiver fechada %>
         <%# Link caso a ordem já tiver um laudo vinculado %>
