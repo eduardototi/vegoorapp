@@ -8,6 +8,6 @@ class VegoorReport < ApplicationRecord
     private
 
     def send_confirmation
-        OrderMailer.with(vegoor_report: self).confirmation.deliver_now!
+        VegoorReportMailer.with(vegoor_report: self).confirmation.deliver_now!
     end
 end

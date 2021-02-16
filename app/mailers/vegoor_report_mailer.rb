@@ -1,5 +1,5 @@
 class VegoorReportMailer < ApplicationMailer
-  before_action :load_order
+  before_action :load_vegoor_report
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -12,7 +12,7 @@ class VegoorReportMailer < ApplicationMailer
 
   private
 
-  def load_order
-    @order = params[:order]
+  def load_vegoor_report
+    @vegoor_report = params[:order]
   end
 end
