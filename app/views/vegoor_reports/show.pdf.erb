@@ -83,10 +83,9 @@
 
       <% if @vegoor_report.photos.attached? %>
           <% @vegoor_report.photos.each do |photo| %>
-              <%= cl_image_tag photo, height: 300, width: 400, crop: :fill %>
+              <%= image_tag photo, height: 300, width: 400, crop: :fill %>
           <% end %>
       <% end %>
-
   </div>
 
 

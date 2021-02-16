@@ -75,13 +75,14 @@
 
     <% if @vegoor_report.photos.attached? %>
         <% @vegoor_report.photos.each do |photo| %>       
-            <%= cl_image_tag photo, height: 300, width: 400, crop: :fill %>
+            <%= image_tag photo, height: 300, width: 400, crop: :fill %>
         <% end %>
     <% end %>
     
     <div class="links mt-3 text-center">
         <% if @vegoor_report.status %>
             <%= link_to  'Abrir Laudo', vegoor_report_close_report_path(@vegoor_report), class: 'btn btn-primary' %>
+            <%= link_to "Gerar PDF", vegoor_report_path(format: :pdf), class: 'btn btn-primary', target: '_blank' %>
         <% else %>
             <%= link_to  'Fechar Laudo', vegoor_report_close_report_path(@vegoor_report), class: 'btn btn-primary' %>
             <%= link_to 'Editar', edit_vegoor_report_path(@vegoor_report), class: 'btn btn-primary' %>

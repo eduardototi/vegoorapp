@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :set_order, only: [:show, :edit, :update]
+  before_action :set_order, only: [:show, :edit, :update, :pdf]
 
   def index
     @orders = Order.where(canceled: false, company_id: 1)
