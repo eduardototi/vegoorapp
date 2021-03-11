@@ -63,8 +63,12 @@ export default class ExibicaoOrdemServico extends React.Component {
       let response = await MyRequests.delete(url);
       let tipoResponse = response["code"] == 200 ? "sucesso" : "erro";
 
-      notificacoesNovas.push(<Notificacao tipo = {tipoResponse} msg = {response["msg"]}/>);
-      this.setState({notificacoes: notificacoesNovas});
+      if(response["code"] != 200){
+        window.alert("Erro ao excluir resultado");
+      }
+      else{
+        document.getElementById("result" + id).remove();
+      }
     }
   }
 
@@ -369,7 +373,7 @@ export default class ExibicaoOrdemServico extends React.Component {
 
                             {servico.relatorios.length > 0 ? servico.relatorios.map((relatorio) => {
                               return (
-                                <tr key = {"relatorio" + MyUtil.keyAleatoria()}>
+                                <tr id = {"result" + relatorio.id} key = {"relatorio" + MyUtil.keyAleatoria()}>
                                   <td>
                                     {relatorio.parameter}
                                   </td>

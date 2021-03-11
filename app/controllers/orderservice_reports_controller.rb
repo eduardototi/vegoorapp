@@ -18,11 +18,12 @@ class OrderserviceReportsController < ApplicationController
 
     def update
       @service_report.update(service_report_params)
+
+      redirect_to orders_path("/")
     end
 
     def destroy
       @service_report.destroy
-      redirect_to order_path(@service_report.orderservice.order)
     end
 
     def destroy_photo
@@ -38,7 +39,7 @@ class OrderserviceReportsController < ApplicationController
     end
 
     def service_report_params
-      params.require(:orderservice_report).permit(:parameter, :unity, :fase_a, :fase_b, :fase_c, :reference, :orderservice_id)
+      params.require(:orderservice_report).permit(:id, :parameter, :unity, :fase_a, :fase_b, :fase_c, :reference, :orderservice_id)
     end
 
 end
